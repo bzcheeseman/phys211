@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Analyzing the Data}{3}{0}{1}
+\beamer@sectionintoc {2}{Issues encountered in Analysis}{9}{0}{2}
+\beamer@sectionintoc {3}{Resolution}{17}{0}{3}
+\beamer@sectionintoc {4}{References}{19}{0}{4}
