@@ -25,8 +25,10 @@ int main(int argc, char *argv[]){
 	string currtime (t.str());
 
 	if (target.compare(key) != 0){
+		string dir = expt+"/"+target;
+		chdir(dir.c_str());
 		string fmt;
-		fmt = "pdflatex " + target;
+		fmt = "pdflatex " + target + ".tex";
 		system(fmt.c_str());
 	}
 	else{;}
@@ -36,9 +38,8 @@ int main(int argc, char *argv[]){
 		fmt = "git add " + expt;
 		system(fmt.c_str());
 	}
-	else{
-		system("git add .");
-	}
+
+	system("git add .");
 
 	string output;
 	output = system("git status");
