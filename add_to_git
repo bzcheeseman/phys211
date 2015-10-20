@@ -1,0 +1,8 @@
+#!/bin/sh
+
+first_arg = "$1"
+message = "$2"
+
+git add first_arg/*
+git commit -m message
+git push -u origin master
