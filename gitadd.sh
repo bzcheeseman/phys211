@@ -1,11 +1,21 @@
 #!/bin/sh
 
-target="$1"
-current_exp="$2"
-msg="$3"
+current_exp="$1"
+target="$2"
 
-find "$current_exp" "$target" | pdflatex
+if [ !"$1" | !"$2"] ; then
+	echo "Usage: ./gitadd.sh <current_exp> <target> <commit message>"
+fi
 
-git add *
-git commit -m "$msg"
+cd "$current_exp/$target"
+pdflatex "$target.tex"
+
+cd "$(id -un)/desktop/phys211"
+
+if [ !"$3" ] ; then
+	git commit -am "$(date +%Y%m%d-%H%M%S)"
+else
+	git commit -am "$3" 
+fi
+
 git push -u origin master
