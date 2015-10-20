@@ -1,9 +1,10 @@
 #!/bin/sh
 
 target="$1"
-msg="$2"
+current_exp="$2"
+msg="$3"
 
-pdflatex $target.tex
+find "$current_exp" "$target" | pdflatex
 
 git add *
 git commit -m "$msg"
