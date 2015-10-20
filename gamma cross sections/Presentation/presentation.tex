@@ -8,13 +8,22 @@
 \institute{University of Chicago}
 \date{October 21, 2015}
 
-\AtBeginSection[]
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Table of Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+\AtBeginSubsection[]
 {
-  \begin{frame}
-    \frametitle{Table of Contents}
-    \tableofcontents[currentsection]
-  \end{frame}
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\tableofcontents[currentsection, currentsubsection]
+	\end{frame}
 }
+
+\DeclareMathOperator\cov{cov}
 
 \begin{document}
 
@@ -24,192 +33,225 @@
 
 \frame{
 	\frametitle{Gamma Cross Sections}
-	\begin{itemize}
-		\item Analyzing the Data
-		\item Issues encountered in Analysis
-		\item Resolution of Those Issues
-		\item References
-	\end{itemize}
-	The general theory of each step will be interspersed throughout.
+	\tableofcontents
 }
 
-\section{Analyzing the Data}
+\section{PHA spectra}
 	\frame{
-		\frametitle{PHA Spectra - Gaussian Fits}
+		\frametitle{Gaussian Fits}
 		\begin{equation*}
 			f(x) = \frac{N}{\sigma\sqrt{2\pi}} e^{ \frac{-(x-\mu)^2}{2\sigma^2} } + Ax + B
 		\end{equation*}
+
+		\vspace{1cm}
 
 		We fit all the peaks to this function because we didn't trust the ROI settings and their consistency.
 	}
 
 	\frame{
-		\frametitle{PHA Spectra - Gaussian Fits}
-	}
-
-
-
-
-
-\section{Analyzing the Data}
-	\frame{  %switch up this one and the next one?
-		\frametitle{Gaussian Fits to Data}
+		\frametitle{Gaussian Fits}
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[height=6cm]{../plots/Ba40mmAl.pdf}
 		\end{figure}
-		Notes:
-		\begin{itemize}
-			\item Notice the fit function - linear background
-			\item $\tilde{\chi}^2$ - gives confidence in the form of the fit as well as the fit itself
-		\end{itemize}
+
+		An example fit.
 	}
+
+	\subsection{Gaussian vs Lorentzian}
 	\frame{
-		\frametitle{Gaussian Fits to Data}
-		Fit Function:
+		\frametitle{Gaussian vs Lorentzian}	
+		Why don't we fit to 
 		\begin{equation*}
-			f(x) = \frac{N}{\sigma\sqrt{2\pi}} e^{ \frac{-(x-\mu)^2}{2\sigma^2} } + Ax + B
+			L(x) = \frac{1}{\pi} \frac{\frac{1}{2}\Gamma}{(x-x_0)^2 + \frac{1}{2}\Gamma^2} ?
 		\end{equation*}
-		\begin{itemize}
-			\item Linear background is not a rate in time; it's a rate over the channels
-			\item $\implies$ Background measures:
-			\begin{itemize}
-				\item susceptibility (to noise) by channel - $A$
-				\item overall susceptibility (to noise)  - $B$
-			\end{itemize}
-			\item We assume that this noise is random and is not caused by our apparatus
-			\begin{itemize}
-				\item $\implies$ It comes from another source(s)
-			\end{itemize}
-			\item Why aren't they delta functions?
-			\begin{itemize}
-				\item energies are one value, width comes from detector
-			\end{itemize}
-		\end{itemize}
+
+		Because the errors are counting errors - they act on $\bar{x}$ like $\sigma_{\bar{x}}$, the standard deviation of the mean.  And since they are counting errors, they go like $\sqrt{N}$ which is the SDOM.
+
+		They would both fit, but the Gaussian fits better.
 	}
+
+	\subsection{Distribution Width}
 	\frame{
-		\frametitle{Gaussian Fits to Data}
-		\begin{figure}[!htb]
-			\includegraphics[scale=.1]{../plots/Ba40mmAl.pdf}
-		\end{figure}
-		Then what are these other peaks?
-		\begin{itemize}
-			\item Compton Edge and Backscatter
-			\begin{itemize}
-				\item Peak energies are known - ignore these other features$^\dagger$
-			\end{itemize}
-		\end{itemize}
-		\hspace{1cm}
-		\begin{flushleft}
-		\tiny{$^\dagger$We should never ignore features, but once we verify that we aren't interested in them we can effectively ignore them.}
-		\end{flushleft}
-	}
-	\frame{
-		\frametitle{Fitting to Find Countrates}
+		\frametitle{Distribution Width}
 		\begin{figure}[!htb]
 			\centering
-			\includegraphics[height=6cm]{../plots/countrates_Na}
+			\includegraphics[height=4cm]{../plots/Ba40mmAl.pdf}
 		\end{figure}
-		Good fits, good agreement with the theory (for the fit at least)
-	}
-	\frame{
-		\frametitle{Fitting to Find Countrates}
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[height=6cm]{../plots/countrates_Ba}
-		\end{figure}
-		Return to the Ba countrate fits later on
-	}
 
-\section{Issues encountered in Analysis}
-	\frame{
-		\frametitle{How do we stack up?}
-		So the Na fit is good, are the values any good?
-		$$\mu = \frac{\mu}{\rho} \, x \, \rho = 0.223 cm^{-1}$$
-		\begin{flushright}
-			\cite{physics.nist.gov}
-		\end{flushright}
-		Uh oh...
-		\begin{gather*}
-			\lambda_{exp}\pm\sigma_{\lambda} = 0.19 \pm 0.01 \, cm^{-1}\\
-			\sigma_{\lambda} = .01
-		\end{gather*}
-		$+3\sigma \, \implies$ we either made a discovery or we have a confidence of
-		$$100-99.74 = 0.26\%.$$ \cite{taylor}
+		The distribution should be a delta function - it isn't because of the detector resolution
 	}
 
 	\frame{
-		\frametitle{How do we stack up?}
-		All is not lost, however!  We should test the next measurement.
-		$$\mu = \frac{\mu}{\rho} \, x \, \rho = 0.143 cm^{-1}$$
-		Hmm, not looking good.
-		\begin{gather*}
-			\lambda_{exp}\pm\sigma_{\lambda} = 0.09 \pm 0.03 \, cm^{-1}\\
-			\sigma_{\lambda} = .03
-		\end{gather*}
-		$-1.67\sigma \implies$ confidence of 
-		$$100-90.5 = 9.5\%$$ \cite{taylor}
-		which just tells us we're using student-grade lab equipment in a room of people doing the same experiment.
-	}
+		\frametitle{Distribution Width}
 
-	\frame[t]{
-		\frametitle{Ba Silliness}
-		\begin{figure}[!htb]
-		\centering
-			\includegraphics[height=5cm]{../plots/countrates_Ba}
-		\end{figure}
-		\begin{equation*}
-			R(x) = R_0e^{\lambda x} + R_0'e^{\tau x} + C \,~\, 31 \, keV
-		\end{equation*}
-	}
-	\frame{
-		\begin{equation*}
-			R(x) = R_0e^{\lambda x} + R_0'e^{\tau x} + C
-		\end{equation*}
-		$R_0e^{\lambda x} + C$ is the normal expression.\\
-		\begin{itemize}
-			\item Does not account for photoelectric effect dominance at low energies (like 31 keV)!
-			\item $\lambda$ = \underline{Compton} effect linear attenuation coefficient
-			\item $\tau$ = \underline{Photoelectric} effect linear attenuation coefficient
-			\item $\lambda + \tau = 2.94 \, cm^{-1}$
-		\end{itemize}
-	}
-	\frame{
-		\frametitle{Ba Silliness}
-		So, what's the literature value?
-		\begin{gather*}
-			\mu = 2.98 \, cm^{-1}\\
-			(\lambda+\tau) \pm \sigma_{\tiny{\lambda+\tau}} = 2.94 \pm 0.11 \, cm^{-1}\\
-			\implies 0.36\sigma
-		\end{gather*}
-		Which gives us a confidence value of 
-		$$100-28.12 = 71.88\%$$
-		in our measurement!\\
-		\hspace{1cm}
-		\begin{flushleft}
-		\tiny{Note that the extra significant figures were added to give a sense of how close the value is, the measurement is properly reported as $2.9\pm0.11 \, cm^{-1}$}
-		\end{flushleft}
-	}
-	\frame{
-		\frametitle{And the other energies?}
-		Well those are easy.
-		\hspace{3cm}
 		\begin{center}
-		\begin{tabular}{l|c||r}
-			$\mu$ & $\lambda\pm\sigma_{\lambda}$ & $\sigma$\\ \hline
-			$0.533 \, cm^{-1}$ & $0.51 \pm .04 \, cm^{-1}$ & $0.17\sigma$\\
-			$0.260\, cm^{-1}$ & $.23 \pm .02 \, cm^{-1}$ & $0.67\sigma$\\
+		\begin{tabular}{|l|l|l|}
+			\hline
+			Energy (keV) & $\Gamma$ (channels) & $\Gamma/E$\\ \hline \hline
+			31 & 8.36 & 26.9\%\\
+			81 & 10.18 & 12.6\%\\
+			356 & 30.25 & 8.49\%\\ \hline
+			511 & 10.68 & 2.09\%\\
+			1270 & 16.69 & 1.31\%\\
+			\hline
+		\end{tabular}
+		\end{center}
+
+		Not perfect resolution - this is our $\sigma$ (up to $\Gamma/\sqrt{2}\sqrt{ln(2)}$).
+	}
+
+	\subsection{Error Propagation}
+	\frame{
+		\frametitle{Error Propagation of the PHA fits}
+		Since we performed fits, the error of the ith parameter is just:
+		\begin{equation*}
+			\sigma_{i} = \sqrt{cov(i,i)}
+		\end{equation*}
+
+		Because our largest $\delta t$ was less than 0.001\% the uncertainty in parameter i is just $\sigma_{i}$
+	}
+
+	\frame{
+		\frametitle{Covariance Matrix}
+		Scipy and Numpy return the covariance matrix, but here is some information on what it is:
+		\begin{gather*}
+			X_{i} = (X_i-E(X_i))(X_i-E(X_i))^{T}\\
+			\Sigma = \frac{1}{N}\sum_i{X_i}\\
+			\Sigma_{ij} \equiv \cov(i,j)
+		\end{gather*}
+		with each $X_i$ being the squared difference between the datum and the model-estimated parameter - each parameter is expressed as a vector here.
+	}
+
+\section{Countrates}
+	\subsection{Na}
+	\frame{
+		\frametitle{Fitting to find $\lambda$}
+
+		We fit to the function 
+		\begin{equation*}
+			R(x) = R_0e^{-\lambda x} + C
+		\end{equation*}
+		to extract our values for $\lambda$
+	}
+
+	\frame{
+		\frametitle{Fitting to find $\lambda$}
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[height=6cm]{../plots/countrates_na.pdf}
+		\end{figure}
+
+		\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			Energy & $\lambda$ & $\delta \lambda$\\ \hline
+			511 keV & $0.19 \, cm^{-1}$ & $0.03 \, cm^{-1}$\\
+			1.27 MeV & $0.09  \, cm^{-1}$ & $0.05 \, cm^{-1}$\\
+			\hline
 		\end{tabular}
 		\end{center}
 	}
+	\subsection{Ba}
 	\frame{
-		values of lambda are not right on, just best I could find
+		\frametitle{Fitting to find $\lambda$}
+
+		We fit to the function
+		\begin{equation*}
+			R(x) = R_0e^{-\lambda x} + R_0'e^{-\tau x} + C
+		\end{equation*}
+		with $\lambda$ being the compton-like attenuation and $\tau$ being the photoelectric-like attenuation.
 	}
 
-\section{Resolution}
 	\frame{
-		other stuff here???
+		\frametitle{Fitting to find $\lambda$}
+
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[height=6cm]{../plots/countrates_ba.pdf}
+		\end{figure}
+
+		\begin{center}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			Energy & $\lambda$ & $\delta \lambda$\\ \hline
+			31 keV & $2.9 \, cm^{-1}$ & $0.1 \, cm^{-1}$\\
+			81 keV & $0.513  \, cm^{-1}$ & $0.06 \, cm^{-1}$\\
+			356 keV & $0.24 \, cm^{-1}$ & $0.04 \, cm^{-1}$\\
+			\hline
+		\end{tabular}
+		\end{center}
 	}
+	\subsection{Comparison to Literature}
+	\frame{
+		\frametitle{Comparison to Literature}
+
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[height=8cm]{../plots/confidence.pdf}
+		\end{figure}
+	}
+
+	\frame{
+		\begin{small}
+		\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Energy & $\lambda \pm \delta \lambda  \, (cm^{-1})$ & $\lambda_{calc} \pm \delta\lambda_{calc}  (\, cm^{-1})$ & Confidence Level\\ \hline \hline
+			31 keV & $2.9 \pm 0.1$ & $2.98 \pm 0.03$ & 57.6\%\\
+			81 keV & $0.513 \pm 0.06$ & $0.533 \pm 0.03$ & 66.8\%\\
+			356 keV & $0.24 \pm 0.04$ & $0.3 \pm 0.1$ & 79.0\%\\
+			511 keV & $0.19 \pm 0.03$ & $0.22 \pm 0.05$ & 42.1\%\\
+			1.27 MeV & $0.09 \pm 0.05$ & $0.15 \pm 0.07$ & 33.8\%\\
+			\hline
+		\end{tabular}
+		\end{center}
+		\end{small}
+
+		So we have pretty good confidence in our data, I think we did ok.
+
+		The NIST values have uncertainties calculated based on how far the tabulated energy was from our energy and estimating the slope of the area immediately around the point of interest.
+	}
+	\subsection{Error Propagation}
+	\frame{
+		\frametitle{Error Propagation of the Countrate Fits}
+
+		We use the same technique as we did with the PHA spectra to calculate the uncertainty in our parameters.  A sample of the data used to calculate the countrates:
+
+		\begin{tiny}
+		\begin{center}
+		Ba-133 Countrates and Uncertainty\\
+		\begin{tabular}{|l|l|l|l|l|l|l|}
+			\hline
+			Thickness (mm) & N1 (count/s) & N2 (count/s) & N3 (count/s) & $\delta$N1 & $\delta$N2 & $\delta$N3\\ \hline \hline
+			56 & 9.044 & 9.910 & 39.361 & 1.915\% & 4.832\% & 1.959\%\\ \hline
+			40 & 13.480 & 20.943 & 57.620 & 2.632\% & 3.389\% & 2.156\%\\ \hline
+			... & ... & ... & ... & ... & ... & ...\\ \hline
+			2 & 303.314 & 145.682 & 156.056 & 1.094\% & 1.302\% & 2.127\%\\ \hline
+			1 & 391.492 & 152.985 & 155.885 & 1.032\% & 1.320\% & 2.074\%\\
+			\hline
+		\end{tabular}
+		\end{center}
+		\end{tiny}
+
+		Our error bars in the countrate data are exactly the percent error you see above.
+	}
+	\frame{
+		\frametitle{Systematic Uncertainty}
+		We noticed that our data (for $\lambda$) was consistently lower than the NIST values, so we tried to fit it and the NIST values to:*
+		\begin{equation*}
+			f(x) = Ae^{Bx} + Ce^{Dx} + E.
+		\end{equation*}
+		We found that the difference between our values and the NIST values was in E - it was just an offset.  Furthermore we got a value for E of $0.020\pm0.003$ and so we added that 0.02 to all our uncertainties throughout for $\lambda$.
+
+		\vspace{1cm}
+
+		\tiny{* not shown}
+	}
+
+
+	
+
 \section{References}
 	\frame{
 		\frametitle{References}

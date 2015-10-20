@@ -1,6 +1,11 @@
 \beamer@endinputifotherversion {3.36pt}
-\beamer@sectionintoc {1}{Analyzing the Data}{3}{0}{1}
-\beamer@sectionintoc {2}{Analyzing the Data}{6}{0}{2}
-\beamer@sectionintoc {3}{Issues encountered in Analysis}{12}{0}{3}
-\beamer@sectionintoc {4}{Resolution}{20}{0}{4}
-\beamer@sectionintoc {5}{References}{22}{0}{5}
+\beamer@sectionintoc {1}{PHA spectra}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Gaussian vs Lorentzian}{5}{0}{1}
+\beamer@subsectionintoc {1}{2}{Distribution Width}{7}{0}{1}
+\beamer@subsectionintoc {1}{3}{Error Propagation}{10}{0}{1}
+\beamer@sectionintoc {2}{Countrates}{13}{0}{2}
+\beamer@subsectionintoc {2}{1}{Na}{13}{0}{2}
+\beamer@subsectionintoc {2}{2}{Ba}{16}{0}{2}
+\beamer@subsectionintoc {2}{3}{Comparison to Literature}{19}{0}{2}
+\beamer@subsectionintoc {2}{4}{Error Propagation}{22}{0}{2}
+\beamer@sectionintoc {3}{References}{25}{0}{3}
