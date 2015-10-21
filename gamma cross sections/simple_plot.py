@@ -24,7 +24,7 @@ def main(dataset):
 
 	plt.figure(figsize = (7,7))
 	plt.errorbar(xdata, ydata1, err1, fmt = 'o', label = "$\lambda_{exp}$")
-	plt.errorbar(xdata, ydata2, err2, fmt = 'o', label = "$\lambda_{calc}$")
+	plt.errorbar(xdata, ydata2, err2, fmt = 'ro', label = "$\lambda_{calc}$")
 	plt.text(31, 3.2, " %.1f%%" % confidence[0])
 	plt.text(81, .7, " %.1f%%" % confidence[1])
 	plt.text(356, .5, " %.1f%%" % confidence[2])

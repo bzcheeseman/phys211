@@ -31,11 +31,6 @@
 	\titlepage
 }
 
-\frame{
-	\frametitle{Gamma Cross Sections}
-	\tableofcontents
-}
-
 \section{PHA spectra}
 	\frame{
 		\frametitle{Gaussian Fits}
@@ -52,23 +47,10 @@
 		\frametitle{Gaussian Fits}
 		\begin{figure}[!htb]
 			\centering
-			\includegraphics[height=6cm]{../plots/Ba40mmAl.pdf}
+			\includegraphics[height=7.5cm]{../plots/Ba40mmAl.pdf}
 		\end{figure}
 
 		An example fit.
-	}
-
-	\subsection{Gaussian vs Lorentzian}
-	\frame{
-		\frametitle{Gaussian vs Lorentzian}	
-		Why don't we fit to 
-		\begin{equation*}
-			L(x) = \frac{1}{\pi} \frac{\frac{1}{2}\Gamma}{(x-x_0)^2 + \frac{1}{2}\Gamma^2} ?
-		\end{equation*}
-
-		Because the errors are counting errors - they act on $\bar{x}$ like $\sigma_{\bar{x}}$, the standard deviation of the mean.  And since they are counting errors, they go like $\sqrt{N}$ which is the SDOM.
-
-		They would both fit, but the Gaussian fits better.
 	}
 
 	\subsection{Distribution Width}
@@ -102,6 +84,21 @@
 	}
 
 	\subsection{Error Propagation}
+
+	\frame{
+		\frametitle{Covariance Matrix}
+		Scipy and Numpy return the covariance matrix, but here is some information on what it is:
+		\begin{gather*}
+			\Sigma_{ij} = (X_i - \mu_i)(X_j - \mu_j)\\
+			\Sigma_{ij} \equiv \cov(i,j)
+		\end{gather*}
+		with each $\mu_k$ being what we expect that datum to be assuming it fits perfectly to our model.  We can express each X as a vector and have a matrix equation or we can build it up piece-by-piece.  In general least-squares optimization we use
+		\begin{gather*}
+			C(x^*) = (J^T(x)J(x))^{-1}
+		\end{gather*}
+		where $J(x)$ is the jacobian of the model function at the point x.  $x^*$ is the maximum likelihood estimate, $min ||f(x)||^2$. \cite{ceres}
+	}
+
 	\frame{
 		\frametitle{Error Propagation of the PHA fits}
 		Since we performed fits, the error of the ith parameter is just:
@@ -113,15 +110,29 @@
 	}
 
 	\frame{
-		\frametitle{Covariance Matrix}
-		Scipy and Numpy return the covariance matrix, but here is some information on what it is:
-		\begin{gather*}
-			X_{i} = (X_i-E(X_i))(X_i-E(X_i))^{T}\\
-			\Sigma = \frac{1}{N}\sum_i{X_i}\\
-			\Sigma_{ij} \equiv \cov(i,j)
-		\end{gather*}
-		with each $X_i$ being the squared difference between the datum and the model-estimated parameter - each parameter is expressed as a vector here.
+		\frametitle{Error Propagation of the Countrate Fits}
+
+		We use the same technique as we did with the PHA spectra to calculate the uncertainty in our parameters.  A sample of the data used to calculate the countrates:
+
+		\begin{tiny}
+		\begin{center}
+		Ba-133 Countrates and Uncertainty\\
+		\begin{tabular}{|l|l|l|l|l|l|l|}
+			\hline
+			Thickness (mm) & N1 (count/s) & N2 (count/s) & N3 (count/s) & $\delta$N1 & $\delta$N2 & $\delta$N3\\ \hline \hline
+			56 & 9.044 & 9.910 & 39.361 & 1.915\% & 4.832\% & 1.959\%\\ \hline
+			40 & 13.480 & 20.943 & 57.620 & 2.632\% & 3.389\% & 2.156\%\\ \hline
+			... & ... & ... & ... & ... & ... & ...\\ \hline
+			2 & 303.314 & 145.682 & 156.056 & 1.094\% & 1.302\% & 2.127\%\\ \hline
+			1 & 391.492 & 152.985 & 155.885 & 1.032\% & 1.320\% & 2.074\%\\
+			\hline
+		\end{tabular}
+		\end{center}
+		\end{tiny}
+
+		Our error bars in the countrate data are exactly the percent error you see above, and we will see this moving forward.
 	}
+
 
 \section{Countrates}
 	\subsection{Na}
@@ -152,7 +163,15 @@
 		\end{tabular}
 		\end{center}
 	}
+
 	\subsection{Ba}
+	\frame{
+		\frametitle{Linear Attenuation Coefficient Character}
+		\begin{figure}
+			\centering
+			\includegraphics[height=7cm]{../report/linear_attenuation_coefficient_al.pdf}
+		\end{figure}
+	}
 	\frame{
 		\frametitle{Fitting to find $\lambda$}
 
@@ -193,6 +212,7 @@
 	}
 
 	\frame{
+		\frametitle{Comparison to Literature}
 		\begin{small}
 		\begin{center}
 		\begin{tabular}{|l|l|l|l|}
@@ -208,34 +228,9 @@
 		\end{center}
 		\end{small}
 
-		So we have pretty good confidence in our data, I think we did ok.
-
 		The NIST values have uncertainties calculated based on how far the tabulated energy was from our energy and estimating the slope of the area immediately around the point of interest.
 	}
-	\subsection{Error Propagation}
-	\frame{
-		\frametitle{Error Propagation of the Countrate Fits}
-
-		We use the same technique as we did with the PHA spectra to calculate the uncertainty in our parameters.  A sample of the data used to calculate the countrates:
-
-		\begin{tiny}
-		\begin{center}
-		Ba-133 Countrates and Uncertainty\\
-		\begin{tabular}{|l|l|l|l|l|l|l|}
-			\hline
-			Thickness (mm) & N1 (count/s) & N2 (count/s) & N3 (count/s) & $\delta$N1 & $\delta$N2 & $\delta$N3\\ \hline \hline
-			56 & 9.044 & 9.910 & 39.361 & 1.915\% & 4.832\% & 1.959\%\\ \hline
-			40 & 13.480 & 20.943 & 57.620 & 2.632\% & 3.389\% & 2.156\%\\ \hline
-			... & ... & ... & ... & ... & ... & ...\\ \hline
-			2 & 303.314 & 145.682 & 156.056 & 1.094\% & 1.302\% & 2.127\%\\ \hline
-			1 & 391.492 & 152.985 & 155.885 & 1.032\% & 1.320\% & 2.074\%\\
-			\hline
-		\end{tabular}
-		\end{center}
-		\end{tiny}
-
-		Our error bars in the countrate data are exactly the percent error you see above.
-	}
+	\subsection{Error Propagation/Calculation}
 	\frame{
 		\frametitle{Systematic Uncertainty}
 		We noticed that our data (for $\lambda$) was consistently lower than the NIST values, so we tried to fit it and the NIST values to:*
@@ -248,8 +243,6 @@
 
 		\tiny{* not shown}
 	}
-
-
 	
 
 \section{References}
@@ -262,10 +255,14 @@
 				http://physics.nist.gov/PhysRefData/XrayMassCoef/ElemTab/z13.html}
 			\bibitem{lab manual}
 				\small{University of Chicago, PHYS 211 Lab Manual - P211 Wiki}
+			\bibitem{ceres}
+				\small{Ceres Solver, an Open-Source C++ optimization library\\
+				http://ceres-solver.org}
 
 			\setbeamertemplate{bibliography item}[book]
 			\bibitem{taylor}
 				\small{An Introduction to Error Analysis - John Taylor}
+
 		\end{thebibliography}
 	}
 
