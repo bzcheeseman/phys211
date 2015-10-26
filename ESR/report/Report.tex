@@ -38,14 +38,12 @@
 		B = \frac{\mu_0}{4\pi}\bigg{(}\frac{3r(\vec{\mu} \cdot \vec{r})}{r^5} - \frac{\mu}{r^3}\bigg{)}.
 	\end{equation*}
 
-	This assumes no external field, however.  If there is an external field, and \dipole is not perfectly aligned, we will see precession about the external field (assuming a DC field pointing in one direction).  We can measure this property both in our classical analogue to an electron, and in actual electrons.  This effect is also very important in other physics, for example, in microwave resonators we use crystals of Yttrium-Iron-Garnet which have the property that a \B field will cause them to precess at microwave frequency in such a way that couples strongly to the resonator.  This has many useful applications, and there is some extremely interesting physics we can study simply by looking at the precession of the magnetic dipole moment.
+	This assumes no external field, however.  If there is an external field, and \dipole is not perfectly aligned, we will see precession about the external field (assuming a DC field pointing in one direction).  We can measure this property both in our classical analogue to an electron, and in actual electrons.  This effect is also very important in other physics.  For example, in microwave resonators we use crystals of Yttrium-Iron-Garnet which have the property that an AC \B field of approximately 2000 Gauss will cause them to precess at microwave frequency in such a way that couples strongly to the resonator.  This has many useful applications, and there is some extremely interesting physics we can study simply by looking at the precession of the magnetic dipole moment.
 
 
 
 \section{Theory}
-	We can derive the precession about the external field beginning with the torque felt by \dipole when placed in an external field.
-
-	We will begin with the Maxwell Stress Tensor.  In the case of a dipole moment that is not aligned to the external field, we see that the stress tensor is asymmetric.  Since the stress tensor is given (in this case - neglecting the small \E fields) by
+	We can derive the precession about the external field beginning with the torque felt by \dipole when placed in an external field.  We will begin with the Maxwell Stress Tensor.  In the case of a dipole moment that is not aligned to the external field, we see that the stress tensor is asymmetric.  Since the stress tensor is given (in this case - neglecting the small \E fields) by
 	\begin{equation*}
 		\sigma_{ij} = \frac{H_iH_j}{4\pi} - \frac{H^2}{8\pi}\delta_{ij}
 	\end{equation*}
@@ -71,11 +69,12 @@
 		\caption{The precession of \dipole about an external \B field.}
 	\end{figure}
 
-	Figure 1 provides us with some intuition into how to go about finding the frequency of precession of the dipole moment.  Since in a rotating frame precessing with frequency $\omega$ we can transform into that frame and write
+	Figure 1 provides us with some intuition into how to go about finding the frequency of precession of the dipole moment.  Since we can transform into a rotating frame to describe the motion of $\vec{L}$, we can write
 	\begin{gather*}
 		\frac{d\vec{L}}{dt} = \vec{\tau} = \vec{\omega} \times \vec{L}\\
 		\vec{\mu} \times \vec{B} = \vec{\omega} \times \vec{L}
 	\end{gather*}
+	and since the angle between \dipole and \B is the same as the angle between $\vec{\omega}$ and $\vec{L}$ by definition of our frame, we can write 
 	\begin{gather}
 		\omega = \frac{\mu}{L}B\\
 		\omega = \gamma B
@@ -89,14 +88,17 @@
 		g_e = 2\bigg{(}1+\frac{\alpha}{2\pi} + ...\bigg{)}.
 	\end{equation*}
 
-	
+\section{Apparatus}
 
+\section{Data Analysis}
 
-	
+\section{Error Analysis}
 
+\section{Conclusion}
 
-
-
-
+\begin{thebibliography}{10}
+	\bibitem{first}
+	stuff here\\
+\end{thebibliography}
 
 \end{document}
