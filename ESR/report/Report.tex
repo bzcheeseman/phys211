@@ -9,6 +9,8 @@
 \newcommand{\redchi}{$\tilde{\chi}^2\,$}
 \DeclareMathOperator{\erf}{erf}
 \DeclareMathOperator{\cov}{cov}
+\newcommand{\diverg}[1]{\ensuremath{\vec{\nabla} \cdot {#1}}}
+\newcommand{\curl}[1]{\ensuremath{\vec{\nabla} \times {#1}}}
 \newcommand{\dipole}{$\vec{\mu}\,$}
 \newcommand{\B}{$\vec{B}\,$}
 \newcommand{\E}{$\vec{E}\,$}
@@ -43,6 +45,7 @@
 
 
 \section{Theory}
+	\subsection{Classical System}
 	We can derive the precession about the external field beginning with the torque felt by \dipole when placed in an external field.  We will begin with the Maxwell Stress Tensor.  In the case of a dipole moment that is not aligned to the external field, we see that the stress tensor is asymmetric.  Since the stress tensor is given (in this case - neglecting the small \E fields) by
 	\begin{equation*}
 		\sigma_{ij} = \frac{H_iH_j}{4\pi} - \frac{H^2}{8\pi}\delta_{ij}
@@ -79,7 +82,10 @@
 		\omega = \frac{\mu}{L}B\\
 		\omega = \gamma B
 	\end{gather}
-	where $\gamma$ is the gyromagnetic ratio.  For an electron, we can express it as
+	where $\gamma$ is the gyromagnetic ratio.
+
+	\subsection{Quantum System}
+	For an electron, we can express $\gamma$ as
 	\begin{equation}
 		\abs{\gamma_e} = \frac{\abs{-e}}{2m_e}g_e = \frac{g_e \mu_B}{\hbar}
 	\end{equation}
@@ -88,7 +94,42 @@
 		g_e = 2\bigg{(}1+\frac{\alpha}{2\pi} + ...\bigg{)}.
 	\end{equation*}
 
+	We can express the system and its energy using a simple Hamiltonian.  Since we have an electron precessing in a \B field, we know that $\mathscr{H}$ will be given by
+	\begin{gather*}
+		\mathscr{H} = \frac{\hat{p}^2}{2m} \nabla^2 + V\\
+		\hat{p} = -i\hbar \nabla \rightarrow \hat{p}_{\tiny{e\!f\!f}} = -i\hbar \nabla + \frac{e}{c}A\\
+		V = -e\phi\\
+	\end{gather*}
+	so we can write $\mathscr{H}$ as
+	\begin{equation}
+		\mathscr{H} = -\frac{\hbar^2}{2m} \nabla^2 -\frac{ie\hbar}{2mc} \big{(}\vec{\nabla}\cdot\vec{A}\big{)} - \frac{ie\hbar}{mc}\big{(}\vec{A}\cdot\vec{\nabla}\big{)} + \frac{e^2}{2mc^2}A^2 - e\phi.
+	\end{equation}
+
+	Most often this will be simplified by working in the Coulomb gauge, 
+	\begin{equation*}
+		\diverg{\vec{A}(\vec{r},t)} = 0
+	\end{equation*}
+	or we can choose the Lorentz invariant version in the Lorenz gauge,
+	\begin{equation*}
+		\diverg{\vec{A}} + \frac{1}{c^2}\frac{\partial \phi}{\partial t} = 0
+	\end{equation*}
+
+
+
 \section{Apparatus}
+	\subsection{Classical System}
+	For the classical system the apparatus is shown in figure 2.
+
+	% figure here
+
+	We have a billiard ball with a black handle that is placed between two Helmholtz coils, with a control system that allows us to ramp the current in the coils, as well as turn on and off a field gradient that gives approximately zero net field at the ball itself.
+
+	\subsection{Quantum System}
+	For the quantum system the apparatus is shown in figure x.
+
+	%figure here
+
+
 
 \section{Data Analysis}
 
