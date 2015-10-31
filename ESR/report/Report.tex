@@ -24,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-	The classical example of a magnetic dipole moment reacting in a magnetic field is the electron.  Here we will investigate the reaction of a particle with a dipole moment in a magnetic field and investigate how it changes in analogy to the elctron.  We begin with a classical analogue of the electron and move on to an ensemble of electrons.  These electrons are bound in DPPH, rather than being a 3D gas, but for all intents and purposes will serve to illustrate the properties we are investigating here.
+	The classical example of a magnetic dipole moment reacting in a magnetic field is the electron.  Here we will investigate the reaction of a particle with a dipole moment in a magnetic field and investigate how it changes in analogy to the electron.  We begin with a classical analogue of the electron and move on to an ensemble of electrons.  These electrons are bound in DPPH, rather than being a 3D gas, but for all intents and purposes will serve to illustrate the properties we are investigating here.
 \end{abstract}
 
 \tableofcontents
@@ -63,8 +63,12 @@
 	\begin{equation}
 		\vec{\tau} = \vec{\mu} \times \vec{B}
 	\end{equation}
+	with $\epsilon_{ijk}$ being the Levi-Cevita tensor and the subscripts denoting components of the respective object.
+
+	\vspace{.25cm}
 
 	Now that we know the torque exerted on the magnetic moment by the external field, we can begin to work through the precession and the frequency of precession caused by that torque.
+	\vspace{.25cm}
 
 	\begin{figure}[!htb]
 		\centering
@@ -82,19 +86,10 @@
 		\omega = \frac{\mu}{L}B\\
 		\omega = \gamma B
 	\end{gather}
-	where $\gamma$ is the gyromagnetic ratio.
+	where $\gamma$ is the gyromagnetic ratio of the object in question.
 
 	\subsection{Quantum System}
-	For an electron, we can express $\gamma$ as
-	\begin{equation}
-		\abs{\gamma_e} = \frac{\abs{-e}}{2m_e}g_e = \frac{g_e \mu_B}{\hbar}
-	\end{equation}
-	where $\mu_B$ is the Bohr Magneton and $g_e$ is given by
-	\begin{equation*}
-		g_e = 2\bigg{(}1+\frac{\alpha}{2\pi} + ...\bigg{)}.
-	\end{equation*}
-
-	We can express the system and its energy using a simple Hamiltonian.  Since we have an electron precessing in a \B field, we know that $\mathscr{H}$ will be given by
+	We can express the quantum system and its energy using a simple Hamiltonian.  Since we have an electron precessing in a \B field, we know that $\mathscr{H}$ will be given by
 	\begin{gather*}
 		\mathscr{H} = \frac{\hat{p}^2}{2m} \nabla^2 + V\\
 		\hat{p} = -i\hbar \nabla \rightarrow \hat{p}_{\tiny{e\!f\!f}} = -i\hbar \nabla + \frac{e}{c}A\\
@@ -109,10 +104,39 @@
 	\begin{equation*}
 		\diverg{\vec{A}(\vec{r},t)} = 0
 	\end{equation*}
-	or we can choose the Lorentz invariant version in the Lorenz gauge,
+	or the Lorenz gauge,
 	\begin{equation*}
-		\diverg{\vec{A}} + \frac{1}{c^2}\frac{\partial \phi}{\partial t} = 0
+		\diverg{\vec{A}} + \frac{1}{c^2}\frac{\partial \phi}{\partial t} = 0.
 	\end{equation*}
+
+	In any case, the algebra is trivial yet lengthy and so will be left as an exercise to the reader should they wish.
+
+	\vspace{.25cm}
+
+	Returning to the task at hand, we can define (or derive from the above Hamiltonian, in the first perturbative expansion) the energy of a dipole moment due to an external magnetic field given by
+	\begin{equation*}
+		E^{(1)} = -\vec{\mu} \cdot \vec{B}
+	\end{equation*}
+	and so the energy splitting that acts on the free electron will be
+	\begin{equation*}
+		\Delta E = g_s\mu_B B
+	\end{equation*}
+	Where $\mu_B$ is the Bohr Magneton, $g_s$ is the dimensionless magnetic moment, and $\Delta E$ is the energy difference between the spin up and spin down states.  Thus if we inject photons with energy $\hbar \omega = \Delta E$ into the system we will be able to force the electron to change spin states.  Since our goal is to measure the gyromagnetic ratio of the electron, we will rewrite the energy shift as follows
+	\begin{gather*}
+		\hbar \omega = g_s\mu_B B\\
+		\omega = \frac{g_s \mu_B}{\hbar} B\\
+		\omega = \gamma_e B
+	\end{gather*}
+	where $\gamma_e$ is the gyromagnetic ratio of the electron. 
+
+	\vspace{.25cm}
+
+	$g_s$ is a dimensionless quantity that is predicted by the Dirac equation to be exactly 2.  However, full quantum electrodynamics introduces small corrections to $g_s$ that can be expressed as
+	\begin{equation*}
+		g_s = 2\bigg{(}1+\frac{\alpha}{2\pi} + ...\bigg{)}.
+	\end{equation*}
+	To first order, $g_s = 2$, however.
+
 
 
 
@@ -120,14 +144,28 @@
 	\subsection{Classical System}
 	For the classical system the apparatus is shown in figure 2.
 
-	% figure here
+	figure here
 
-	We have a billiard ball with a black handle that is placed between two Helmholtz coils, with a control system that allows us to ramp the current in the coils, as well as turn on and off a field gradient that gives approximately zero net field at the ball itself.
+	We have a billiard ball with an embedded magnet whose moment is aligned along the axis of the small black handle used to spin the ball.  The ball rests on an air mount that simulates a frictionless surface and is centered between two Helmholtz coils that can be controlled to act in parallel or in opposition.  If they act in parallel we can use the relation
+	\begin{equation*}
+		B = I \times \bigg{(}1.36 \pm 0.003 \hspace{.1cm} \frac{T}{A}\bigg{)}
+	\end{equation*}
+
+	In order to actually take data we make use of a strobe light mounted to the Helmholtz coils to track a white dot on the ball's handle as it precesses around the external field.  We also make use of a moveable index to track the ball to measure the period of precession.  While measuring the magnetic moment via the gravitational torque, we use a aluminum rod with a steel end that has a sliding mass mounted to it.  This serves as a means to adjust the torque on the ball due to gravity so that we can measure what \B is required to balance the gravitational force.
+
+	While working through the spin flip portion, we used a saddle that contains fixed permanent magnets to create a \B field perpendicular to the Helmholtz coils.  Spinning this saddle at the correct frequency will create the spin flip phenomenon observed.
 
 	\subsection{Quantum System}
-	For the quantum system the apparatus is shown in figure x.
+	For the quantum system the apparatus is shown in figure 3.
 
-	%figure here
+	figure here
+
+	We use the Deadalon ESR apparatus, consisting of a 60 Hz AC power supply for the large Helmholtz coils, a tunable RF oscillator, and Helmholtz coils connected such that \B at the center will be given by
+	\begin{equation*}
+		B = I \times \bigg{(}0.48 \hspace{.1cm} \frac{mT}{A}\bigg{)}.
+	\end{equation*}
+	$I$ is the sum of currents flowing in each coil.  At the center of both the large Helmholtz coils and the RF oscillator is a sample probe containing a small amount of DPPH, a substance containing stable free radicals that allow measurement of the Electron Spin Resonance.  DPPH is typically calibrated so it has a $g_s$ of approximately 2.0036. \cite{DPPH}
+
 
 
 
@@ -138,8 +176,15 @@
 \section{Conclusion}
 
 \begin{thebibliography}{10}
-	\bibitem{first}
-	stuff here\\
+	\bibitem{DPPH}
+		McLauchlan, Keith A, et al. \emph{Electron Paramagnetic Resonance: Volume 17 (Specialist Periodic Reports)}, edited by MJ Davies. Royal Society of Chemistry, 2000.
+	\bibitem{lab manual}
+		University of Chicago Department of Physics. "Introductory Lab: Gamma Cross Sections"\\
+		https://wiki.uchicago.edu/display/P211manuals/Introductory+Lab\%3A+Gamma+Cross+Sections. (Accessed Oct 8-16, 2015)
+
+	\bibitem{taylor}
+		Taylor, John. \emph{An Introduction to Error Analysis}. Sausalito: University Science Books, 1997.
+		
 \end{thebibliography}
 
 \end{document}

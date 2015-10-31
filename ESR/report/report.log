@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  30 OCT 2015 17:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  30 OCT 2015 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -380,43 +380,44 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 File: ../figures/torque.png Graphic file (type png)
 
 <use ../figures/torque.png>
-Package pdftex.def Info: ../figures/torque.png used on input line 71.
+Package pdftex.def Info: ../figures/torque.png used on input line 75.
 (pdftex.def)             Requested size: 180.17268pt x 301.12425pt.
  [2]
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 102.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 97.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 102.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 97.
 
-[3 <../figures/torque.png>] [4] (./Report.aux) ) 
+[3 <../figures/torque.png>] [4] [5] (./Report.aux) ) 
 Here is how much of TeX's memory you used:
- 4711 strings out of 493089
- 66755 string characters out of 6134842
- 157743 words of memory out of 5000000
- 8101 multiletter control sequences out of 15000+600000
- 13099 words of font info for 53 fonts, out of 8000000 for 9000
+ 4713 strings out of 493089
+ 66777 string characters out of 6134842
+ 156751 words of memory out of 5000000
+ 8102 multiletter control sequences out of 15000+600000
+ 13445 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,32p,813b,225s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2015/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
-ic/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
-public/rsfs/rsfs10.pfb>
-Output written on Report.pdf (4 pages, 177830 bytes).
+ 38i,10n,32p,813b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/p
+ublic/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
+e1/public/rsfs/rsfs10.pfb>
+Output written on Report.pdf (5 pages, 199336 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
+ 83 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
