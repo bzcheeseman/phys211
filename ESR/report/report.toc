@@ -7,5 +7,7 @@
 \contentsline {subsection}{\numberline {3.1}Classical System}{4}
 \contentsline {subsection}{\numberline {3.2}Quantum System}{4}
 \contentsline {section}{\numberline {4}Data Analysis}{5}
-\contentsline {section}{\numberline {5}Error Analysis}{5}
-\contentsline {section}{\numberline {6}Conclusion}{5}
+\contentsline {subsection}{\numberline {4.1}Gravitational Torque Balancing}{5}
+\contentsline {subsection}{\numberline {4.2}Precession of a Billiard Ball}{5}
+\contentsline {section}{\numberline {5}Error Analysis}{6}
+\contentsline {section}{\numberline {6}Conclusion}{6}

@@ -170,6 +170,68 @@
 
 
 \section{Data Analysis}
+	\subsection{Gravitational Torque Balancing}
+	We measured the magnetic dipole moment of the ball by measuring the torque on the ball due to gravity, calculated by measuring the sliding mass mentioned earlier.  A figure is most illustrative of the results, with data tabulated below.
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.5]{../plots/rmgvsmub.pdf}
+		\caption{Shown is a plot of the gravitational torque vs the torque due to the magnetic dipole moment.  The fit has a \redchi of 2.53, mainly due to the small error in the experiment, possibly underestimated, as we did not take into account friction on the ball in its mount.}
+	\end{figure}
+
+	\begin{center}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		$rmg \, (N \cdot m)$ & $\delta rmg$ & \B (T)& $\delta$\B \\
+		\hline
+		1.972e-03 & 4.002e-04 & 1.381e-10 & 6.909e-06 \\
+		2.067e-03 & 4.189e-04 & 6.909e-05 & 6.909e-06 \\
+		2.298e-03 & 4.646e-04 & 1.381e-04 & 6.909e-06 \\
+		2.448e-03 & 4.942e-04 & 2.072e-04 & 6.910e-06 \\
+		2.611e-03 & 5.266e-04 & 2.763e-04 & 6.911e-06 \\
+		2.720e-03 & 5.482e-04 & 3.454e-04 & 6.913e-06 \\
+		2.883e-03 & 5.806e-04 & 4.145e-04 & 6.915e-06 \\
+		3.060e-03 & 6.157e-04 & 4.836e-04 & 6.917e-06 \\
+		\hline
+	\end{tabular}
+	\end{center}
+
+	$$\boxed{\mu = 0.4401 \pm 0.0002 \, A \cdot m^2}$$
+
+	Since we have nothing to compare this value to, we will continue, for the moment, our measurement of the gyromagnetic ratio and associated magnetic dipole moment in order to compare the two values and speak quantitatively about the experiment and our uncertainties.
+
+	\subsection{Precession of a Billiard Ball}
+	In this section we added angular momentum to the ball, and then used the strobe light to time its rotation frequency (its spin).  Once we knew the spin of the ball, we then turned on the external \B field and timed its precession using the moveable index.  Again, a graph is most illustrative and will serve to show our values best, data values tabulated below.
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.5]{../plots/omegavsb.pdf}
+		\caption{The observant reader will notice that this measurement has a \redchi of 0.210, which is very low.  This is due, again, to the error in the experiment, and the imprecise nature of using a stopwatch on strobe-fatigued eyes.}
+	\end{figure}
+
+	\begin{center}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		$\omega \, (H\!z)$ & $\delta \omega$ & \B (T)& $\delta$\B \\
+		\hline
+		4.705e-01 & 1.226e-02 & 1.156e-03 & 2.409e-04 \\
+		5.506e-01 & 3.208e-02 & 1.360e-03 & 2.803e-04 \\
+		7.923e-01 & 4.616e-02 & 2.040e-03 & 4.136e-04 \\
+		1.146e+00 & 6.680e-02 & 2.720e-03 & 5.482e-04 \\
+		1.396e+00 & 8.135e-02 & 3.400e-03 & 6.833e-04 \\
+		1.675e+00 & 9.762e-02 & 4.080e-03 & 8.188e-04 \\
+		\hline
+	\end{tabular}
+	\end{center}
+
+	$$\boxed{\mu = 0.472 \pm 0.016 \, A \cdot m^2}$$
+	$$\boxed{\gamma = 65 \pm 2 \, Hz/T}$$
+
+	We should note that this value of $\gamma$ came from taking the fit value and dividing by $2\pi$ in order to recover the units $\frac{Hz}{T}$ rather than $\frac{rad\cdot H\!z}{T}$.
+
+	\vspace{.25cm}
+
+	We see agreement between our values of $\mu$ to a 1.94 $\sigma$ difference, or a confidence level of 5.23\%.  This low confidence is due to inaccuracy/uncertainty in measurement of both values, but especially in the measurement of the precession of the ball.  The technique is difficult to make precise, and as such our confidence level between our two calculated values is low.
 
 \section{Error Analysis}
 
