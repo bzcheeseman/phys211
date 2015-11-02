@@ -4,6 +4,8 @@
 \usepackage{amsmath, amssymb, amsfonts, mathrsfs, mathtools}
 \usepackage[english]{babel}
 \usepackage[autostyle, english = american]{csquotes}
+\usepackage[normalem]{ulem}
+\usepackage[title,titletoc,toc]{appendix}
 \MakeOuterQuote{"}
 
 \newcommand{\redchi}{$\tilde{\chi}^2\,$}
@@ -15,6 +17,7 @@
 \newcommand{\B}{$\vec{B}\,$}
 \newcommand{\E}{$\vec{E}\,$}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter{\parens}{\lparen}{\rparen}
 
 \title{Electron Spin Resonance}
 \author{Aman LaChapelle}
@@ -40,7 +43,7 @@
 		B = \frac{\mu_0}{4\pi}\bigg{(}\frac{3r(\vec{\mu} \cdot \vec{r})}{r^5} - \frac{\mu}{r^3}\bigg{)}.
 	\end{equation*}
 
-	This assumes no external field, however.  If there is an external field, and \dipole is not perfectly aligned, we will see precession about the external field (assuming a DC field pointing in one direction).  We can measure this property both in our classical analogue to an electron, and in actual electrons.  This effect is also very important in other physics.  For example, in microwave resonators we use crystals of Yttrium-Iron-Garnet which have the property that an AC \B field of approximately 2000 Gauss will cause them to precess at microwave frequency in such a way that couples strongly to the resonator.  This has many useful applications, and there is some extremely interesting physics we can study simply by looking at the precession of the magnetic dipole moment.
+	This assumes no external field, however.  If there is an external field, and \dipole is not perfectly aligned, we will see precession about the external field (assuming a DC field pointing in one direction).  We can measure this property both in our classical analogue to an electron, and in actual electrons.  This effect is also very important in other areas of physics.  For example, in microwave resonators we use crystals of Yttrium-Iron-Garnet which have the property that an AC \B field of approximately 2000 Gauss will cause them to precess at microwave frequency in such a way that couples strongly to the resonator.  This has many useful applications, and there is some extremely interesting physics we can study simply by looking at the precession of the magnetic dipole moment.
 
 
 
@@ -144,12 +147,22 @@
 	\subsection{Classical System}
 	For the classical system the apparatus is shown in figure 2.
 
-	figure here
+	\vspace{.25cm}
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.35]{bigcoils.jpg}
+		\includegraphics[scale=.35]{ball.jpg}
+		\caption{The classical experiment apparatus.  Above is the macroscopic apparatus, below is the ball with the forces drawn on.  The angles are the same by virtue of the way we choose our axes.}
+	\end{figure}
 
 	We have a billiard ball with an embedded magnet whose moment is aligned along the axis of the small black handle used to spin the ball.  The ball rests on an air mount that simulates a frictionless surface and is centered between two Helmholtz coils that can be controlled to act in parallel or in opposition.  If they act in parallel we can use the relation
 	\begin{equation*}
 		B = I \times \bigg{(}1.36 \pm 0.003 \hspace{.1cm} \frac{T}{A}\bigg{)}
 	\end{equation*}
+	to convert from the value of current that the apparatus outputs to the value of \B we want.
+
+	\vspace{.25cm}
 
 	In order to actually take data we make use of a strobe light mounted to the Helmholtz coils to track a white dot on the ball's handle as it precesses around the external field.  We also make use of a moveable index to track the ball to measure the period of precession.  While measuring the magnetic moment via the gravitational torque, we use a aluminum rod with a steel end that has a sliding mass mounted to it.  This serves as a means to adjust the torque on the ball due to gravity so that we can measure what \B is required to balance the gravitational force.
 
@@ -158,18 +171,39 @@
 	\subsection{Quantum System}
 	For the quantum system the apparatus is shown in figure 3.
 
-	figure here
+	\vspace{.25cm}
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.5]{esr_connections.png}
+		\caption{Basics of the ESR apparatus.}
+	\end{figure}
 
 	We use the Deadalon ESR apparatus, consisting of a 60 Hz AC power supply for the large Helmholtz coils, a tunable RF oscillator, and Helmholtz coils connected such that \B at the center will be given by
 	\begin{equation*}
 		B = I \times \bigg{(}0.48 \hspace{.1cm} \frac{mT}{A}\bigg{)}.
 	\end{equation*}
-	$I$ is the sum of currents flowing in each coil.  At the center of both the large Helmholtz coils and the RF oscillator is a sample probe containing a small amount of DPPH, a substance containing stable free radicals that allow measurement of the Electron Spin Resonance.  DPPH is typically calibrated so it has a $g_s$ of approximately 2.0036. \cite{DPPH}
+	$I$ is the sum of currents flowing in each coil.  At the center of both the large Helmholtz coils and the RF oscillator is a sample probe containing a small amount of DPPH, a substance containing stable free radicals that allow measurement of the Electron Spin Resonance.  DPPH is a polymer that contains about 1 free spin per 41 atoms.  It is typically paramagnetic, which means that it has unpaired spins that are random and free to be aligned rather than having some sort of alignment predetermined.  DPPH is a common standard for the measurement of Electron Paramagnetic Resonance (Electron Spin Resonance) and is well documented for this use.
+
+	\vspace{.25cm}
+
+	DPPH is typically calibrated so it has a $g_s$ of approximately 2.0036. \cite{DPPH}  Since $g_s$ is so close to what we would see in a free electron, and since DPPH is stable in a configuration that has this free spin (free electron, as far as our purposes require) it will allow us to model the behavior of the free electron to a not inaccurate approximation.  Thus any uncertainty introduced is purely from the data taking procedure and the inherent inaccuracy of aligning a line on a digital display.
+
+	\vspace{.25cm}
+
+	Incidentally, the images seen on the oscilloscope are reproduced in figure 4.
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.35]{esrpeaks.jpg}
+		\caption{A rendering of the Oscilloscope view.}
+	\end{figure}
 
 
 
 
 \section{Data Analysis}
+	Note: All plots in this section use the notation $Ae\!+\!b$ to mean $A \times 10^{b}$.  Not meant to cause confusion, simply due to quirks with formatting in the Python language.
 	\subsection{Gravitational Torque Balancing}
 	We measured the magnetic dipole moment of the ball by measuring the torque on the ball due to gravity, calculated by measuring the sliding mass mentioned earlier.  A figure is most illustrative of the results, with data tabulated below.
 
@@ -180,27 +214,37 @@
 	\end{figure}
 
 	\begin{center}
-	\begin{tabular}{|l|l|l|l|}
+	\begin{tabular}{|l|l|}
 		\hline
-		$rmg \, (N \cdot m)$ & $\delta rmg$ & \B (T)& $\delta$\B \\
+		$\vec{B} \pm \delta\vec{B} \, (T)$ & $rmg \pm \delta rmg \, (N \cdot m)$ \\
 		\hline
-		1.972e-03 & 4.002e-04 & 1.381e-10 & 6.909e-06 \\
-		2.067e-03 & 4.189e-04 & 6.909e-05 & 6.909e-06 \\
-		2.298e-03 & 4.646e-04 & 1.381e-04 & 6.909e-06 \\
-		2.448e-03 & 4.942e-04 & 2.072e-04 & 6.910e-06 \\
-		2.611e-03 & 5.266e-04 & 2.763e-04 & 6.911e-06 \\
-		2.720e-03 & 5.482e-04 & 3.454e-04 & 6.913e-06 \\
-		2.883e-03 & 5.806e-04 & 4.145e-04 & 6.915e-06 \\
-		3.060e-03 & 6.157e-04 & 4.836e-04 & 6.917e-06 \\
+		$(1.9 \pm 0.4) \times 10^{-3}$ & $(0 \pm 0.7) \times 10^{-5}$ \\
+		$(2.1 \pm 0.4) \times 10^{-3}$ & $(6.9 \pm 0.7) \times 10^{-5}$ \\
+		$(2.3 \pm 0.5) \times 10^{-3}$ & $(1.38 \pm 0.07) \times 10^{-4}$ \\
+		$(2.4 \pm 0.5) \times 10^{-3}$ & $(2.07 \pm 0.07) \times 10^{-4}$ \\
+		$(2.6 \pm 0.5) \times 10^{-3}$ & $(2.76 \pm 0.07) \times 10^{-4}$ \\
+		$(2.7 \pm 0.5) \times 10^{-3}$ & $(3.45 \pm 0.07) \times 10^{-4}$ \\
+		$(2.9 \pm 0.5) \times 10^{-3}$ & $(4.14 \pm 0.07) \times 10^{-4}$ \\
+		$(3.1 \pm 0.6) \times 10^{-3}$ & $(4.84 \pm 0.07) \times 10^{-4}$ \\
 		\hline
 	\end{tabular}
 	\end{center}
 
+	We should note that these uncertainties are calculated by
+	\begin{gather*}
+		\delta B = \sqrt{ \parens*{\frac{.002}{1.36}}^2 + \parens*{\frac{\delta I}{I}}^2 } \times B\\
+		\delta (rmg) = \sqrt{ \parens*{\frac{\delta r}{r}}^2 + \parens*{\frac{\delta m}{m}}^2 } \times (rmg)
+	\end{gather*}
+
+	\vspace{.25cm}
+
+	This gives a value of $\mu$,
+
 	$$\boxed{\mu = 0.4401 \pm 0.0002 \, A \cdot m^2}$$
 
-	Since we have nothing to compare this value to, we will continue, for the moment, our measurement of the gyromagnetic ratio and associated magnetic dipole moment in order to compare the two values and speak quantitatively about the experiment and our uncertainties.
+	Since we have nothing to compare this value to, we will continue, for the moment, to our measurement of the gyromagnetic ratio and associated magnetic dipole moment in order to compare the two values and speak quantitatively about the experiment and our uncertainties.
 
-	\subsection{Precession of a Billiard Ball}
+	\subsection{Precession of \sout{a Billiard Ball} an Electron}
 	In this section we added angular momentum to the ball, and then used the strobe light to time its rotation frequency (its spin).  Once we knew the spin of the ball, we then turned on the external \B field and timed its precession using the moveable index.  Again, a graph is most illustrative and will serve to show our values best, data values tabulated below.
 
 	\begin{figure}[!htb]
@@ -210,43 +254,225 @@
 	\end{figure}
 
 	\begin{center}
-	\begin{tabular}{|l|l|l|l|}
+	\begin{tabular}{|l|l|}
 		\hline
-		$\omega \, (H\!z)$ & $\delta \omega$ & \B (T)& $\delta$\B \\
+		$\omega \pm \delta \omega \, (H\!z)$ & $\vec{B} \pm \delta \vec{B} \, (T)$ \\
 		\hline
-		4.705e-01 & 1.226e-02 & 1.156e-03 & 2.409e-04 \\
-		5.506e-01 & 3.208e-02 & 1.360e-03 & 2.803e-04 \\
-		7.923e-01 & 4.616e-02 & 2.040e-03 & 4.136e-04 \\
-		1.146e+00 & 6.680e-02 & 2.720e-03 & 5.482e-04 \\
-		1.396e+00 & 8.135e-02 & 3.400e-03 & 6.833e-04 \\
-		1.675e+00 & 9.762e-02 & 4.080e-03 & 8.188e-04 \\
+		$(4.71 \pm 0.12) \times 10^{-1}$ & $(1.2 \pm 0.2) \times 10^{-3}$ \\
+		$(5.5 \pm 0.3) \times 10^{-1}$   & $(1.4 \pm 0.3) \times 10^{-3}$ \\
+		$(7.9 \pm 0.5) \times 10^{-1}$   & $(2.0 \pm 0.4) \times 10^{-3}$ \\
+		$1.15 \pm 0.07$ 			     & $(2.7 \pm 0.5) \times 10^{-3}$ \\
+		$1.39 \pm 0.08$ 			     & $(3.4 \pm 0.7) \times 10^{-3}$ \\
+		$1.7 \pm 0.1$ 				     & $(4.1 \pm 0.8) \times 10^{-3}$ \\
 		\hline
 	\end{tabular}
 	\end{center}
 
-	$$\boxed{\mu = 0.472 \pm 0.016 \, A \cdot m^2}$$
-	$$\boxed{\gamma = 65 \pm 2 \, Hz/T}$$
+	The uncertainties in $\omega$ are measured directly from the strobe output, and the uncertainties in \B are calculated the way they are above, 
+	\begin{equation*}
+		\delta B = \sqrt{ \parens*{\frac{.002}{1.36}}^2 + \parens*{\frac{\delta I}{I}}^2 } \times B.
+	\end{equation*}
+	
+	\vspace{.25cm}
 
-	We should note that this value of $\gamma$ came from taking the fit value and dividing by $2\pi$ in order to recover the units $\frac{Hz}{T}$ rather than $\frac{rad\cdot H\!z}{T}$.
+	This gives us values for $\mu$ and $\gamma$,
+
+	$$\boxed{\mu = 0.47 \pm 0.04 \, A \cdot m^2}$$
+	$$\boxed{\gamma = 410 \pm 14 \, Hz/T}$$
+
+	We should note that this value of $\gamma$ has units of $\frac{rad\cdot H\!z}{T}$.
 
 	\vspace{.25cm}
 
-	We see agreement between our values of $\mu$ to a 1.94 $\sigma$ difference, or a confidence level of 5.23\%.  This low confidence is due to inaccuracy/uncertainty in measurement of both values, but especially in the measurement of the precession of the ball.  The technique is difficult to make precise, and as such our confidence level between our two calculated values is low.
+	We see agreement between our values of $\mu$ to a 0.862 $\sigma$ difference, or a confidence level of 38.87\%.  Considering the fact that the values were both calculated with quite imprecise methods leads us to the conclusion that this is an acceptable confidence level, and we will proceed as such.
 
-\section{Error Analysis}
+	\vspace{.25cm}
+
+	However, we also have a calculated value of $\gamma$ that we can use if we want to compare measurements.  We calculate this taking our values for the mass and radius of the ball and dividing our measured $\mu$ from the gravitational torque balancing by this value for the angular momentum.  Below we will tabulate our values (with uncertainty) for measured quantities such as the mass and radius of the ball and perform the calculation itself.
+
+	\begin{center}
+	\begin{tabular}{|l|}
+		\hline
+		$M \pm \delta M = 0.13738 \pm 0.00001 \, kg$ \\ \hline
+		$R \pm \delta R = (2.69 \pm .05)\times 10^{-2} \, m$ \\ \hline
+		$\Omega \pm \delta \Omega = 2\pi \cdot \parens{4.6 \pm 0.1} \, H\!z \, \big{(}\frac{rad}{s}\big{)}$ \\ \hline
+	\end{tabular}
+	\end{center}
+
+	\begin{gather*}
+		\vec{L} = \frac{2}{5}MR^2\vec{\Omega}\\
+		\boxed{\vec{L} = 1.15\times10^{-3}}\\
+		\delta \vec{L} = \sqrt{ \parens*{\frac{\partial L}{\partial M}\delta M}^2 + \parens*{\frac{\partial L}{\partial R}\delta R}^2 + \parens*{\frac{\partial L}{\partial \Omega} \delta \Omega}^2 }\\
+		\boxed{\delta \vec{L} = 0.05\times10^{-3}}\\
+		\boxed{\vec{L}\pm\delta\vec{L} = \parens*{1.15 \pm 0.05}\times10^{-3} \, \, \frac{kg \, m^2}{s}}.
+	\end{gather*}
+	And so if we take this value for $L$ and calculate $\gamma$, we get
+	\begin{gather*}
+		\gamma = \frac{\mu}{L}\\
+		\mu = 0.4401 \pm .0002 \, A\cdot m^2\\
+		\delta\gamma = \sqrt{ \parens*{\mu \cdot \delta L}^2 + \parens*{\frac{1}{L}\cdot\delta\mu}^2 }\\
+		\boxed{\gamma \pm \delta\gamma = 382.94 \pm 0.17 \,\, \frac{H\!z}{T}}
+	\end{gather*}
+	since we are in SI units, with Hz being rad/sec.  If we calculate the agreement between this $\gamma$ and the $\gamma$ obtained from the fit, we see that the agree to within 1.93 $\sigma$, which gives us a confidence level of 5.36\%.  This is rather low, and so we should work on tracking down possible causes.  
+
+	\vspace{.25cm}
+
+	A higher confidence level would require that either the fitted $\gamma = \gamma_f$ is lower, or the calculated $\gamma = \gamma_c$ is higher.  Based on the fact that we calculated $\mu$ from the fit, and the values of $\mu$ agreed to better than 38.87\% and the uncertainty in $\mu = 0.4401 \pm 0.0002$ is much lower, we believe the more likely cause is the high value of $\gamma_f$.  This would imply that we overestimated $\omega$ or underestimated \B.  Since our uncertainty in $\omega$ is much higher, it is more likely that we overestimated $\omega$.  If we were able to take the data again, we would focus on taking many data points at each stage of the precession to determine if our overestimation is systematic or random uncertainty.  However, because we did not have time to retake data points, we will have to live with our agreement between $\gamma_c$ and $\gamma_f$ of 5.36\%.
+
+	\subsection{Classical Spin Flip}
+	This section of the experiment deals with rotations within rotations.  In order to simplify the picture a bit, we will transform into the frame of the saddle and look at the ball from that frame.
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.5]{flip.jpg}
+		\caption{A rendering of the \B fields in the frame of the saddle so as to not have to draw that rotation as well.}
+	\end{figure}
+
+	If we set the billiard ball spinning and then turn on the field, it precesses with some frequency about the external \B field.  If we rotate the saddle and its accompanying \B field with approximately the frequency of precession but in the opposite direction, we observe that the spin tends to move the way it's shown in figure 7, with the spin no longer symmetric about the $\hat{z}$ axis, rather it is now symmetric about the axis of the saddle's \B field.  The saddle's motion has its own angular momentum, in which case we will see the ball's dipole moment attempt to anti-align with the saddle's.  This creates an energy shift between the states (spin up/spin down) of
+	\begin{equation*}
+		E = -\vec{\mu} \cdot \vec{B}
+	\end{equation*}
+	and so the particle attempts to minimize energy by aligning $\mu$ and \B, but anti-parallel, otherwise we have another minus and the energy is maximized instead of minimized.  If we change the direction of the saddle's movement the sign is reversed, and the minimal energy state is the one the ball already occupies, and so we see no change.
+
+	\subsection{Quantum Spin Flip}
+	In the quantum spin flip portion of the experiment we dealt with a DPPH sample that was placed within a RF oscillator, within a set of Helmholtz coils oriented perpendicular to the RF field.  A summary of the data is in the plot shown in figure 8, again with data tabulated below.
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.5]{../plots/findinggamma.pdf}
+		\caption{The sharp-eyed reader will notice that uncertainties on $\gamma_e$ are not shown in the graph.  They are shown in figure 9, for reasons discussed later.}
+	\end{figure}
+
+	The reader should notice the alarmingly large values of \redchi, both being over 200.  However, the reader should fear not, for this is due to the alarmingly tiny uncertainties in the measurement.  An illustrative plot is shown in figure 9.  Furthermore, since the amount of data is much larger for this portion of the experiment, I will refrain from tabulating it here.  However, I will demonstrate a calculation showing how we got our uncertainties on the data points.
+
+	\begin{gather*}
+		\delta\omega = 0.02 \, M\!H\!z\\
+		\frac{\delta V}{V} = \frac{0.8}{V} \, mV\\
+		\abs{\vec{B}} = I\times\parens{0.48\times10^{-6}} = V\times\parens{0.48\times10^{-6}} \, T\\
+		\delta \vec{B} = \frac{\delta V}{V} \times B
+	\end{gather*}
+	The uncertainty in $\omega$ comes from variation in the display ($\pm 1$) added to the uncertainty in a digital readout ($\pm$ last digit).  Variation in V comes from our estimates of our ability to get the correct value by maniuplating the oscilloscope readout.  This is likely high, but as figure 9 will show, this is still tiny by comparison to the uncertainty in the fit.
+
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[scale=.5]{../plots/gamma_diff.pdf}
+		\caption{The shaded area is $(.05 \times \sigma)^{1/4}$, which comes from massive uncertainties in the fit.  This plot shows the difference between the fit value and the data points.}
+	\end{figure}
+
+	We should note that we never actually stated the value for the uncertainty in $\gamma$, and so I will state it here.
+
+	\begin{center}
+	\begin{tabular}{|l|l|}
+		\hline
+		$\gamma_+ \pm \delta\gamma_+$ & $\gamma_- \pm \delta\gamma_-$ \\ 
+		\hline
+		$\parens*{1.4 \pm 0.7}\times 10^{11}$ & $\parens*{-1.5 \pm 0.5} \times 10^{11}$ \\ 
+		\hline
+	\end{tabular}
+	\end{center}
+
+	It might seem like a mistake that the uncertainty in a fit is so large, given such tiny uncertainties in the data points, but in fact this is because of that.  Since the difference between the points themselves and the fit is large (keep the units in mind, here) and the error is so small, the weighted sum is going to be huge no matter what the fit routine tries.  Due to the large weighted sum, the covariance matrix is going to have huge diagonal elements, at least.  In this case, these are the leading diagonal elements.  Luckily, the off-diagonal (covariance) elements are of order unity, and so the parameters don't covary.  Furthermore, the small offset in the linear fit ($Ax + B$) is of order $B = 1\pm 2$ so this fit truly is $\omega = \gamma B$.  Thus we are stuck with a gigantic variance in the actual value of $\gamma$ that we have calculated.
+
+	\vspace{.25cm}
+
+	Being convinced that something is wrong with our propagation of uncertainty for the measurement of $\omega$ or \B, we checked and rechecked our values and calculations.  We are therefore convinced that there must be an external factor that is causing problems with the fit.  We corrected the uncertainty in the values we measured on the oscilloscope for the current of the Helmholtz coils, in the case that we were much less precise than we thought, which it seems likely that we were.  As can be seen from the plot, which is the version with the corrected uncertainty, we still have huge values.  We also tried to fit the points to higher order polynomials, and attempted to correct the model with various kinds of systematic uncertainty.  None worked.  However, importantly, the model fits quite well, visually.  And even though the standard deviation of the fit is massive, the points lie more or less evenly distributed on either side of the fit line.  Thus we are lead to conclude that our data is not at all going to revolutionalize the study of electron spin resonance, but we have some agreement with the literature values, as shown in the table below.
+
+	\begin{center}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		$\gamma_{exp} \pm \delta\gamma_{exp}$ & $\gamma_{lit}$ & Confidence \\
+		\hline
+		$(1.4 \pm 0.7) \times 10^{11}$ & $1.76085 \times 10^{11}$ & 57.7\% \\
+		$(1.5 \pm 0.5) \times 10^{11}$ & $1.76085 \times 10^{11}$ & 57.4\% \\
+		\hline
+	\end{tabular}
+	\end{center}
+
+	Overall, the uncertainties in the fit may be justified.  Since our agreement with the literature value using these uncertainties is better than 50\% we come to the conclusion that the the uncertainties that come from the fit help save our analysis and ensure that we do not have false confidence in our values due to small uncertainty in data points, and give credit to the values that were generated where credit is perhaps due.
+
+	\vspace{.25cm}
+
+	We also must discuss why this phenomenon doesn't occur at all when the Helmholtz field is angled to be parallel to the RF field.  We can investigate this by transforming the field of the RF oscillator from a linearly polarized photon to a superposition of circularly polarized photons.
+
+	\begin{gather*}
+		\vec{B}(t) = 2B_0\cos{\omega t}\,\hat{x}\\
+		\vec{B}(t) = B_0\parens{\cos{\omega t}\,\hat{x} + \sin{\omega t}\,\hat{y}} + B_0\parens{\cos{\omega t}\,\hat{x} - \sin{\omega t}\,\hat{y}}
+	\end{gather*}
+	which, using Maxwell's equations to find \E and $\vec{S}$, gives
+	\begin{gather*}
+		E = B_0\parens{\cos{\omega t}\,\hat{y} - \sin{\omega t}\,\hat{x}} + B_0\parens{\cos{\omega t}\,\hat{y} + \sin{\omega t}\,\hat{x}}\\
+		\vec{S} = \frac{1}{\mu_0}\parens{\vec{E} \times \vec{B}}\\
+		\vec{S} = \frac{B_0^2}{\mu_0}\parens{2\cos^2{\omega t}}\,\hat{z}
+	\end{gather*}
+	From this it is simple to realize why the phenomenon is non-existent when the external field is parallel to the RF field.  Since the poynting vector is in the $\hat{z}$ direction, which is parallel to the Helmholtz field.  When we move the Helmholtz field, the oscillation and power from that field is no longer aligned with this one, and the electrons do not receive the energy required to jump energy levels.  Thus, we see nothing on the oscilloscope because the electrons don't have the energy to actually create a response.
 
 \section{Conclusion}
+	From the data and fits performed here, we can begin to think about the classical analogue to the quantum electron, particularly its agreement with the electron's gyromagnetic ratio.  This, we find, is terrible.  We didn't calculate the number of sigma apart the two values are because it is a massive number.  The two values don't agree in the slightest, and that stands to reason.  In general, spinning a billiard ball will not be able to give you a good approximation to the quantum electron.  Furthermore, this approximation is made more problematic by the fact that the electron is, for all intents and purposes, frictionless, while the ball most certainly is not.
+
+	\vspace{.25cm}
+
+	The billiard ball does an excellent job of modeling the quantum electron in that we are able to observe all the phenomena we are interested in.  Because we can see all these reactions happening in a macroscopic system, we will be better able to understand what happens and why in a classical analogue picture.  Of course the electron doesn't slowly change spin, it is either spin up or spin down.  However, it is still a useful tool for visualization.
+
+	\vspace{.25cm}
+
+	Of course, the fundamentals of the physics underlying both parts of the experiment are the same.  The fact that we can describe the ball as a classical system just means that to an excellent approximation it moves like the sum of its parts.  In theory, we could use something much like the quantum system hamiltonian to describe the motion of the whole ball, though it would be quite unweildy.  The convenient part of the classical system is still the macroscopic nature of that portion of the experiment.
+
+	\vspace{.25cm}
+
+	This work was undertaken in cooperation with Ryan Thiermann, and with the help of the TAs and staff of the Advanced Undergraduate Experimental Physics course.  My thanks also to Professor Carlos Wagner, for covering almost exactly the material we needed to properly understand this experiment just before finishing the experiment itself.
 
 \begin{thebibliography}{10}
 	\bibitem{DPPH}
 		McLauchlan, Keith A, et al. \emph{Electron Paramagnetic Resonance: Volume 17 (Specialist Periodic Reports)}, edited by MJ Davies. Royal Society of Chemistry, 2000.
 	\bibitem{lab manual}
-		University of Chicago Department of Physics. "Introductory Lab: Gamma Cross Sections"\\
-		https://wiki.uchicago.edu/display/P211manuals/Introductory+Lab\%3A+Gamma+Cross+Sections. (Accessed Oct 8-16, 2015)
+		University of Chicago Department of Physics. "Electron Spin Resonance"\\
+		https://wiki.uchicago.edu/display/P211manuals/Electron+Spin+Resonance\#ElectronSpinResonance-QUANTUMSYSTEM. (Accessed Oct 23-26, 2015)
 
 	\bibitem{taylor}
 		Taylor, John. \emph{An Introduction to Error Analysis}. Sausalito: University Science Books, 1997.
+
+	\bibitem{ceres}
+		Agarwal, Sameer and Mierle, Kier, et al. "Ceres Solver"\\
+		http://ceres-solver.org. (Accessed Oct 30-31, 2015).
 		
 \end{thebibliography}
+
+\begin{appendices}
+	\section{Fitting Error Analysis} \label{app:Fitting Error Analysis}
+	Most of our error calculations came from fitted values, which in turn came from experimental uncertainty in measuring values.  Because of the way that least-squares routines work, the experimental uncertainty is taken into account when calculating the covariance matrix, which is what we use to estimate uncertainty in fitted values.
+
+	\vspace{.25cm}
+
+	The way that least-squares routines calculate the covariance matrix is by making the following assumption
+	\begin{equation*}
+		y = f(x) + N(0, I)
+	\end{equation*}
+	which means that $y$ is a function of $x$ plus some normally distributed background noise that depends on the identity, i.e. there is no covariance of terms in $f(x)$.  Then we can make an estimate called the maximum likelihood estimate that is given by
+	\begin{equation*}
+		x^* = min_x\abs{\abs{f(x)}}^2
+	\end{equation*}
+	which is simply the solution to the least-squares problem.  Then, given a full column rank Jacobian of $f$ at $x$, we can calculate the covariance matrix by taking
+	\begin{equation*}
+		C(x^*) = (J(x)^TJ(x))^{-1}.
+	\end{equation*}
+
+	If, however, errors are not given by the normally distributed identity covariance, then we must generalize.
+	\begin{equation*}
+		y = f(x) + N(0, S)
+	\end{equation*}
+	where S is a positive semi-definite matrix that gives the error in the parameters including the error between parameters.  Then the maximum likelihood problem becomes
+	\begin{equation*}
+		x^* = min_x f(x)^T S^{-1} f(x)
+	\end{equation*}
+	and so the covariance matrix becomes
+	\begin{equation*}
+		C(x^*) = (J(x)^T S^{-1} J(x))^{-1}.
+	\end{equation*}
+
+	\vspace{.25cm}
+
+	This simply shows that our method of error propagation, by simply inputting values for error into the fits and then taking the error returned by the fit is indeed valid.  In other cases, such as when calculating $\vec{L}$ from the mass and radius of the ball described in the apparatus section, we use the uncertainty propagation described in the calculation, simply assuming that it would be normally distributed if we make many measurements.  Due in part to the central limit theorem, we do not believe this to be a problematic assumption.  Furthermore, the model fits, so we will use it.
+\end{appendices}
+
 
 \end{document}

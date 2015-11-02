@@ -21,7 +21,7 @@ def main(output_plot):
 
 		data = np.transpose(np.vstack((xdata, xdata_err, ydata, ydata_err)))
 
-		head = "rmg \t delta_rmg \t muB \t delta_muB"
+		head = "muB \t delta_muB \t rmg \t delta_rmg"
 
 		os.chdir("/users/aman/desktop/phys211/esr/data")
 
@@ -60,7 +60,7 @@ def main(output_plot):
 	                         +np.power(np.divide(.05, [.85, 1, 1.5, 2, 2.5, 3]), 2)), B)
 
 		L = .00115
-		dL = 1e-6
+		dL = .00005
 
 		def lin(x, *p):
 			return p[0]*x
@@ -90,7 +90,7 @@ def main(output_plot):
 	         "\n"\
 	        "$\gamma = %.0f\pm %.0f \, Hz/T$"\
 	         "\n"\
-	        "$\mu = %.3f \pm %.3f \, A \cdot m^2$"% (p[0]/(2*np.pi), V[0,0]/(2*np.pi), p[0]*L, (V[0,0]/p[0] + dL/L)*p[0]*L))
+	        "$\mu = %.3f \pm %.3f \, A \cdot m^2$"% (p[0], V[0,0], p[0]*L, (V[0,0]/p[0] + dL/L)*p[0]*L))
 		plt.text(.0015, 1.1, "$\chi^2/N = %.3f$" % chisq)
 		plt.legend(loc = 0)
 		plt.savefig("/users/aman/desktop/phys211/esr/plots/omegavsB.pdf")
@@ -105,8 +105,8 @@ def main(output_plot):
 		Bplus = vplus * 0.48e-6 ## T
 		Bminus = vminus * 0.48e-6 ## T
 
-		vplus_err = .1/vplus
-		vminus_err = .1/vminus
+		vplus_err = .8/vplus
+		vminus_err = .8/vminus
 
 		Bplus_err = vplus_err*Bplus
 		Bminus_err = vminus_err*Bminus
@@ -120,7 +120,7 @@ def main(output_plot):
 
 		pminus, Vminus = np.polyfit(Bminus, frequency, 1, cov=True)
 
-		print pplus, pminus
+		print Vplus[0,0], Vminus[0,0]
 
 		###chi squared
 
@@ -137,10 +137,10 @@ def main(output_plot):
 		plt.plot(Bminus, lin(Bminus, *pminus), label = "Fit (-)")
 		plt.text(-.00001,3.2e1, "$\omega = \gamma B$"\
 		         "\n"\
-		        "$\gamma_+ = %.2f \pm %.2f \,MHz/T$" % (pplus[0]/(2*np.pi), Vplus[0,0]))
-		plt.text(-.00001,3.1e1, "$\gamma_- = %.2f \pm %.2f \,MHz/T$" % (pminus[0]/(2*np.pi), Vminus[0,0]))
-		plt.text(-.00001, 3e1, "$\chi_+^2/N = %f$" % chisqplus)
-		plt.text(-.00001, 2.9e1, "$\chi_-^2/N = %f$" % chisqminus)
+		        "$\gamma_+ = 1.37e\!+\!05 \,MHz/T$" % (pplus[0]))
+		plt.text(-.00001,3.16e1, "$\gamma_- = -1.48e\!+\!05 \,MHz/T$")
+		plt.text(-.00001, 3e1, "$\chi_+^2/N = %.0f$" % chisqplus)
+		plt.text(-.00001, 2.96e1, "$\chi_-^2/N = %.0f$" % chisqminus)
 		plt.xlabel("B (T)")
 		plt.ylabel("$\omega$ (MHz)")
 		plt.title("Finding $\gamma$")
@@ -151,12 +151,15 @@ def main(output_plot):
 		plt.figure()
 		plt.errorbar(np.linspace(frequency[0], frequency[-1], len(frequency)),
 			frequency - lin(Bplus, *pplus), yerr = freq_err, fmt="o", ms = .5, 
-			label = "Data Points")
+			label = "Data Points (+)")
+		plt.errorbar(np.linspace(frequency[0], frequency[-1], len(frequency)),
+			frequency - lin(Bminus, *pminus), yerr = freq_err, fmt="o", ms = .5, 
+			label = "Data Points (-)")
 		plt.plot(np.linspace(frequency[0], frequency[-1], len(frequency)), 
 			np.zeros_like(frequency), label = "Fit")
 		plt.fill_between(np.linspace(frequency[0], frequency[-1], len(frequency)), 
-			np.sqrt(np.sqrt(Vplus[1,1])), -np.sqrt(np.sqrt(Vplus[1,1])),
-			label = "$(1 \sigma)^{1/4}$", alpha = .5)
+			np.sqrt(np.sqrt(Vplus[1,1]/np.sqrt(2*np.log(2)))), -np.sqrt(np.sqrt(Vplus[1,1]/np.sqrt(2*np.log(2)))),
+			label = r"$(.05 \times \sigma)^{1/4}$", alpha = .35)
 		plt.ylabel("Difference (MHz)")
 		plt.title("Cross Sectional Differences")
 		plt.legend(loc = 0)

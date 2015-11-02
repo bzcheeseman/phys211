@@ -6,8 +6,11 @@
 \contentsline {section}{\numberline {3}Apparatus}{4}
 \contentsline {subsection}{\numberline {3.1}Classical System}{4}
 \contentsline {subsection}{\numberline {3.2}Quantum System}{4}
-\contentsline {section}{\numberline {4}Data Analysis}{5}
-\contentsline {subsection}{\numberline {4.1}Gravitational Torque Balancing}{5}
-\contentsline {subsection}{\numberline {4.2}Precession of a Billiard Ball}{5}
-\contentsline {section}{\numberline {5}Error Analysis}{6}
-\contentsline {section}{\numberline {6}Conclusion}{6}
+\contentsline {section}{\numberline {4}Data Analysis}{6}
+\contentsline {subsection}{\numberline {4.1}Gravitational Torque Balancing}{6}
+\contentsline {subsection}{\numberline {4.2}Precession of \sout {a Billiard Ball} an Electron}{8}
+\contentsline {subsection}{\numberline {4.3}Classical Spin Flip}{10}
+\contentsline {subsection}{\numberline {4.4}Quantum Spin Flip}{10}
+\contentsline {section}{\numberline {5}Conclusion}{13}
+\contentsline {section}{Appendices}{13}
+\contentsline {section}{Appendix \numberline {A}Fitting Error Analysis}{14}

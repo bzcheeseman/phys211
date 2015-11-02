@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  31 OCT 2015 18:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 NOV 2015 21:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -243,6 +243,24 @@ File: csquotes.cfg
 Package csquotes Info: Enabling multilingual quotes.
 Package csquotes Info: Redefining alias 'english' -> 'english/american'.
 )
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box28
+\UL@hyphenbox=\box29
+\UL@skip=\skip50
+\UL@hook=\toks22
+\UL@height=\dimen132
+\UL@pe=\count117
+\UL@pixel=\dimen133
+\ULC@box=\box30
+Package: ulem 2012/05/18
+\ULdepth=\dimen134
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2009/09/02 v1.2b extra appendix facilities
+\c@@pps=\count118
+\c@@ppsavesec=\count119
+\c@@ppsaveapp=\count120
+)
 Package csquotes Info: Allocating character ".
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
@@ -250,18 +268,18 @@ Package csquotes Info: ... found 'babel' package.
 (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -299,17 +317,17 @@ LaTeX Font Info:    ... okay on input line 22.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count117
-\scratchdimen=\dimen132
-\scratchbox=\box28
-\nofMPsegments=\count118
-\nofMParguments=\count119
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count120
-\MPscratchDim=\dimen133
-\MPnumerator=\count121
-\makeMPintoPDFobject=\count122
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count121
+\scratchdimen=\dimen135
+\scratchbox=\box31
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count124
+\MPscratchDim=\dimen136
+\MPnumerator=\count125
+\makeMPintoPDFobject=\count126
+\everyMPtoPDFconversion=\toks24
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -354,18 +372,18 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package csquotes Info: Making character " active on input line 22.
-LaTeX Font Info:    Try loading font information for U+msa on input line 24.
+Package csquotes Info: Making character " active on input line 25.
+LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 24.
+LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 24.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 27.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -380,59 +398,111 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 File: ../figures/torque.png Graphic file (type png)
 
 <use ../figures/torque.png>
-Package pdftex.def Info: ../figures/torque.png used on input line 75.
+Package pdftex.def Info: ../figures/torque.png used on input line 78.
 (pdftex.def)             Requested size: 180.17268pt x 301.12425pt.
  [2]
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 97.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 100.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 97.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 100.
 
-[3 <../figures/torque.png>] [4]
-<../plots/rmgvsmub.pdf, id=32, 578.16pt x 433.62pt>
+[3 <../figures/torque.png>] <bigcoils.jpg, id=29, 1027.84pt x 770.88pt>
+File: bigcoils.jpg Graphic file (type jpg)
+
+<use bigcoils.jpg>
+Package pdftex.def Info: bigcoils.jpg used on input line 154.
+(pdftex.def)             Requested size: 359.74939pt x 269.81204pt.
+ <ball.jpg, id=30, 1027.84pt x 770.88pt>
+File: ball.jpg Graphic file (type jpg)
+ <use ball.jpg>
+Package pdftex.def Info: ball.jpg used on input line 155.
+(pdftex.def)             Requested size: 359.74939pt x 269.81204pt.
+
+<esr_connections.png, id=31, 924.45375pt x 543.02875pt>
+File: esr_connections.png Graphic file (type png)
+
+<use esr_connections.png>
+Package pdftex.def Info: esr_connections.png used on input line 178.
+(pdftex.def)             Requested size: 462.22574pt x 271.5137pt.
+ [4] [5 <./bigcoils.jpg> <./ball.jpg>]
+<esrpeaks.jpg, id=38, 1027.84pt x 770.88pt>
+File: esrpeaks.jpg Graphic file (type jpg)
+ <use esrpeaks.jpg>
+Package pdftex.def Info: esrpeaks.jpg used on input line 198.
+(pdftex.def)             Requested size: 359.74939pt x 269.81204pt.
+
+<../plots/rmgvsmub.pdf, id=39, 578.16pt x 433.62pt>
 File: ../plots/rmgvsmub.pdf Graphic file (type pdf)
 
 <use ../plots/rmgvsmub.pdf>
-Package pdftex.def Info: ../plots/rmgvsmub.pdf used on input line 178.
+Package pdftex.def Info: ../plots/rmgvsmub.pdf used on input line 212.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+ [6 <./esr_connections.png>]
+Overfull \vbox (1.47319pt too high) has occurred while \output is active []
 
-<../plots/omegavsb.pdf, id=33, 578.16pt x 433.62pt>
+
+[7 <./esrpeaks.jpg> <../plots/rmgvsmub.pdf>]
+<../plots/omegavsb.pdf, id=118, 578.16pt x 433.62pt>
 File: ../plots/omegavsb.pdf Graphic file (type pdf)
 
 <use ../plots/omegavsb.pdf>
-Package pdftex.def Info: ../plots/omegavsb.pdf used on input line 208.
+Package pdftex.def Info: ../plots/omegavsb.pdf used on input line 252.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
- [5 <../plots/rmgvsmub.pdf>] [6 <../plots/omegavsb.pdf>] [7] (./Report.aux) ) 
+ [8 <../plots/omegavsb.pdf>]
+<flip.jpg, id=189, 1027.84pt x 770.88pt>
+File: flip.jpg Graphic file (type jpg)
+ <use flip.jpg>
+Package pdftex.def Info: flip.jpg used on input line 327.
+(pdftex.def)             Requested size: 513.91875pt x 385.43906pt.
+
+Overfull \hbox (8.02875pt too wide) in paragraph at lines 327--328
+ [][] 
+ []
+
+[9] <../plots/findinggamma.pdf, id=193, 722.7pt x 722.7pt>
+File: ../plots/findinggamma.pdf Graphic file (type pdf)
+
+<use ../plots/findinggamma.pdf>
+Package pdftex.def Info: ../plots/findinggamma.pdf used on input line 342.
+(pdftex.def)             Requested size: 361.3491pt x 361.3491pt.
+ [10 <./flip.jpg>]
+<../plots/gamma_diff.pdf, id=197, 578.16pt x 433.62pt>
+File: ../plots/gamma_diff.pdf Graphic file (type pdf)
+
+<use ../plots/gamma_diff.pdf>
+Package pdftex.def Info: ../plots/gamma_diff.pdf used on input line 358.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+ [11 <../plots/findinggamma.pdf>] [12 <../plots/gamma_diff.pdf>] [13] [14] (./R
+eport.aux) ) 
 Here is how much of TeX's memory you used:
- 4724 strings out of 493089
- 67016 string characters out of 6134842
- 157751 words of memory out of 5000000
- 8110 multiletter control sequences out of 15000+600000
- 13445 words of font info for 54 fonts, out of 8000000 for 9000
+ 4952 strings out of 493089
+ 70110 string characters out of 6134842
+ 162286 words of memory out of 5000000
+ 8322 multiletter control sequences out of 15000+600000
+ 13551 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,32p,813b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
-</
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on Report.pdf (7 pages, 256526 bytes).
+ 38i,12n,32p,1174b,356s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+bx9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex
+10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.
+pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pf
+b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
+Output written on Report.pdf (14 pages, 592420 bytes).
 PDF statistics:
- 235 PDF objects out of 1000 (max. 8388607)
- 103 compressed objects within 2 object streams
+ 417 PDF objects out of 1000 (max. 8388607)
+ 154 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
