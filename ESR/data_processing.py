@@ -120,14 +120,10 @@ def main(output_plot):
 
 		pminus, Vminus = np.polyfit(Bminus, frequency, 1, cov=True)
 
-		print Vplus[0,0], Vminus[0,0]
-
 		###chi squared
 
 		chisqplus = np.sum( (lin(Bplus, *pplus) - frequency)**2/freq_err**2 )/len(frequency)
 		chisqminus = np.sum( (lin(Bminus, *pminus) - frequency)**2/freq_err**2 )/len(frequency)
-
-		print chisqplus, chisqminus
 
 		##plots
 		plt.figure(figsize=(10,10))
