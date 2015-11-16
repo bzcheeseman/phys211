@@ -2,6 +2,7 @@
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Theory}{2}
 \contentsline {subsection}{\numberline {2.1}Classical Photons}{2}
-\contentsline {section}{\numberline {3}Apparatus}{2}
-\contentsline {section}{\numberline {4}Data/Uncertainty Analysis}{2}
-\contentsline {section}{\numberline {5}Conclusion}{2}
+\contentsline {subsection}{\numberline {2.2}Quantum Photons}{4}
+\contentsline {section}{\numberline {3}Apparatus}{5}
+\contentsline {section}{\numberline {4}Data/Uncertainty Analysis}{5}
+\contentsline {section}{\numberline {5}Conclusion}{5}
