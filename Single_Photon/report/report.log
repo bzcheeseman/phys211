@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  16 NOV 2015 21:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  16 NOV 2015 22:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -870,78 +870,71 @@ File: interferometer_sketch.jpg Graphic file (type jpg)
 Package pdftex.def Info: interferometer_sketch.jpg used on input line 174.
 (pdftex.def)             Requested size: 308.35437pt x 231.26578pt.
 
-<../plots/indistinguishable.pdf, id=43, 1084.05pt x 722.7pt>
+<../plots/indistinguishable.pdf, id=43, 794.97pt x 614.295pt>
 File: ../plots/indistinguishable.pdf Graphic file (type pdf)
 
 <use ../plots/indistinguishable.pdf>
-Package pdftex.def Info: ../plots/indistinguishable.pdf used on input line 186.
+Package pdftex.def Info: ../plots/indistinguishable.pdf used on input line 187.
 
-(pdftex.def)             Requested size: 569.11824pt x 379.41216pt.
-
-Overfull \hbox (27.09323pt too wide) in paragraph at lines 186--187
- [][] 
- []
-
+(pdftex.def)             Requested size: 476.98569pt x 368.57983pt.
 PGFPlots: reading {../data/fitparms_indistinguishable.csv}
-[6 <./interferometer_sketch.jpg>] [7 <../plots/indistinguishable.pdf>]
-<../plots/distinguishable45-7.pdf, id=557, 1084.05pt x 722.7pt>
+ [6 <./interferometer_sketch.jpg>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 222.
+
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 222.
+ [7 <../plots/indistinguishable.pdf, page is rotated 270 degrees>]
+<../plots/distinguishable45-7.pdf, id=68, 794.97pt x 614.295pt>
 File: ../plots/distinguishable45-7.pdf Graphic file (type pdf)
 
 <use ../plots/distinguishable45-7.pdf>
 Package pdftex.def Info: ../plots/distinguishable45-7.pdf used on input line 25
-2.
-(pdftex.def)             Requested size: 569.11824pt x 379.41216pt.
-
-Overfull \hbox (27.09323pt too wide) in paragraph at lines 252--253
- [][] 
- []
-
+4.
+(pdftex.def)             Requested size: 476.98569pt x 368.57983pt.
 PGFPlots: reading {../data/fitparms_distinguishable45-7.csv}
-<../plots/eraser.pdf, id=558, 1084.05pt x 722.7pt>
+ [8]
+<../plots/eraser.pdf, id=72, 794.97pt x 614.295pt>
 File: ../plots/eraser.pdf Graphic file (type pdf)
  <use ../plots/eraser.pdf>
-Package pdftex.def Info: ../plots/eraser.pdf used on input line 277.
-(pdftex.def)             Requested size: 569.11824pt x 379.41216pt.
-
-Overfull \hbox (27.09323pt too wide) in paragraph at lines 277--278
- [][] 
- []
-
+Package pdftex.def Info: ../plots/eraser.pdf used on input line 286.
+(pdftex.def)             Requested size: 476.98569pt x 368.57983pt.
 PGFPlots: reading {../data/fitparms_eraser.csv}
-[8]
-Overfull \vbox (41.11047pt too high) has occurred while \output is active []
 
-
-[9 <../plots/distinguishable45-7.pdf>] [10 <../plots/eraser.pdf>] (./report.aux
-) ) 
+[9 <../plots/distinguishable45-7.pdf, page is rotated 270 degrees>] [10 <../plo
+ts/eraser.pdf, page is rotated 270 degrees>] [11] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 24342 strings out of 493089
- 600722 string characters out of 6134842
- 790236 words of memory out of 5000000
- 27344 multiletter control sequences out of 15000+600000
+ 24359 strings out of 493089
+ 601025 string characters out of 6134842
+ 780236 words of memory out of 5000000
+ 27358 multiletter control sequences out of 15000+600000
  13551 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,11n,83p,1095b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pf
-b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (10 pages, 687038 bytes).
+ 69i,11n,83p,1535b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/font
+s/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on report.pdf (11 pages, 1136598 bytes).
 PDF statistics:
- 1623 PDF objects out of 1728 (max. 8388607)
- 130 compressed objects within 2 object streams
+ 169 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 

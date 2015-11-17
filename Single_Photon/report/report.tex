@@ -181,9 +181,10 @@ Much of the information on the interferometer and the optical setup is superfluo
 
 We will begin with the case where the paths of the photon are indistinguishable and show the interference pattern.  Then we will move on to the case where the paths are, in principle distinguishable, and finally we will show the case where the paths are distinguishable before the photons hit the second linear polarizer and afterwards the paths are again indistinguishable, resulting in a return of the interference pattern but only in one APD.
 
+\subsection{Indistinguishable Paths}
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=.525]{../plots/indistinguishable}
+	\includegraphics[scale=.6]{../plots/indistinguishable.pdf}
 	\caption{The lines are clearly not good fits, and their \redchi values reflect this.  They are shown to give a sense of scale compared to the other plots.}
 \end{figure}
 
@@ -218,7 +219,7 @@ What we should therefore take away from this discussion is that we should place 
 
 \hspace{.5cm}
 
-Returning to the calculations described in the previous Theory section, we will calculate the approximate length of a photon.  Given that the downconverted photons have a wavelength of 810 nm ($\lambda$), and given that the bandwidth of the APD is approximately 10 nm ($\Delta \lambda$), we find that
+Returning to the calculations described in \S 2.2, we will calculate the approximate length of a photon.  Given that the downconverted photons have a wavelength of 810 nm ($\lambda$), and given that the bandwidth of the APD is approximately 10 nm ($\Delta \lambda$), we find that
 
 \begin{gather}
 	\Delta x \geq \frac{\lambda^2}{2\Delta \lambda} \\
@@ -236,7 +237,7 @@ If we treat the photon as a point particle, then $\Delta x$ is simply our uncert
 
 \hspace{.5cm}
 
-Returning to the question of whether there will be more than one photon ever passing through the interferometer, we simply calculate the time in between counts, and realize that the spacing is such that only one photon ever passes through the interferometer.  We recorded the singles count rates with the laser on as approximately 100,000 ($\pm 8000$ for differences between APDs) in each APD (1,2,3 - I, A, B).
+Returning also to the question of whether there will be more than one photon ever passing through the interferometer, we simply calculate the time in between counts, and realize that the spacing is such that only one photon ever passes through the interferometer.  We recorded the singles count rates with the laser on as approximately 100,000 ($\pm 8000$ for differences between APDs) in each APD (1,2,3 - I, A, B).
 
 \begin{gather*}
 	C.R. \approx 100,000 \, H\!z = 100,000 \, count/s \\
@@ -245,11 +246,12 @@ Returning to the question of whether there will be more than one photon ever pas
 	D = c/C.R. \approx 3000 \, m 
 \end{gather*}
 
-This shows us that the distance between each photon is approximately 3000 m, far greater than any dimension of the optical table.
+This shows us that the distance between each photon is approximately 3000 m, far greater than any dimension of the optical table.  Thus it is statistically extremely unlikely that there will ever be more than one single photon passing through the interferometer.  This tells us that the only possible solution is that the photon is interfering with itself.
 
+\subsection{Distinguishable Paths}
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=.525]{../plots/distinguishable45-7}
+	\includegraphics[scale=.6]{../plots/distinguishable45-7.pdf}
 	\caption{The sin/cos models seem to fit well, however they overfit the data, as can be seen from their \redchi values of close to 0.  The lines fit the data quite well, as can be seen from their \redchi values of approximately 1.  Within uncertainties, the data stronly resemble a line, clearly.}
 \end{figure}
 
@@ -272,9 +274,16 @@ This shows us that the distance between each photon is approximately 3000 m, far
    		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.  This table is associated with the plot for the Distinguishable Paths (Figure 5)}
 \end{table}
 
+We will not repeat the calculations done to confirm the statistical likelihood of only one photon passing through the interferometer at a time, or our calculation of its size.  These things have not changed, they are not affected in the least by interference or lack thereof.  We will instead comment qualitatively on the shapes shown.
+
+\hspace{.5cm}
+
+We can see that the graph is not perfectly linear.  However, we can also see that the uncertainties in the data points are approximately of the order of the variations that cause the points to deviate from a straight line.  In order to avoid unnecessary clutter, we have not plotted the variance in the linear fit, but an example is shown in figure 6, and as we can see, the variance in the fit, combined with the error in the points tells us that these points lie along a line to an estimation of approximately the \redchi value.  Since the \redchi value is close to 1, we know that the fit is excellent.  Again, we have the issue of covariant parameters, but since the \redchi values are 0.70 and 0.33, and the fits are visually good, we should not fret.  Noting that the \redchi value of the lower line (coincidences 1-2) is 0.33, this is actually a little low.  This would indicate that the best fit to the model would be simply a horizontal line, incidentally exactly what we would hope it to be in the case of no interference.  We do not fit to a horizontal line because this is remarkably difficult, scipy has great difficulty fitting such a curve because it has a rank-deficient Jacobian by definition.  Thus we look at the fit and realize that the value of the term of order $x$ is approximately zero, and further realize that therefore the best fit to that curve is approximately $y = 2826.20$, which is as close to our prediction of no interference as we could hope - a perfectly horizontal line.
+
+\subsection{Quantum Eraser}
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=.525]{../plots/eraser}
+	\includegraphics[scale=.6]{../plots/eraser.pdf}
 	\caption{The red shaded region is the variance of the linear fit.  As we can see, it overlaps all the points and their uncertainties.}
 \end{figure}
 
@@ -297,7 +306,13 @@ This shows us that the distance between each photon is approximately 3000 m, far
    		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.  The matrices are included because they play a significant role in these fits.  This table is associated with the Quantum Eraser plot (Figure 6)}
 \end{table}
 
-perform calculations that we talked about in the Theory section, equation numbers etc
+It is plainly obvious in this plot that the top line is, in fact, a line.  This can be seen by considering the variance plotted on the graph, and noticing that a vast majority of the error bars of the data points lie entirely within the shaded region.  This, as well as the \redchi value of 0.74 indicates that the linear model is a good fit.  This shows that even if the paths are distinguishable before one of them intersects a linear polarizer, they become indistinguishable from the point of view of one APD, causing the return of the interference pattern.
+
+\hspace{.5cm}
+
+Returning once more to something discussed in \S 2.2, we will comment quantitatively on whether photons are observed to split at a beam splitter.  talk here about how the coincidence rates are almost exactly what we predicted from calculating the accidental rates - so they're all accidents (?)
+
+where do I put the "where classical physics fails?"
 
 \section{Conclusion}
 
