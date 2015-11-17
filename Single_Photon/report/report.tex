@@ -76,9 +76,46 @@
 	In essence, when the waves pass through the second beam splitter, they will recombine, and even though they have opposite polarizations they will still have some phase difference.  When we then pass the waves through the linear polarizer, that phase difference becomes important as the waves are polarized to one direction and the interference pattern is restored.  We would expect to see an interference pattern in the APD that has the linear polarizer in front of it, albeit at a reduced amplitude.  We would expect no interference still at the other APD.
 
 	\subsection{Quantum Photons}
-	talk about the math behind the quantum interpretation - the probability amplitude, etc
+	Quantum particles are fundamentally different from Classical particles.  The primary difference lies in the way that we characterize their position, momentum, and really any quantity about them.  We make use of a probability distribution instead of any certainty in its position/momentum.  In general, we can write the probability as
 
-	Returning to the quantum mechanical aspects of the experiment, we will examine why we can think about light in terms of quantized packets, rather than as the classical continuum.  Because the BBO crystal emits photons by spontaneous parametric down conversion, we have very simple evidence that the photons are discrete quanta.  Because this only occurs for a very small number of entering photons, i.e. the efficiency is low, we realize that this would not occur for a classical continuous wave.  A continuous wave would be able to split in the same way that the pump photons down-convert, but it would not have a low efficiency - we would still see constant coincidence counts, with each at a reduced amplitude rather than discrete counts (what we observe).
+	\begin{equation*}
+		P(\bar{x}) = \abs{\psi(x)}^2.
+	\end{equation*}
+
+	If we consider two paths through the interferometer (now jumping to specifics on our experiment), we can write that, assuming the particles (paths) are indistinguishable, $\psi = \psi_1 + \psi_2$.  This results in a probability distribution given by
+
+	\begin{equation}
+		P = \abs{\psi_1+\psi_2}^2.
+	\end{equation}
+
+	If we now consider that a photon has certain transmission and reflection amplitudes, $t$ and $r$, and plugging into equation 4, 
+
+	\begin{gather}
+		P = \abs{tre^{il_1} + tre^{il_2}} \\
+		P = rr^* tt^* \parens*{2+tre^{il_1} + tre^{il_2}} \\
+		P = 2RT\parens*{1+\cos{\delta}}
+	\end{gather}
+
+	where $R$ is the reflection probability, $T$ is the transmission probability and $\delta$ is the phase difference acquired from the difference in the paths.
+
+	If the paths are distinguishable, we add the probability distributions instead of the $\psi$ and so equation 7 becomes
+
+	\begin{gather}
+		P = \abs{tre^{il_1}} + \abs{tre^{il_2}} \\
+		P = 2RT
+	\end{gather}
+
+	If we consider the case of the eraser, where after the polarizing filter the paths are again indistinguishable, we should see again a probability amplitude that depends on the phase difference.  Because this calculation/derivation is long and arduous, we restrict ourselves to quoting the result, 
+
+	\begin{equation}
+		P = \frac{1}{4}\parens*{1-\cos{\delta}}.
+	\end{equation}
+
+	This is as we would expect, the interference pattern returns, at a diminished amplitude due to the polarizer filtering out some of the photons.
+
+	\hspace{.5cm}
+
+	Now we will examine why we can think about light in terms of quantized packets, rather than as the classical continuum.  Because the BBO crystal emits photons by spontaneous parametric down conversion, we have very simple evidence that the photons are discrete quanta.  Because this only occurs for a very small number of entering photons, i.e. the efficiency is low, we realize that this would not occur for a classical continuous wave.  A continuous wave would be able to split in the same way that the pump photons down-convert, but it would not have a low efficiency - we would still see constant coincidence counts, with each at a reduced amplitude rather than discrete counts (what we observe).
 
 	\hspace{.5cm}
 
@@ -130,6 +167,14 @@ An optical table is an extremely sensitive experimental setup.  We were fortunat
 
 \hspace{.5cm}
 
+Much of the information on the interferometer and the optical setup is superfluous and so I will refrain from mentioning it here.  However, it is important to note that one of the mirrors is mounted on a piezo crystal that allows us to control the path length by varying the voltage applied to the crystal.  This causes the crystal to grow predictably, and allows us to vary path length by an amount that is well known.  Figure 3 is included for clarity and to show which arm of the interferometer has its length adjusted.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=.3]{interferometer_sketch.jpg}
+	\caption{A rough rendering of the interferometer detail.}
+\end{figure}
+
 
 
 \section{Data/Uncertainty Analysis}
@@ -142,6 +187,8 @@ fitted some stuff, here are the values
    		precision=2,
    		every head row/.style={before row=\toprule, after row=\midrule},
    		every row no 4/.style={after row=\midrule},
+   		every row no 9/.style={after row=\midrule},
+   		every row no 11/.style={after row=\midrule},
    		every last row/.style={after row=\bottomrule},
    		columns/0/.style ={column type = {|c|},column name=Parameters},
    		columns/1/.style ={column type = {|c}, column name=Covariance Matrix},
@@ -149,7 +196,7 @@ fitted some stuff, here are the values
    		columns/3/.style ={column type = {c}, column name=},
    		columns/4/.style ={column type = {c}, column name=},
    		columns/5/.style ={column type = {c|}, column name=},
-   		every even row/.style={before row={\rowcolor[gray]{0.9}}}]{../data/fitparms.csv}
+   		every even row/.style={before row={\rowcolor[gray]{0.9}}}]{../data/fitparms_eraser.csv}
    		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.}
 \end{table}
 
