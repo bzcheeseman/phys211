@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage[margin=.75in]{geometry}
+\usepackage[margin=.5in]{geometry}
 \usepackage{graphicx, dblfloatfix}
 \usepackage{amsmath, amssymb, amsfonts, mathrsfs, mathtools}
 \usepackage[english]{babel}
@@ -136,9 +136,9 @@
 
 	\begin{gather*}
 		\Delta t \geq \frac{\hbar}{2\Delta E} \\
-		x \approx c\Delta t \\
-		x \approx c\frac{\hbar}{2\Delta E} = c\frac{\hbar}{2}\frac{\lambda^2}{\hbar c \Delta \lambda} \\
-		x \approx \frac{\lambda^2}{2\Delta \lambda}
+		\Delta x \approx c\Delta t \\
+		\Delta x \geq c\frac{\hbar}{2\Delta E} = c\frac{\hbar}{2}\frac{\lambda^2}{\hbar c \Delta \lambda} \\
+		\Delta x \geq \frac{\lambda^2}{2\Delta \lambda}
 	\end{gather*}
 
 	We take the uncertainty in the time to be the uncertainty in when the photon struck the APD.  This means that we don't know exactly when the photon struck, but we can tell that there was a pulse.  Thus we know how long it took the photon to fully strike the APD, and so we know, given the speed of light, how long the photon is.  Since the APD is a physical piece of equipment, it will have a certain resolution.  That will give us the uncertainty in $\lambda$, allowing us to calculate the length of the photon.  Given this value, we are then able to calculate (given singles counts of the APD and the time between counts) the average distance between the photons.  This will let us show that it is incredibly unlikely that any more than one single photon passes through the interferometer at any given time.  We will perform the actual calculation later on, but we establish the theory behind the calculation here.
@@ -179,9 +179,106 @@ Much of the information on the interferometer and the optical setup is superfluo
 
 \section{Data/Uncertainty Analysis}
 
-fitted some stuff, here are the values
+We will begin with the case where the paths of the photon are indistinguishable and show the interference pattern.  Then we will move on to the case where the paths are, in principle distinguishable, and finally we will show the case where the paths are distinguishable before the photons hit the second linear polarizer and afterwards the paths are again indistinguishable, resulting in a return of the interference pattern but only in one APD.
 
-\begin{table}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=.525]{../plots/indistinguishable}
+	\caption{The lines are clearly not good fits, and their \redchi values reflect this.  They are shown to give a sense of scale compared to the other plots.}
+\end{figure}
+
+\begin{table}[!htb]
+	\centering
+	\pgfplotstabletypeset[
+   		precision=2,
+   		every head row/.style={before row=\toprule, after row=\midrule},
+   		every row no 4/.style={after row=\midrule},
+   		every row no 9/.style={after row=\midrule},
+   		every row no 11/.style={after row=\midrule},
+   		every last row/.style={after row=\bottomrule},
+   		columns/0/.style ={column type = {|c|},column name=Parameters},
+   		columns/1/.style ={column type = {|c}, column name=Covariance Matrix},
+   		columns/2/.style ={column type = {c}, column name=},
+   		columns/3/.style ={column type = {c}, column name=},
+   		columns/4/.style ={column type = {c}, column name=},
+   		columns/5/.style ={column type = {c|}, column name=},
+   		every even row/.style={before row={\rowcolor[gray]{0.9}}}]{../data/fitparms_indistinguishable.csv}
+   		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.  This table is associated with the plot for the Indistinguishable Paths (Figure 4)}
+\end{table}
+
+Before we move on to actually performing some of the calculations detailed earlier on, we need to stop and discuss the massive error on our fit parameters.  This brief discussion will apply to all the subsequent fits as well.
+
+\hspace{.25cm}
+
+The first alarm should ring once the reader notices that our first parameter is $-372.62 \pm 6.54 \times 10^7$.  That is just incorrect, we essentially have no idea what the parameter is.  But the fit actually matches the data, with a low \redchi value.  This is where our knowledge of the covariance matrix will come in handy.  If we look at the covariance values, for example between A and $\delta_{1,2}$ we notice that element is $7.03 \times 10^5$.  That means that A and $\delta$ are \emph{highly} covariant.  Since the covariance matrix is related to the Jacobian of the system used to model the data and parameters we try to use to fit, we can imagine this as a complex landscape.  If we think about the covariance matrix as representative of that landscape, this simply tells us that the landscape slopes in more than one dimension, which should not be surprising, this is not a simple model.
+
+\hspace{.25cm}
+
+What we should therefore take away from this discussion is that we should place trust in the \redchi values in this case, as well as our own eyes.  In general, our eyes tell us that these fits are reliable, as does the \redchi value - letting us know that the covariant terms in the covariance matrix are causing problems.  We can estimate the variance of the parameters another way - by using something called the loss function, which is used by the fitting routine to actually perform the fit.  However, this is generally very complicated and the values of the loss function are not accessible if we run the scipy packages, so for now we must simply be content to know that the fits are acceptable.  Furthermore, we have nothing to compare to, and no literature values (that we know of) to compare to, so visual confirmation of the fit's efficacy is sufficient.
+
+\hspace{.5cm}
+
+Returning to the calculations described in the previous Theory section, we will calculate the approximate length of a photon.  Given that the downconverted photons have a wavelength of 810 nm ($\lambda$), and given that the bandwidth of the APD is approximately 10 nm ($\Delta \lambda$), we find that
+
+\begin{gather}
+	\Delta x \geq \frac{\lambda^2}{2\Delta \lambda} \\
+	\Delta x \geq \frac{(810)^2}{20} nm \\
+	\Delta x \geq 32,805 \, nm = 3.28 \times 10^{-5} \, m
+\end{gather}
+
+a value that is not terribly implausible.  One interesting feature of this value is that it will change based on how accurate our APD is, in terms of what we use for $\Delta \lambda$.  If we increase our sensitivity to wavelength (our bandwidth), we will see a photon that is longer, and vice-versa.  This seems counter-intuitive, but all it means is that there is an uncertainty relation between $x$ and $\lambda$.  In effect, we can say that
+
+\begin{equation}
+	\Delta x \Delta \lambda \geq \frac{1}{2} \lambda^2.
+\end{equation}
+
+If we treat the photon as a point particle, then $\Delta x$ is simply our uncertainty in its position, rephrased, its effective size.  Since the photon is anywhere within $\Delta x$, we realize that as our band decreases in size, we are more unsure of where the photon is, because we are more sure of its wavelength and vice-versa.
+
+\hspace{.5cm}
+
+Returning to the question of whether there will be more than one photon ever passing through the interferometer, we simply calculate the time in between counts, and realize that the spacing is such that only one photon ever passes through the interferometer.  We recorded the singles count rates with the laser on as approximately 100,000 ($\pm 8000$ for differences between APDs) in each APD (1,2,3 - I, A, B).
+
+\begin{gather*}
+	C.R. \approx 100,000 \, H\!z = 100,000 \, count/s \\
+	c \, \sim \, \frac{[m]}{[s]} \\
+	\implies c/C.R. \, \sim \, [m] \\
+	D = c/C.R. \approx 3000 \, m 
+\end{gather*}
+
+This shows us that the distance between each photon is approximately 3000 m, far greater than any dimension of the optical table.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=.525]{../plots/distinguishable45-7}
+	\caption{The sin/cos models seem to fit well, however they overfit the data, as can be seen from their \redchi values of close to 0.  The lines fit the data quite well, as can be seen from their \redchi values of approximately 1.  Within uncertainties, the data stronly resemble a line, clearly.}
+\end{figure}
+
+\begin{table}[!htb]
+	\centering
+	\pgfplotstabletypeset[
+   		precision=2,
+   		every head row/.style={before row=\toprule, after row=\midrule},
+   		every row no 4/.style={after row=\midrule},
+   		every row no 9/.style={after row=\midrule},
+   		every row no 11/.style={after row=\midrule},
+   		every last row/.style={after row=\bottomrule},
+   		columns/0/.style ={column type = {|c|},column name=Parameters},
+   		columns/1/.style ={column type = {|c}, column name=Covariance Matrix},
+   		columns/2/.style ={column type = {c}, column name=},
+   		columns/3/.style ={column type = {c}, column name=},
+   		columns/4/.style ={column type = {c}, column name=},
+   		columns/5/.style ={column type = {c|}, column name=},
+   		every even row/.style={before row={\rowcolor[gray]{0.9}}}]{../data/fitparms_distinguishable45-7.csv}
+   		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.  This table is associated with the plot for the Distinguishable Paths (Figure 5)}
+\end{table}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=.525]{../plots/eraser}
+	\caption{The red shaded region is the variance of the linear fit.  As we can see, it overlaps all the points and their uncertainties.}
+\end{figure}
+
+\begin{table}[!htb]
 	\centering
 	\pgfplotstabletypeset[
    		precision=2,
@@ -197,7 +294,7 @@ fitted some stuff, here are the values
    		columns/4/.style ={column type = {c}, column name=},
    		columns/5/.style ={column type = {c|}, column name=},
    		every even row/.style={before row={\rowcolor[gray]{0.9}}}]{../data/fitparms_eraser.csv}
-   		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.}
+   		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.  The matrices are included because they play a significant role in these fits.  This table is associated with the Quantum Eraser plot (Figure 6)}
 \end{table}
 
 perform calculations that we talked about in the Theory section, equation numbers etc
