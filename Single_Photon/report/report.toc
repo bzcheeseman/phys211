@@ -7,6 +7,6 @@
 \contentsline {section}{\numberline {4}Data/Uncertainty Analysis}{6}
 \contentsline {subsection}{\numberline {4.1}Indistinguishable Paths}{6}
 \contentsline {subsection}{\numberline {4.2}Distinguishable Paths}{8}
-\contentsline {subsection}{\numberline {4.3}Quantum Eraser}{9}
+\contentsline {subsection}{\numberline {4.3}Quantum Eraser}{10}
 \contentsline {subsection}{\numberline {4.4}Where Does Classical Physics Fail?}{11}
 \contentsline {section}{\numberline {5}Conclusion}{12}
