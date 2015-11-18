@@ -27,14 +27,14 @@
 \maketitle
 
 \begin{abstract}
-	We present here a method by which we can determine the wave-particle duality of light and show that it is a quantum-mechanical and that they comprise parts of a system that is not possible to describe classically.  In all, we are able to show several effects, each can be described classically on its own, but the combination of all these effects can only be described using quantum mechanics.
+	We present here a method by which we can determine the wave-particle duality of light and show that it is a quantum-mechanical phenomenon and that it comprises parts of a system that is not possible to describe classically.  In all, we are able to show several effects, each can be described classically on its own, but the combination of all these effects can only be described using quantum mechanics.
 \end{abstract}
 
 \tableofcontents
 \newpage
 
 \section{Introduction}
-	It is generally well known that light has both particle-like qualities, in that it carries momentum, and that it can act like a quantum mechanical particle system in that its motion and other properties can be described in real space as well as in momentum space (roughly) with the free particle hamiltonian, especially in the regime where we have not engineered photon-photon interactions.  In general, we can use a faily standard probablistic interpretation in order to understand the way that light behaves given different situations.  In our particular case, we can understand the physical differences between distinguishable paths, indistinguishable paths, and ***erasure of interference that we can directly cause with a polarizing filter.
+	It is generally well known that light has both particle-like qualities, in that it carries momentum, and that it can act like a quantum mechanical particle system in that its motion and other properties can be described in real space as well as in momentum space (roughly) with the free particle Hamiltonian, especially in the regime where we have not engineered photon-photon interactions.  In general, we can use a fairly standard probablistic interpretation in order to understand the way that light behaves given different situations.  In our particular case, we can understand the physical differences between distinguishable paths, indistinguishable paths, and replacement of erased interference that we can directly cause with a polarizing filter.
 
 
 \section{Theory}
@@ -43,7 +43,7 @@
 	\subsection{Classical Photons}
 	What we have discussed so far is, however, a quantum mechanical observation.  We can describe each of these situations classically by considering the polarization and co-propagation of the EM waves that make up the laser beam.  We will consider each of the three cases separately and begin to explore the classical electrodynamic explanation for these three phenomena.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
 	The first case we will consider is the case where the two paths the photon could take are indistinguishable.  Take the polarization of the photon(s) to be uniform across the two paths, and take the $\hat{z}$ to be the direction of propagation of the waves, so our wave vector $\vec{k} = \abs{k}\hat{z}$.  If we make the reasonable assumption that these photons propagate in what is approximately free space, we can write down the $\vec{E}$ and $\vec{B}$ fields like so:
 
@@ -55,22 +55,22 @@
 
 	where we have arbitrarily chosen that the photon (by convention, $\vec{E}$) is polarized in $\hat{x}$.  Because we can simply choose our axes such that this occurs, we would be able to arbitrarily realign such that this is the case, or any of the orthogonal directions points along the polarization direction.  The most important thing to note here is that the $\vec{E}$, $\vec{B}$, and $\vec{k}$ are all orthogonal.  $A$ and $B$ are arbirtary scale constants.  There are relations between the $\vec{E}$ and $\vec{B}$ fields that we simply absorb into these constants.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
 	Classically, when we send a wave through a beam splitter, like the EM waves that make up photons, we expect that the wave will split as it passes through one arm of the interferometer, and that when the waves recombine we will see a phase difference that causes an interference effect as long as the path lengths are different.  When the waves recombine, they simply superimpose upon one another.  If the phases of those waves is different when they recombine, we will see an interference pattern - in some places they will interfere constructively and in others destructively as we would expect from any other wave.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
 	Now we consider the case where the two paths are distinguishable - where we have, for example, selected different polarizations for the two waves.  Looking again at equations 2 and 3, we see that the waves should not interfere at all.  If we align the $\vec{E}$ of one arm with the $\vec{B}$ of the other arm, since the waves still propagate in the same direction, we will notice that $\vec{E}$ and $\vec{B}$ of the two arms are orthogonal and as such will not interfere.  If there is still some component of the fields in a parallel direction there will be a small amount of interference, but overall this interference will be very small.  Certainly much smaller than it would be if the waves were aligned.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
-	Finally, we can consider the case where one wave is polarized just before it hits the APD, but after the two waves through the second beam splitter and recombine in the interferometer.  It is useful to use the following image to imagine not only the first two situations (indistinguishable, distinguishable paths) as well as the one we consider now.
+	Finally, we can consider the case the waves are polarized just before they hits the detector, an Avalanche Photo Diode (APD), but after they pass through the second beam splitter and recombine.  It is useful to consider figure 1 to imagine not only the first two situations (indistinguishable, distinguishable paths) as well as the one we consider now.
 
 	\begin{figure}[!htb]
 		\centering
 		\includegraphics[scale=.5]{interferometer_wave.png}
-		\caption{A very classical depiction of a photon interference experiment.  This shows roughly how the waves are passing through the arms of the interferometer.}
+		\caption{A classical depiction of a photon interference experiment.  This shows roughly how the waves are passing through the arms of the interferometer.}
 	\end{figure}
 
 	In essence, when the waves pass through the second beam splitter, they will recombine, and even though they have opposite polarizations they will still have some phase difference.  When we then pass the waves through the linear polarizer, that phase difference becomes important as the waves are polarized to one direction and the interference pattern is restored.  We would expect to see an interference pattern in the APD that has the linear polarizer in front of it, albeit at a reduced amplitude.  We would expect no interference still at the other APD.
@@ -113,11 +113,18 @@
 
 	This is as we would expect, the interference pattern returns, at a diminished amplitude due to the polarizer filtering out some of the photons.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
-	Now we will examine why we can think about light in terms of quantized packets, rather than as the classical continuum.  Because the BBO crystal emits photons by spontaneous parametric down conversion, we have very simple evidence that the photons are discrete quanta.  Because this only occurs for a very small number of entering photons, i.e. the efficiency is low, we realize that this would not occur for a classical continuous wave.  A continuous wave would be able to split in the same way that the pump photons down-convert, but it would not have a low efficiency - we would still see constant coincidence counts, with each at a reduced amplitude rather than discrete counts (what we observe).
+	Now we will examine why we can think about light in terms of quantized packets, rather than as the classical continuum.  If we had a continuous wave passing through a beam splitter, we would see the coincidence rates at the level that we saw the singles rates with no beam splitter.  Since a wave is continuous, as the waves pass through they simply split into two, splitting their amplitude (energy) between themselves and we would see coincidence counts at the same rate as we saw singles counts before adding the splitter.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
+	Beta-Barium-Borate (BBO) emits photons by a process of spontaneous parametric down conversion - meaning that the pump photon, with some small efficiency, will collide with an electron within the crystal lattice structure and cause a de-excitation that emits two photons of equal energy and momentum, and whose sum of those two quantities is equal to the original photon's energy.
+
+	\hspace{.25cm}
+
+	Because the BBO crystal only down-converts for a very small number of entering photons, i.e. the efficiency is low, we realize that this would not occur for a classical continuous wave.  A continuous wave would be able to split in the same way that the pump photons down-convert, but it would not have a low efficiency - we would still see constant coincidence counts, with each at a reduced amplitude rather than discrete counts (what we observe).
+
+	\hspace{.25cm}
 
 	We can show more rigourously that there is statistically only a single photon passing through the interferometer at a time, i.e. we can show that a photon is a particle by calculating its size in physical space.  We know from the uncertainty principle that
 
@@ -143,15 +150,15 @@
 
 	We take the uncertainty in the time to be the uncertainty in when the photon struck the APD.  This means that we don't know exactly when the photon struck, but we can tell that there was a pulse.  Thus we know how long it took the photon to fully strike the APD, and so we know, given the speed of light, how long the photon is.  Since the APD is a physical piece of equipment, it will have a certain resolution.  That will give us the uncertainty in $\lambda$, allowing us to calculate the length of the photon.  Given this value, we are then able to calculate (given singles counts of the APD and the time between counts) the average distance between the photons.  This will let us show that it is incredibly unlikely that any more than one single photon passes through the interferometer at any given time.  We will perform the actual calculation later on, but we establish the theory behind the calculation here.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
 	There is a significant problem with this theory that we have laid down, and that is that we haven't truly established whether photons are particles.  All of the features of photons that we have observed could be explained by a wave packet.  It is possible to have a wave packet that is localized in space, and have it also split at the beam splitter.  We can, however, show that photons have both natures, both wave and particle.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
-	Consider, for example, an experiment in which we insert a beam splitter between two APDs.  Then, we consider the coincidence rates between the two APDs.  If this was a wave packet, we would expect to see some nontrivial coincidence rates even when the laser is on.  Since a wave packet can be split like any other wave, it is not unreasonable to expect that each such wave packet will do so and produce a coincidence countrate that is far above the accidental rates.  We will find, however, that this is not the case.  Because the photons are both waves and particles, we will find that they share some of the indivisibiity properties of particles.  Given this information, we will realize that we cannot reconcile the classical arguments for the nature of a photon given the fact that if only one photon passes through the interferometer, and the fact that it does not split.  In fact, we realize that the only possible manner of interaction is for the photon to interfere with itself, in that it has a finite probability of traveling down both arms of the interferometer at once.
+	Consider, for example, an experiment in which we insert a beam splitter between two APDs.  Then, we consider the coincidence rates between the two APDs.  If this was a wave packet, we would expect to see some nontrivial coincidence rates even when the laser is on.  Since a wave packet can be split like any other wave, it is not unreasonable to expect that each such wave packet will do so and produce a coincidence countrate that is far above the accidental rates.  We will find, however, that this is not the case.  Because the photons are both waves and particles, we will find that they share some of the indivisibiity properties of particles.  Given this information, we will realize that we cannot reconcile the classical arguments for the nature of a photon with the fact that only one indivisible photon passes through the interferometer.  In fact, we realize that the only possible manner of interaction is for the photon to interfere with itself, in that it has a finite probability of traveling down both arms of the interferometer at once.
 
-	\hspace{.5cm}
+	\hspace{.25cm}
 
 	In the interest of completeness, we should mention that light travels extremely fast.  As a consequence of this, since the APD has only about a 58\% efficiency \cite{eff} - meaning that only about half the photons incident on the lens actually cause a count to occur.  Thus it is possible that a photon could bounce off the lens and into the other APD, while the next photon behind it causes a count in the first APD, causing an accidental coincidence.  This is not terribly unlikely, and in fact it probably does happen.  However, the geometry of the APDs is such that it happens extremely rarely, and is thus on a level that is comparable to the background that we would expect, and account for.
 
@@ -165,15 +172,19 @@
 
 An optical table is an extremely sensitive experimental setup.  We were fortunate that the alignment for the optical table was done for us, the only task that remained was for us to place and align a beam splitter between APD 1 and 4 (Idler and \#4), and to place a linear polarizer between APD 2 (Port B) and the recombining beam splitter of the Mach-Zhender interferometer.
 
-\hspace{.5cm}
+\hspace{.25cm}
 
 Much of the information on the interferometer and the optical setup is superfluous and so I will refrain from mentioning it here.  However, it is important to note that one of the mirrors is mounted on a piezo crystal that allows us to control the path length by varying the voltage applied to the crystal.  This causes the crystal to grow predictably, and allows us to vary path length by an amount that is well known.  Figure 3 is included for clarity and to show which arm of the interferometer has its length adjusted.
+
+\hspace{.25cm}
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=.3]{interferometer_sketch.jpg}
 	\caption{A rough rendering of the interferometer detail.}
 \end{figure}
+
+It is also important to note that in the case of the actual interferometer data-taking, we worked with coincidence counts due to the fact that each down-converted photon comes out with a pair.  Thus we eliminate accidental counts because we only count instances where both photons in the down-converted pair are observed.
 
 
 
@@ -184,7 +195,7 @@ We will begin with the case where the paths of the photon are indistinguishable 
 \subsection{Indistinguishable Paths}
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=.6]{../plots/indistinguishable.pdf}
+	\includegraphics[scale=.55]{../plots/indistinguishable.pdf}
 	\caption{The lines are clearly not good fits, and their \redchi values reflect this.  They are shown to give a sense of scale compared to the other plots.}
 \end{figure}
 
@@ -217,7 +228,7 @@ The first alarm should ring once the reader notices that our first parameter is 
 
 What we should therefore take away from this discussion is that we should place trust in the \redchi values in this case, as well as our own eyes.  In general, our eyes tell us that these fits are reliable, as does the \redchi value - letting us know that the covariant terms in the covariance matrix are causing problems.  We can estimate the variance of the parameters another way - by using something called the loss function, which is used by the fitting routine to actually perform the fit.  However, this is generally very complicated and the values of the loss function are not accessible if we run the scipy packages, so for now we must simply be content to know that the fits are acceptable.  Furthermore, we have nothing to compare to, and no literature values (that we know of) to compare to, so visual confirmation of the fit's efficacy is sufficient.
 
-\hspace{.5cm}
+\hspace{.25cm}
 
 Returning to the calculations described in \S 2.2, we will calculate the approximate length of a photon.  Given that the downconverted photons have a wavelength of 810 nm ($\lambda$), and given that the bandwidth of the APD is approximately 10 nm ($\Delta \lambda$), we find that
 
@@ -235,7 +246,7 @@ a value that is not terribly implausible.  One interesting feature of this value
 
 If we treat the photon as a point particle, then $\Delta x$ is simply our uncertainty in its position, rephrased, its effective size.  Since the photon is anywhere within $\Delta x$, we realize that as our band decreases in size, we are more unsure of where the photon is, because we are more sure of its wavelength and vice-versa.
 
-\hspace{.5cm}
+\hspace{.25cm}
 
 Returning also to the question of whether there will be more than one photon ever passing through the interferometer, we simply calculate the time in between counts, and realize that the spacing is such that only one photon ever passes through the interferometer.  We recorded the singles count rates with the laser on as approximately 100,000 ($\pm 8000$ for differences between APDs) in each APD (1,2,3 - I, A, B).
 
@@ -276,9 +287,9 @@ This shows us that the distance between each photon is approximately 3000 m, far
 
 We will not repeat the calculations done to confirm the statistical likelihood of only one photon passing through the interferometer at a time, or our calculation of its size.  These things have not changed, they are not affected in the least by interference or lack thereof.  We will instead comment qualitatively on the shapes shown.
 
-\hspace{.5cm}
+\hspace{.25cm}
 
-We can see that the graph is not perfectly linear.  However, we can also see that the uncertainties in the data points are approximately of the order of the variations that cause the points to deviate from a straight line.  In order to avoid unnecessary clutter, we have not plotted the variance in the linear fit, but an example is shown in figure 6, and as we can see, the variance in the fit, combined with the error in the points tells us that these points lie along a line to an estimation of approximately the \redchi value.  Since the \redchi value is close to 1, we know that the fit is excellent.  Again, we have the issue of covariant parameters, but since the \redchi values are 0.70 and 0.33, and the fits are visually good, we should not fret.  Noting that the \redchi value of the lower line (coincidences 1-2) is 0.33, this is actually a little low.  This would indicate that the best fit to the model would be simply a horizontal line, incidentally exactly what we would hope it to be in the case of no interference.  We do not fit to a horizontal line because this is remarkably difficult, scipy has great difficulty fitting such a curve because it has a rank-deficient Jacobian by definition.  Thus we look at the fit and realize that the value of the term of order $x$ is approximately zero, and further realize that therefore the best fit to that curve is approximately $y = 2826.20$, which is as close to our prediction of no interference as we could hope - a perfectly horizontal line.
+We can see that the plot in figure 5 is not perfectly linear.  However, we can also see that the uncertainties in the data points are approximately of the order of the variations that cause the points to deviate from a straight line.  In order to avoid unnecessary clutter, we have not plotted the variance in the linear fit, but an example is shown in figure 6, and as we can see, the variance in the fit, combined with the error in the points tells us that these points lie along a line to an estimation of approximately the \redchi value.  Since the \redchi value is close to 1, we know that the fit is excellent.  Again, we have the issue of covariant parameters, but since the \redchi values are 0.70 and 0.33, and the fits are visually good, we should not fret.  Noting that the \redchi value of the lower line (coincidences 1-2) is 0.33, this is actually a little low.  This would indicate that the best fit to the model would be simply a horizontal line, incidentally exactly what we would hope it to be in the case of no interference.  We do not fit to a horizontal line because this is remarkably difficult, scipy has great difficulty fitting such a curve because it has a rank-deficient Jacobian by definition.  Thus we look at the fit and realize that the value of the term of order $x$ is approximately zero, and further realize that therefore the best fit to that curve is approximately $y = 2826.20$, which is as close to our prediction of no interference as we could hope - a perfectly horizontal line.
 
 \subsection{Quantum Eraser}
 \begin{figure}[!htb]
@@ -306,19 +317,79 @@ We can see that the graph is not perfectly linear.  However, we can also see tha
    		\caption{Zeroes indicate non-members of the covariance matrices, not a zero in that index.  The matrices are included because they play a significant role in these fits.  This table is associated with the Quantum Eraser plot (Figure 6)}
 \end{table}
 
-It is plainly obvious in this plot that the top line is, in fact, a line.  This can be seen by considering the variance plotted on the graph, and noticing that a vast majority of the error bars of the data points lie entirely within the shaded region.  This, as well as the \redchi value of 0.74 indicates that the linear model is a good fit.  This shows that even if the paths are distinguishable before one of them intersects a linear polarizer, they become indistinguishable from the point of view of one APD, causing the return of the interference pattern.
+It is plainly obvious in this plot that the top line is, in fact, a line.  This can be seen by considering the variance plotted on the graph, and noticing that a vast majority of the error bars of the data points lie entirely within the shaded region.  This, as well as the \redchi value of 0.74 indicates that the linear model is a good fit.  This plot shows that even if the paths are distinguishable before one of them intersects a linear polarizer (the flat line), they become indistinguishable from the point of view of one APD, causing the return of the interference pattern (the sin curve).
 
-\hspace{.5cm}
+\hspace{.25cm}
 
-Returning once more to something discussed in \S 2.2, we will comment quantitatively on whether photons are observed to split at a beam splitter.  talk here about how the coincidence rates are almost exactly what we predicted from calculating the accidental rates - so they're all accidents (?)
+Returning once more to something discussed in \S 2.2, we will comment quantitatively on whether photons are observed to split at a beam splitter.  If we calculate accidental coincidences based on the measured singles rates, we will notice something interesting.  Expected (accidental) coincidences are calculated by
 
-where do I put the "where classical physics fails?"
+\begin{equation}
+	R_{acc} = R_1R_2\Delta t.
+\end{equation}
+
+Data is tabulated below, in this particular case we use $\Delta t$ is plus or minus the reaction of the APD ($\pm 50 \, ns$) and so we obtain $\Delta t = 100 \, ns$.
+
+\begin{center}
+Measured and Calculated Count Rates\\
+\begin{tabular}{|l|l|l|}
+	\hline
+	 & With Splitter (Hz) & Without Splitter (Hz) \\ 
+	\hline
+	APD 1 Singles & $80000 \pm 5000$ & $3000 \pm 300$ \\
+	APD 4 Singles & $72000 \pm 1000$ & $4000 \pm 200$ \\
+	1-4 Coincidences & $600 \pm 5$ & $1.2 \pm 0.1$ \\
+	Expected Coincidences & $576 \pm 44$ & $1.2 \pm 0.2$ \\
+	\hline
+\end{tabular}
+\end{center}
+
+In order to obtain the uncertainty in the singles counts we measured fluctuations in the rate counter as time evolved.  We found that, for example, the counter for APD 1 fluctuated between 85000 and 75000 Hz.  Thus we simply use this as our uncertainty.  It is not incredibly important that these be too precise, however, since the important thing to notice is that the count rates are far larger with the laser on than off (obviously).  Furthermore, when we calculate the expected coincidences from the singles rates, we use the values we measured, with the uncertainty we measured, and thus it shouldn't make a difference as to how we obtained the value for the singles rates and their uncertainty.  Whether we watched a meter or calculated it from the total counts, we should get the same value (the meter does exactly what we would have done but in real-time).
+
+\hspace{.25cm}
+
+All that aside, we notice that our measured coincidences and the expected coincidences agree very well.  In fact, since their uncertainties overlap by 25 counts (more than half of the uncertainty in the expected coincidences) we can say that the coincidences are accidental.  Restated, the photons from the laser do not cause coincidences except accidental coincidences.  Thus we never observe a photon split at the beam splitter, since all of these coincidences are accounted for by accidental counts.
+
+\subsection{Where Does Classical Physics Fail?}
+
+So far we have many observations of light.  The first few have to do with the interferometer, and the rest have to do with our more recent conclusions about the size of a photon, its indivisibility, and the quantization of emissions from the BBO crystal.  First we will go through breifly the conclusions of these observations and then begin to discuss where the classical model of light fails.
+
+\hspace{.25cm}
+
+In the interferometer, we saw that when the two arms are indistinguishable we saw an interference pattern.  When we made the paths distinguishable (which we enforced via polarization) we noticed that (for the most part) the interference pattern went away.  Next, we took a linear polarizer and fitted it in front of one of the APDs, which caused the paths to be again indistinguishable (from the point of view of the APD with the polarizer fitted).  We saw a return of the interference pattern in this case, but only in the APD with the polarizer fitted.
+
+\hspace{.25cm}
+
+Later on we argued that the down-converted light emmitted from the BBO crystal was quantized.  We also argued that we had never actually observed a photon split at the beam splitter, and even calculated a size for the photon based on an uncertainty principle derived from the photon's velocity and the bandwidth of our detector equipment.
+
+\hspace{.25cm}
+
+In the case of the interferometer, the wave model of light manages to explain each of the phenomena, as does quantum physics.  In the case of a continuous light wave, assuming that is what enters the interferometer, we can explain all the phenomena in terms of the wave polarization and superpositions of the waves on one another.  In essence, because we have the polarization degree of freedom, we can rotate the waves at will and reproduce the interference effects.  The issues begin to arise when we include our observation of the "size" of a photon, for example.  In the classical model, light waves are a continuum, and thus the classical model cannot reconcile the interference pattern with the fact that only one photon passes through the interferometer at a time.  One might argue that if we consider a wave packet, it is possible for a single packet to pass through both arms if it were to split.  However, we made the observation that a photon is never actually observed to split at a beam splitter.  The splitter instead sends every other photon in different directions through clever manipulations of the index of refraction.  In the classical case the beam splitter relies on the continuity of the waves incident on the side - the phase of the electric field is not well defined for a finite packet.  However, the quantum case relies on creation operators, and can be written very simply as a unitary transformation that sends photons along different paths based on their polarization.  Furthermore, since the photon is simply a probability distribution, there is a certain probability (discussed in \S 2.2) of the photon being somewhere along either path at any given time.  Because this probability exists, the photon can interfere with itself when it is delocalized over the two paths of the interferometer.  Classically, this is impossible, but we know that only one photon at a time passes through the interferometer, and so the quantum explanation must be correct.
 
 \section{Conclusion}
 
+Classical physics fails in this case because the wave model of light is unable to reconcile the particle nature of light and the fundamental indivisibility of a particle.  We know that the photon is a particle - it obeys boson statistics, and carries a spin of 1.  It is massless, which we know from an application of relativity implies that it travels at exactly c in any frame.  We know that light is quantized in that we can send one single photon somewhere, and it carries with it some energy/momentum that we write down as $\hbar k^{\alpha}$.  Quantum mechanically, we can write the photon down as a quantum of energy, equivalent to the solution of an appropriately derived harmonic oscillator (which Dirac showed to be correct, and give the correct level splitting).
+
+\hspace{.25cm}
+
+We can also look at photons from the perspective that they are emitted by atoms, and because they are emitted as energy quanta, we can see them as having discrete energies based on the atomic energy levels.  From this it becomes simple to view the emissions as discrete particles.  This question is, however, not simple.  In fact it is still under test, the framework of Quantum Electrodynamics quite complete, but certain tests at the cold temperature limit (the quantum limit) must still be performed to be certain of the efficacy of the theory.
+
+\hspace{.25cm}
+
+This work was undertaken in association with Mateo Portune.  Our thanks to the Advanced Undergraduate Physics Laboratory staff and Teaching Assistants for invaluable assistance aligning the optical table and for answering inane questions.
+
 \begin{thebibliography}{10}
 	\bibitem{eff}
-		Richard A. Myers, Richard Farrell, Arieh M. Karger, James E. Carey, and Eric Mazur, "Enhancing near-infrared avalanche photodiode performance by femtosecond laser microstructuring," Appl. Opt. 45, 8825-8831 (2006)
+		Myers, Farrell, Karger, Carey, and Mazur, \emph{Enhancing near-infrared avalanche photodiode performance by femtosecond laser microstructuring}. Appl. Opt. 45, 8825-8831, 2006.
+
+	\bibitem{lab manual}
+		University of Chicago Department of Physics. "Introductory Lab: Gamma Cross Sections"\\
+		https://wiki.uchicago.edu/display/P211manuals/Introductory+Lab\%3A+Gamma+Cross+Sections. (Accessed Nov 8-16, 2015)
+
+	\bibitem{taylor}
+		Taylor, John. \emph{An Introduction to Error Analysis}. Sausalito: University Science Books, 1997.
+
+	\bibitem{sakurai}
+		Sakurai, Jun J, and Napolitano, Jim. \emph{Modern Quantum Mechanics}. Boston: Addison-Wesley, 2011.
 
 \end{thebibliography}
 
