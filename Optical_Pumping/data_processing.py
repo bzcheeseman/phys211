@@ -1,27 +1,48 @@
-%pylab inline
+#%pylab inline
 
 from matplotlib import rc
+from scipy.optimize import curve_fit
+import numpy as np
+import matplotlib.pyplot as plt
 
 rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 rc('text', usetex=True)
 
-data = genfromtxt("data/s4_4_scope_trace.tsv", skip_header=1)
-data = delete(data, data[:,2], 1)
+def selectdomain(xdata,ydata,domain):
+    ind=np.searchsorted(xdata,domain)
+    return xdata[ind[0]:ind[1]],ydata[ind[0]:ind[1]]
 
-figure(figsize = (8, 8))
-plot(data[:,1], data[:,0])
-plot(data[:,1], .01*data[:,2])
-show()
+def larmor_fit(dataset):
+    data = np.genfromtxt(dataset, skip_header = 1, usecols = (0,1))
+
+    xdata = data[:,0]
+    ydata = data[:,1]
+
+    sel_xdata, sel_ydata = selectdomain(xdata, ydata, [0.00702, 0.00735])
+
+    def sin_function(x, A, w, d, c):
+        return A*np.sin(w*x + d) + c
+
+    p = [.01, 950e2, np.pi/4, .04]
+
+    popt, pcov = curve_fit(sin_function, sel_xdata, sel_ydata, p0 = p)
+
+    yFit = sin_function(sel_xdata, *popt)
+    yuFit = sin_function(sel_xdata, *p)
+
+    parms = {"A":popt[0], "freq":popt[1], "shift":popt[2], "vertical":popt[3]}
+
+    print parms["freq"]/(2*np.pi), "Hz"
+
+    plt.figure(figsize = (10,8))
+    plt.plot(sel_xdata, sel_ydata, 'o')
+    plt.plot(sel_xdata, yuFit, 'g')
+    plt.plot(sel_xdata, yFit, 'r', lw = 4, alpha = .7)
+    plt.xlabel("time (s)")
+    plt.ylabel("signal amplitude (-mV)")
+    plt.show()
 
 
-#Iv = [.514, .5, .45, .55, .6, .65, .7, .75, .8, .4, .35, .3, .25, .2, .15, .1, .05, 0, .325]
 
-Iv = [-.1, -.05, 0, .05, .1, .15, .2, .25, .3, .325, .35, .4, .45, .5, .514, .55, .6, .65, .7, .75, .8]
-
-#f = [356, 349, 327, 372, 402, 438, 475, 512, 554, 313, 307, 307, 315, 330, 351, 380, 409, 444, 305]
-
-f = [520, 482, 444, 409, 380, 351, 330, 315, 307, 305, 307, 313, 327, 349, 356, 372, 402, 438, 475, 512, 554]
-
-plot(sort(Iv), f)
-savefig("plots/Earth_B_Field.png")
-show()
+if __name__ == '__main__':
+    larmor_fit("data/larmor_y0.033A.tsv")
