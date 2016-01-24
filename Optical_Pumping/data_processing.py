@@ -25,7 +25,7 @@ def larmor_fit(dataset):
     def sin_function(x, A, w, d, c):
         return A*np.sin(w*x + d) + c
 
-    p = [.01, 120e3, 22*np.pi/24, .045]
+    p = [.01, 80e3, 22*np.pi/24, .035]
 
     popt, pcov = curve_fit(sin_function, sel_xdata, sel_ydata, p0 = p)
 
@@ -44,6 +44,8 @@ def larmor_fit(dataset):
     plt.ylabel("signal amplitude (-mV)")
     plt.savefig("plots/(%s.%s).png" % (dset[0].split("/")[1], dset[1]))
 
+    # save the fit parameters into a file to plot/fit
+
 
 if __name__ == '__main__':
-    larmor_fit("data/larmor_y0.045A.tsv")
+    larmor_fit("data/larmor_y0.020A.tsv")
