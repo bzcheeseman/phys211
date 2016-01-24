@@ -46,4 +46,4 @@ def larmor_fit(dataset):
 
 
 if __name__ == '__main__':
-    larmor_fit("data/larmor_y0.020A.tsv")
+    larmor_fit("data/larmor_y0.033A.tsv")
