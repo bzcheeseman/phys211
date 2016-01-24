@@ -25,7 +25,7 @@ def larmor_fit(dataset):
     def sin_function(x, A, w, d, c):
         return A*np.sin(w*x + d) + c
 
-    p = [.01, 950e2, np.pi/4, .04]
+    p = [.01, 120e3, 22*np.pi/24, .045]
 
     popt, pcov = curve_fit(sin_function, sel_xdata, sel_ydata, p0 = p)
 
@@ -46,4 +46,4 @@ def larmor_fit(dataset):
 
 
 if __name__ == '__main__':
-    larmor_fit("data/larmor_y0.033A.tsv")
+    larmor_fit("data/larmor_y0.045A.tsv")
