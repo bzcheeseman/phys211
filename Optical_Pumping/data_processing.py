@@ -44,22 +44,24 @@ def larmor_fit(dataset):
     plt.ylabel("signal amplitude (-mV)")
     plt.savefig("plots/({}.{}).png".format(dset[0].split("/")[1], dset[1]))
 
-    with open('fitparms_{}.{}.tsv'.format(dset[0].split("/")[1], dset[1]), 'w')\
+    with open('data/fitparms_{}.{}.tsv'.format(dset[0].split("/")[1], dset[1]), 'w')\
       as f:
         for key in sorted(parms.keys()):
             f.write("{}\t{}\n".format(key, parms[key]))
 
 def gyromagnetic_ratio_fit():
-    data20 = np.genfromtxt("fitparms_larmor_y0.020A.tsv", usecols=(1))
-    data33 = np.genfromtxt("fitparms_larmor_y0.033A.tsv", usecols=(1))
-    data40 = np.genfromtxt("fitparms_larmor_y0.040A.tsv", usecols=(1))
-    data45 = np.genfromtxt("fitparms_larmor_y0.045A.tsv", usecols=(1))
-    data55 = np.genfromtxt("fitparms_larmor_y0.055A.tsv", usecols=(1))
-    data65 = np.genfromtxt("fitparms_larmor_y0.065A.tsv", usecols=(1))
+    data20 = np.genfromtxt("data/fitparms_larmor_y0.020A.tsv", usecols=(1))
+    data33 = np.genfromtxt("data/fitparms_larmor_y0.033A.tsv", usecols=(1))
+    data40 = np.genfromtxt("data/fitparms_larmor_y0.040A.tsv", usecols=(1))
+    data45 = np.genfromtxt("data/fitparms_larmor_y0.045A.tsv", usecols=(1))
+    data55 = np.genfromtxt("data/fitparms_larmor_y0.055A.tsv", usecols=(1))
+    data65 = np.genfromtxt("data/fitparms_larmor_y0.065A.tsv", usecols=(1))
 
     Is = [.02, .033, .04, .045, .055, .065]
+    dI = .001 * np.ones_like(Is)
 
-    freqs = [data20[1], data33[1], data40[1], data45[1], data55[1], data65[1]]
+    freqs = [data20[1], data33[1], data40[1], data45[1], data55[1], data65[1]]\
+    # propagate df through previous section
 
     def lin(x, A, B):
         return A*x + B
@@ -70,9 +72,13 @@ def gyromagnetic_ratio_fit():
 
     print yFit
 
-    plt.plot(Is, freqs, 'o')
+    plt.errorbar(Is, freqs, xerr = dI, fmt = 'o')
     plt.plot(Is, yFit(Is), 'r')
+    plt.xlabel("Current (A)")
+    plt.ylabel("Frequency (Hz)")
+    plt.savefig("plots/gyromagnetic_ratio_fit.png")
 
 
 if __name__ == '__main__':
+
     gyromagnetic_ratio_fit()
