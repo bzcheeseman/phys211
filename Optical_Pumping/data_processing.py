@@ -1,4 +1,4 @@
-#%pylab inline
+%pylab inline
 
 from matplotlib import rc
 from scipy.optimize import curve_fit
@@ -14,6 +14,8 @@ def selectdomain(xdata,ydata,domain):
 
 def larmor_fit(dataset):
     data = np.genfromtxt(dataset, skip_header = 1, usecols = (0,1))
+
+    dset = dataset.split(".")
 
     xdata = data[:,0]
     ydata = data[:,1]
@@ -40,9 +42,7 @@ def larmor_fit(dataset):
     plt.plot(sel_xdata, yFit, 'r', lw = 4, alpha = .7)
     plt.xlabel("time (s)")
     plt.ylabel("signal amplitude (-mV)")
-    plt.savefig("plots/%s" % dataset)
-    plt.show()
-
+    plt.savefig("plots/(%s.%s).png" % (dset[0].split("/")[1], dset[1]))
 
 
 if __name__ == '__main__':
