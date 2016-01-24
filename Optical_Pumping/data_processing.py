@@ -40,6 +40,7 @@ def larmor_fit(dataset):
     plt.plot(sel_xdata, yFit, 'r', lw = 4, alpha = .7)
     plt.xlabel("time (s)")
     plt.ylabel("signal amplitude (-mV)")
+    plt.savefig("plots/%s" % dataset)
     plt.show()
 
 
