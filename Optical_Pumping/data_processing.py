@@ -67,7 +67,6 @@ def gyromagnetic_ratio_fit():
         return A*x + B
 
     popt, pcov = curve_fit(lin, Is, freqs, p0 = np.polyfit(Is, freqs, 1))
-
     yFit = np.poly1d(popt)
 
     print yFit
