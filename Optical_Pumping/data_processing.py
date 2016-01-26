@@ -61,7 +61,7 @@ def gyromagnetic_ratio_fit():
     dI = .001 * np.ones_like(Is)
 
     freqs = [data20[1], data33[1], data40[1], data45[1], data55[1], data65[1]]\
-    # propagate df through previous section
+    # propagate df through previous section - larmor fit
 
     def lin(x, A, B):
         return A*x + B
@@ -77,7 +77,30 @@ def gyromagnetic_ratio_fit():
     plt.ylabel("Frequency (Hz)")
     plt.savefig("plots/gyromagnetic_ratio_fit.png")
 
+def earth_field_fit():
+    data = np.genfromtxt("data/earth_B_field_data.csv")
+
+    xdata = data[:,0]
+    ydata = data[:,1]
+
+    def fitform(x, Bhe, Bhapp, Bve, C):
+        return 2.895e-9*np.sqrt((Bhe - Bhapp)**2 + (Bve - x)**2) + C
+
+    p = [2e6, 2e6, 2e6, 300]
+
+    popt, pcov = curve_fit(fitform, xdata, ydata, p0 = p)
+
+    yFit = fitform(xdata, *popt)
+    yuFit = fitform(xdata, *p)
+
+    plt.plot(xdata, ydata, 'o')
+    plt.plot(xdata, yuFit, 'g')
+    plt.plot(xdata, yFit, 'r')
+    plt.ylabel("Frequency (kHz)")
+    plt.xlabel("")
+    plt.show()
+
 
 if __name__ == '__main__':
 
-    gyromagnetic_ratio_fit()
+    earth_field_fit()
