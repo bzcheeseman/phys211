@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1453423527 "report.tex" "/Users/Aman/desktop/phys211/single_photon/report/report.pdf" "report" 1453423528
+["pdflatex"] 1453423527 "report.tex" "/Users/Aman/desktop/phys211/single_photon/report/report.pdf" "report" 1453782433
   "../plots/distinguishable45-7.pdf" 1447820864 156111 86002b8fce0605fecadbc0eb978ea9f6 ""
   "../plots/eraser.pdf" 1447821919 156285 1be3c0b4d492b4453335e6c9a9936a50 ""
   "../plots/indistinguishable.pdf" 1447821187 151614 ed26db1f08fa6643dc21a9b3cdcde24a ""
@@ -12,9 +12,9 @@
   "/Users/Aman/desktop/phys211/single_photon/report/apparatus_setup.png" 1452989398 14810 20f5fe6448d0501f77cc363dc916749b ""
   "/Users/Aman/desktop/phys211/single_photon/report/interferometer_sketch.jpg" 1452989398 40369 29b0763bdbe55f93420ac60cafac9db2 ""
   "/Users/Aman/desktop/phys211/single_photon/report/interferometer_wave.png" 1452989398 34290 9ce9b3287ddc6ef61fe6a7f62cf6b641 ""
-  "/Users/Aman/desktop/phys211/single_photon/report/report.aux" 1453423528 3500 10ec5175c2d7107bf899eaff94b6d4ca ""
+  "/Users/Aman/desktop/phys211/single_photon/report/report.aux" 1453427880 3500 10ec5175c2d7107bf899eaff94b6d4ca ""
   "/Users/Aman/desktop/phys211/single_photon/report/report.tex" 1453218455 35305 98e9a9a71e6db09bb03a56349ec9f2c0 ""
-  "/Users/Aman/desktop/phys211/single_photon/report/report.toc" 1453423528 730 ac1a93e70e2d7918b0c7122df485f820 ""
+  "/Users/Aman/desktop/phys211/single_photon/report/report.toc" 1453427880 730 ac1a93e70e2d7918b0c7122df485f820 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -228,11 +228,11 @@
   "apparatus_setup.png" 1452989398 14810 20f5fe6448d0501f77cc363dc916749b ""
   "interferometer_sketch.jpg" 1452989398 40369 29b0763bdbe55f93420ac60cafac9db2 ""
   "interferometer_wave.png" 1452989398 34290 9ce9b3287ddc6ef61fe6a7f62cf6b641 ""
-  "report.aux" 1453423528 3500 10ec5175c2d7107bf899eaff94b6d4ca ""
+  "report.aux" 1453427880 3500 10ec5175c2d7107bf899eaff94b6d4ca ""
   "report.tex" 1453218455 35305 98e9a9a71e6db09bb03a56349ec9f2c0 ""
-  "report.toc" 1453423528 730 ac1a93e70e2d7918b0c7122df485f820 ""
+  "report.toc" 1453427880 730 ac1a93e70e2d7918b0c7122df485f820 ""
   (generated)
-  "/Users/Aman/desktop/phys211/single_photon/report/report.pdf"
-  "/Users/Aman/desktop/phys211/single_photon/report/report.aux"
   "/Users/Aman/desktop/phys211/single_photon/report/report.log"
   "/Users/Aman/desktop/phys211/single_photon/report/report.toc"
+  "/Users/Aman/desktop/phys211/single_photon/report/report.pdf"
+  "/Users/Aman/desktop/phys211/single_photon/report/report.aux"
