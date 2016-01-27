@@ -1,4 +1,4 @@
-#%pylab inline
+%pylab inline
 
 from matplotlib import rc
 from scipy.optimize import curve_fit
@@ -44,7 +44,7 @@ def larmor_fit(dataset, freq):
     plt.ylabel("signal amplitude (-mV)")
     plt.savefig("plots/({}.{}).png".format(dset[0].split("/")[1], dset[1]))
 
-    with open('data/fitparms_{}.{}.tsv'.format(dset[0].split("/")[1], dset[1]), 'w')\
+    with open('data/fitparms_{}.{}.tsv'.format(dset[0].split("/")[1], dset[1]), 'w+')\
       as f:
         for key in sorted(parms.keys()):
             f.write("{}\t{}\n".format(key, parms[key]))
@@ -64,14 +64,14 @@ def gyromagnetic_ratio_fit():
 
     dB = np.sqrt(np.average(dI/Is)**2 + (0.5e-2/17e-2)**2) * np.ones_like(Bs) #propagate errors through, da = .5cm
 
-    freqs = [data20[2], data33[2], data40[2], data45[2], data55[2], data65[2]]
+    freqs = (1/(2*np.pi))*np.array([data20[2], data33[2], data40[2], data45[2], data55[2], data65[2]])
     df = np.array([data20[1], data33[1], data40[1], data45[1], data55[1], data65[1]])
     # propagate df through previous section - larmor fit
 
     def lin(x, A, B):
         return A*x + B
 
-    popt, pcov = curve_fit(lin, Bs, freqs, p0 = np.polyfit(Bs, freqs, 1))
+    popt, pcov = curve_fit(lin, Bs, freqs, p0 = [87e6, .04])
     yFit = np.poly1d(popt)
 
     parms_gamma = []
@@ -81,9 +81,11 @@ def gyromagnetic_ratio_fit():
         mock_freqs = []
         mock_Bs = []
 
-        for j in range(0, len(freqs)):
-            mock_freqs.append(np.random.normal(freqs[j], df[j]/2*2.5348))
-            mock_Bs.append(np.random.normal(Bs[j], Bs[j] * dB[j]/2*2.5348))
+        fsigma = (df/2*2.5348)
+        Bsigma = (Bs * dB/2*2.5348)
+
+        mock_freqs = np.random.randn(len(freqs))*fsigma + freqs
+        mock_Bs = np.random.randn(len(freqs))*Bsigma + Bs
 
         #print mock_Bs, dB
 
@@ -91,11 +93,11 @@ def gyromagnetic_ratio_fit():
 
         ymockFit = lin(mock_freqs, *mock_popt)
 
-        #plt.plot(mock_Bs, mock_freqs, 'o')
+        #plt.plot(mock_Bs, mock_freqs)
 
         return mock_popt[0], mock_popt[1]
 
-    for i in range(0, 2):  #write c++ function to do this, python takes FOREVER
+    for i in range(0, 50):  #write c++ function to do this, python takes FOREVER
         tempg, tempo = mock_data()
         parms_gamma.append(tempg)
         parms_omega0.append(tempo)
@@ -103,30 +105,35 @@ def gyromagnetic_ratio_fit():
     print yFit
     print np.average(parms_gamma), np.std(parms_gamma)
 
+    devg = np.std(parms_gamma)
+    dev0 = np.std(parms_omega0)
+
+    plt.figure(figsize = (10, 10))
     plt.errorbar(Bs, freqs, xerr = Bs*dB, yerr = df, fmt = 'o')
-    plt.plot(Bs, yFit(Bs), lw = np.std(parms_gamma), alpha = .6)
+    plt.plot(Bs, yFit(Bs), alpha = .6)
     plt.text(Bs[0], 1.4e5, "$\omega = \gamma B + \omega_0$\n \
-                              %f B + %f" % (popt[0], popt[1]))
+                              $\gamma$ = %.2f $\pm$ %.2f \, MHz/T\n \
+                              $\omega_0$ = %.3f $\pm$ %.3f \, MHz" % (popt[0]*1e-6, devg*1e-6, popt[1]*1e-6, dev0*1e-6))
     plt.xlabel("Vertical B Field (T)")
     plt.ylabel("Frequency (Hz)")
     plt.savefig("plots/gyromagnetic_ratio_fit.png")
-    #plt.show()
+    plt.show()
 
 def earth_field_fit():
     data = np.genfromtxt("data/earth_B_field_data.csv")
 
-    xdata = data[:,0]
-    ydataprime = data[:,1]
-    ydata = (8*1.257e-6*36)/(np.sqrt(125)*23.5e-2) * data[:,1]
+    ydata = data[:,1]
+    xdataprime = data[:,0]
+    xdata = (8*1.257e-6*36)/(np.sqrt(125)*23.5e-2) * data[:,0]
 
-    Bhapp = (8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179
+    #Bhapp = (8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179
 
-    dydata = np.sqrt(np.average(.001/ydataprime)**2 + (0.5e-2/17e-2)**2)
+    dxdata = np.sqrt(np.average(.001/xdataprime)**2 + (0.5e-2/17e-2)**2)
 
     def fitform(x, Bhe, Bve):
-        return 2.895e-9*np.sqrt((Bhe - Bhapp)**2 + (Bve - x)**2)
+        return 2.895e-9*np.sqrt(pow((Bhe - ((8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179)),2) + pow((Bve - x),2))
 
-    p = [1e-3, .325]
+    p = [4.27e10, 1.27e11]
 
     popt, pcov = curve_fit(fitform, xdata, ydata, p0 = p)
 
@@ -136,15 +143,76 @@ def earth_field_fit():
     yuFit = fitform(xdata, *p)
 
     plt.plot(xdata, ydata, 'o')
-    #plt.plot(xdata, yuFit, 'g')
-    plt.plot(xdata, yFit, 'ro')
+    plt.plot(xdata, yuFit, 'g')
+    plt.plot(xdata, yFit, 'r')
     plt.ylabel("Frequency (kHz)")
     plt.xlabel("Vertical Applied B Field (T)")
     plt.show()
 
+def plot_trace(dataset):
+    data = np.genfromtxt(dataset, skip_header = 1, usecols = (0,1,3))
+
+    time = data[:,0]
+    signal = data[:,1]
+    sq_wave = .005*data[:,2]
+
+    t, s = selectdomain(time, signal, [-.01, .1])
+    t, sq_wave = selectdomain(time, sq_wave, [-.01, .1])
+
+    tm, si = selectdomain(time, signal, [0.00025, .095])
+
+    def exp_func(x, A, B, C):
+        return A*np.exp(-B*x) + C
+
+    p = [.03, 31.3, -.02]
+
+    popt, pcov = curve_fit(exp_func, tm, si, p0 = p)
+
+    print popt
+
+    yFit = exp_func(tm, *popt)
+    yuFit = exp_func(tm, *p)
+
+    depump = "Depump cycle"
+
+    pump = "Pump cycle"
+
+    plt.figure(figsize = (8,8))
+    plt.plot(t, s, label = "Data")
+    #plt.plot(tm, yuFit, 'g')
+    plt.plot(tm, yFit, 'r', lw = 4, alpha = .6)
+    plt.xlabel("Time, (s)")
+    plt.ylabel("Intensity, (-mV)")
+    plt.title("The Pump-Depump Cycle")
+    plt.annotate(depump, (0, 0), (-.018, 0), arrowprops = dict(width=2, headwidth=4, frac = .125, facecolor="red"))
+    plt.annotate(pump, (0.04, -0.005), (0.03, 0.005), arrowprops = dict(width=2, headwidth=4, frac = .125, facecolor="red"))
+    plt.text(0.05, .005, "$I = Ae^{-Bx} + C$ \n" \
+                            r"$\frac{1}{e}$ time of Pump is %.3f $\pm$ %.4f sec" % (1/popt[1], 1/popt[1] * np.sqrt(pcov[1,1])/popt[1]))
+    plt.plot(t, sq_wave, label = r"Square wave ($\times$ 0.001 for scale)")
+    plt.legend()
+    plt.savefig("plots/trace_example.png")
+
+    #plt.show()
+
+def plot_reduced_trace(dataset):
+    data = np.genfromtxt(dataset, skip_header=1, usecols=(0,1,3))
+
+    time = data[:,0]
+    signal = data[:,1] + 0.07
+    sq_wave = .001*data[:,2]
+
+    plt.plot(time, signal, label = "Trace")
+    plt.plot(time, sq_wave, label = "Square Wave")
+    plt.xlabel("Time, (s)")
+    plt.ylabel("Intensity, (-mV)")
+    plt.title("The Pump-Depump Cycle, Reduced Wave")
+    plt.legend()
+    plt.savefig("plots/reduced_wave.png")
 
 if __name__ == '__main__':
 
-    #larmor_fit("data/larmor_y0.065A.tsv", 150)
+    #larmor_fit("data/larmor_y0.020A.tsv", 80)
     gyromagnetic_ratio_fit()
     #earth_field_fit()
+    #plot_trace("data/s4_3_scope_trace.tsv")
+    #plot_reduced_trace("data/s4_4_scope_trace.tsv")

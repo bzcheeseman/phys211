@@ -98,7 +98,7 @@
   \begin{itemize}
     \item Rb Lamp
     \begin{itemize}
-      \item This gives photons in the general range of the $D_1$ transition, in a wide enough bandwidth that we can excite any of the \twohalf{S} $m_f$ levels.  The goal is to use this light to pump the atoms into the \twohalf{P} state from which they will fall into the \twohalfmf{S}{+2} state.  This is commonly referred to as a $\Lambda$-system due to its shape when drawn on an atomic energy diagram.
+      \item This gives photons in the general range of the $D_1$ transition, in a wide enough bandwidth that we can excite any of the \twohalf{S} $m_f$ levels.  The goal is to use this light to pump the atoms into the \twohalf{P} state from which they will fall into the \twohalfmf{S}{-2} state.  This is commonly referred to as a $\Lambda$-system due to its shape when drawn on an atomic energy diagram.
       \item The lamp itself contains a Rb bulb with an RF oscillator.  The whole apparatus is kept at an elevated temperature to keep the Rb from solidifying.
     \end{itemize}
     \item Optical components - lens, 1/4 wave plate, and $D_1$ interference filter
@@ -126,12 +126,75 @@
   \end{itemize}
 
 \section{Data/Uncertainty Analysis}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+  \subsection{B Flip}
+    We will begin with an example of a scope trace.  On this trace, we have fit the falling exponential of the negative of the pump signal (lower on the plot indicates higher intensity).  This allows us to measure the $\frac{1}{e}$ time with great precision.  The dataset does not, unfortunately, contain enough data points to fit the depump portion as well, but we were able to estimate it on the oscilloscope and so we will report that value.  We know that the higher intensity portion is the pumped state, and that the transition from high to low intensity is the depump cycle, as denoted in the figure.
+    \begin{figure}[!htb]
+      \centering
+      \includegraphics[scale=.65]{../plots/trace_example.png}
+      \caption{A plot detailing 1/e time for the pump cycle, as well as simply showing a sample trace.  Error in the 1/e time comes from $\sqrt{\cov(2,2)}$, the diagonal element of the covariance matrix corresponding to the fit parameter multiplied by the argument of the exponential (B in this case).}
+    \end{figure}
+
+    As we can see from the fit, we can measure the characteristic time of the Pump as being $0.051 \, \pm \, 0.020$ sec.  As previously mentioned, we were unable to get enough points on the dataset to properly perform a fit, so we had to estimate the value of the characteristic time for the depump.  We found that that value to be approximately $83 \, \pm \, 9 \, \mu s$.  We notice that as we turn the frequency of the driving wave (a simple square wave) up, it lowers the characteristic pumping time and has very little effect on the depump portion of the cycle.  The reverse is also true, if we turn the frequency of the driving wave down we increase the characteristic time for pumping and still have little effect on the depump portion.  We concluded that the reason this occurs is that there isn't always enough time between cycles to pump the atoms fully, but there is always enough time to depump.
+
+    \hspace{.25cm}
+
+    We can also ensure that we have a pumped state by removing the 1/4 wave plate/polarizer combination.  When we do that, we notice that the intensity goes to zero - since we are no longer filtering the photons they don't have any tendency to shift the atoms to any particular state, i.e. their effects on the atoms are completely random and as such we don't see any atoms pump into an excited state (indicated by a raised intensity).  Of course it's impossible to say that this holds 100\% - there will be some that go to that excited state according to statistical and thermal fluctuations, but the trace that we see is a horizontal line and so we have confidence that it is certainly not a macroscopic number of the atoms.
+
+    \hspace{.25cm}
+
+    One way that we observe the effects of optical pumping was to observe the effects of the Earth's field on the atoms and the whole process.  As can be seen in figure 1, there are components in the vertical and horizontal directions, leading to a net field that points more or less into the floor with a significant component pointing towards magnetic North (slightly north of Wasilla, AK).  Using the helmholtz coils, we can tune the vertical field to exactly cancel the earth's field.  If we use a reduced square wave amplitude, we will notice that during one half cycle the intensity will not change - we will not see pumping during the one half cycle where the applied field points south.  This is because if we point the applied field south such that it exactly cancels the earth's field (which points North), there is no field on the atoms, and thus no Zeeman splitting.  Since there is no splitting, we would not notice any pumping that occurs from a hyperfine state back to itself.  Thus we see a trace like fig. 4
+
+    \begin{figure}[!htb]
+      \centering
+      \includegraphics[scale=.75]{../plots/reduced_wave.png}
+      \caption{The flat portion corresponds to the part of the cycle where the applied field cancels the earth field and so there is no preferred direction.  The other portion corresponds to normal optical pumping.}
+    \end{figure}
+
+    Granted, the flat portion is not entirely flat, but that adjustment is extremely delicate.  We achieved a better example later, but were unable to (due to time constraints) capture the trace, so this is the example that we have.
+
+    \hspace{.25cm}
+
+    The cancellation occured at a horizontal current of $0.025 \pm 0.005$ A (we could vary the current by approx 0.005 A in either direction before we saw a pumping signal).  We can find the $\vec{B}$ field in the north direction as follows:
+    \begin{gather*}
+      B_{Horiz} = \frac{8 \mu_0 N I}{\sqrt{125} a} \\
+      B_{Horiz} = \frac{8 \cdot 1.257\times10{-6} \cdot 36 \cdot 0.025}{\sqrt{125 \cdot 25\times10^{-2}}} = 3.24\times10^{-6} \, T \\
+      \frac{\delta B_{Horiz}}{B_{Horiz}} = \sqrt{\parens*{B_{Horiz}\times\frac{\delta I}{I}}^2 + \parens*{\frac{\delta a}{a}}^2} = 20\% \\
+      20\%\cdot 3.24\times10^{-6} = 6.4\times10{-7} \\
+      B_{Horiz} \pm \delta B_{Horiz} = (3.2 \pm 0.6) \times 10^{-6}
+    \end{gather*}
+
+    We can calculate the vertical component of the earth's field in much the same way.  When we apply a vertical field of exactly opposite to the earth's field, we will see a completely flat trace.  We turn off the signal generator and sweep the vertical field through the value of the earth's field.  As we reach exactly that value, we will see that there is again no splitting and so no pumping at all.  Keeping the horizontal field cancelled we see a completely flat trace, no features at all.  This occurs at a vertical current of $0.325 \pm 0.005$ A, which corresponds to a field of $B_{Vert} = (448 \pm 7) \times 10^{-7}$ T, using a method analogous to above (the only change is the value of a, the radius of the coil goes from 25cm to 23.5 cm, the absolute uncertainty in that measurement doesn't change, however and the fractional uncertainty changes a miniscule amount that is taken into account appropriately).
+
+    \hspace{.25cm}
+
+    Thus we have come to the conclusion that the Earth's B field has values of:
+    \begin{gather*}
+      B_{Vert} = (44.8 \pm 0.7) \times 10^{-6} \, T \\
+      B_{Horiz} = (3.2 \pm 0.6) \times 10^{-6} \, T
+    \end{gather*}
+    which compares to the NOAA \cite{NOAA} values of:
+    \begin{gather*}
+      B_{Vert} = 50331.9 \, nT \approx 50.3 \times 10^{-6} \, T \\
+      B_{Horiz} = 19098.9 \, nT \approx 19.1 \times 10^{-6} \, T
+    \end{gather*}
+
+    In the case of the vertical field we were much more accurate, we were within about $7\sigma$, and we were even worse for the horizontal field.  That's pretty terrible, and that would seem to indicate some sort of systematic uncertainty.  Given more time, we could have made more measurements but due to time constraint we couldn't.  It is possible that we were thrown off due to other sources in the room, but it would have to be a significant source of field and we are not sure that anything in the room qualifies (aside from the control stack, but that is necessary to the experiment, plus we are dubious as to the strength of that field) as a significant perturbation.  Overall, it was likely just due to the fact that we only had time to perform one measurement, had we been able to take multiple we would have gotten closer.
+
+    \hspace{.25cm}
+
+  \subsection{RF Depumping}
+    waiting on the fit (!!!)
+
+  \subsection{Larmor Precession}
+    
+
+
 \section{Conclusion}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \begin{thebibliography}
-%
-%
-% \end{thebibliography}
+\begin{thebibliography}{10}
+  \bibitem{NOAA}
+    NOAA Magnetic Field Calculators. \\ http://www.ngdc.noaa.gov/geomag-web/\#igrfwmm
+
+\end{thebibliography}
 
 \end{document}
