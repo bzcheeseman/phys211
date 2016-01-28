@@ -217,11 +217,19 @@
     \begin{figure}[!htb]
       \centering
       \includegraphics[scale=.45]{../plots/(larmor_y0_055A).png}
-      \caption{The red line corresponds to the fitted curve.  The curve parameters are not shown because they are not particularly pretty, nor do they fit on the axes.  As such we will simply cite the values obtained and move on.}
+      \caption{The red line corresponds to the fitted curve.  The curve parameters are not shown because they are not particularly enlightening, nor do they fit on the axes in an aesthetically pleasing way.}
       \label{sinwave}
     \end{figure}
 
-    In this figure, we see that the fit is quite good, and so we can have good confidence in the values of the frequency extracted.  If we wish to increase our confidence, we can take a normal distribution of data around each point, and pick a random point within that distribution at each point.  We then fit that simulated data and take the standard deviation of those fit values to extract uncertainty.  This leads to good certainty in our fit values like this:
+    In Figure~\ref{sinwave} we fit a curve of the form
+    \begin{equation*}
+      A\sin(\omega t + \delta) + B.
+    \end{equation*}
+    This is not completely correct, as the larmor precession is suppressed due to the fact that the precession of the atom itself, the $m_f$ precession aligns to the new field.  However, in order to extract a frequency, we need only fit a few periods to extract a good value for the frequency, as we have done here.
+
+    \hspace{.25cm}
+
+    In Figure~\ref{sinwave} , we see that the fit is actually quite good, and so we can have good confidence in the values of the frequency extracted.  If we wish to increase our confidence, we can take a normal distribution of data around each point, and pick a random point within that distribution at each point.  We then fit that simulated data and take the standard deviation of those fit values to extract uncertainty.  This leads to good certainty in our fit values like this:
     \begin{equation}
       f \pm \delta f = (141210 \pm 70) Hz
       \label{freq_sample}
