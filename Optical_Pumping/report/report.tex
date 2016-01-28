@@ -118,20 +118,20 @@
     \end{itemize}
     \item Helmholtz coils surrounding the Rb vapor cell
     \begin{itemize}
-      \item These are used to provide an applied magnetic field.  We will disturb the constancy of this field in order to investigate the properties of optically pumped atoms.  We first simply put square wave pulses through the coils, then later we will use a low frequency (~0.5 Hz) function generator to alternate the current and $\vec{B}$ field to measure the Larmor frequency.
+      \item These are used to provide an applied magnetic field.  We will disturb the constancy of this field in order to investigate the properties of optically pumped atoms.  We first simply put square wave pulses through the coils, then later we will use a low frequency (0.5 Hz) function generator to alternate the current and $\vec{B}$ field to measure the Larmor frequency.
     \end{itemize}
     \item RF Generator
     \begin{itemize}
-      \item This is used to de-pump the atoms.  We use this to measure the energy splitting between levels in units of frequency, as well as to check that we have in fact achieved a pumped state.
+      \item This is used to de-pump the atoms.  We use this to measure the energy splitting between levels in units of frequency, as well as to check that we have in fact achieved a pumped state.  We also use this later to make high-precision measurements of the Earth's B field.
     \end{itemize}
     \item Heater for Rb cell
     \begin{itemize}
-      \item Rubidium is a solid at room temperature.  Due to the fact that there is only very little inside the vapor cell it might not be visible except for a light sheen on the inside of the glass, but it will still cause the experiment to give false results so we elevate the temperature of the cell in order to ensure that all the Rubidium is a gas.
+      \item Rubidium is a solid at room temperature.  Due to the fact that there is only very little inside the vapor cell it might not be visible except for a light sheen on the inside of the glass, but it will still cause the experiment to give false results so we elevate the temperature of the cell in order to ensure that all the Rubidium is a gas.  In gaseous form, we can assume that it is roughly evenly distributed through the vapor cell, which allows us to treat it as an extended body and 'pump' the entire cell at once.
     \end{itemize}
     \item Camera and imaging equipment - photo transistor, current follower/DC offset all attached to the oscilloscope
     \begin{itemize}
       \item The photo transistor turns the intensity of light incident upon it into a voltage.  This signal is transferred through the DC offset to allow us to measure the signal on the scope conveniently, and also to center it to minimize errors due to large offsets.  The scope turns this voltage data into a time-resolved plot that we can examine and understand in the context of the experiment to verify that we at least have a signal that makes sense.
-      \item Once the Rubidium atoms are in the pumped state, the transparency of the system will increase greatly due to the fact that no more photons can be absorbed by the Rb-87.  The photodiode and oscilloscope will help us determine in a time-resolved way when the atoms reach their pumped state by showing us when the intensity of light increases to a maximum.  We can likewise identify depumping by watching for when the intensity decreases to a minimum.
+      \item Once the Rubidium atoms are in the pumped state, the transparency of the system will increase greatly due to the fact that no more photons can be absorbed by the Rb-87 due to conservation of angular momentum - the atoms have no higher $m_f$ state to pump to so the photons simply pass through.  The photodiode and oscilloscope will help us determine in a time-resolved way when the atoms reach their pumped state by showing us when the intensity of light increases to a maximum.  We can likewise identify depumping by watching for when the intensity decreases to a minimum.
     \end{itemize}
   \end{itemize}
 
@@ -175,7 +175,7 @@
       B_{Horiz} \pm \delta B_{Horiz} = (23 \pm 5) \times 10^{-6}
     \end{gather*}
 
-    We can calculate the vertical component of the earth's field in much the same way.  When we apply a vertical field of exactly opposite to the earth's field, we will see a completely flat trace.  We turn off the signal generator and sweep the vertical field through the value of the earth's field.  As we reach exactly that value, we will see that there is again no splitting and so no pumping at all.  Keeping the horizontal field cancelled we see a completely flat trace, no features at all.  This occurs at a vertical current of $0.33 \pm 0.01$ A, which corresponds to a field of $B_{Vert} = (460 \pm 14) \times 10^{-7}$ T, using a method analogous to above (the only change is the value of a, the radius of the coil goes from 25cm to 23.5 cm, the absolute uncertainty in that measurement doesn't change, however and the fractional uncertainty changes a miniscule amount that is taken into account appropriately).
+    We can calculate the vertical component of the earth's field in much the same way.  When we apply a vertical field of exactly opposite to the earth's field, we will see a completely flat trace.  We turn off the signal generator and sweep the vertical field through the value of the earth's field.  As we reach exactly that value, we will see that there is again no splitting and so no pumping at all.  Keeping the horizontal field cancelled we see a completely flat trace, no features at all.  This occurs at a vertical current of $0.33 \pm 0.01$ A, which corresponds to a field of $B_{Vert} = (460 \pm 14) \times 10^{-7}$ T, using a method analogous to above (the only change is the value of a, the radius of the coil, which goes from 25 cm to 23.5 cm, the absolute uncertainty in that measurement doesn't change, and the fractional uncertainty changes a miniscule amount that is taken into account appropriately).
 
     \hspace{.25cm}
 
@@ -191,12 +191,12 @@
       \label{NOAA}
     \end{gather}
 
-    For the horizontal field, we were actually within 1$\sigma$ of the NOAA value~(\ref{NOAA}).  This is likely due to our larger uncertainties on the horizontal field calculation - since we used fractional uncertainty and that value was simply smaller.  In the case of the vertical field, we were within 3$\sigma$, which is not terribly accurate.  Given more time, we could have made more measurements but due to time constraint we couldn't.  It is possible that we were thrown off due to other sources in the room, but it would have to be a significant source of field and we are not sure that anything in the room qualifies (aside from the control stack, but that is necessary to the experiment, plus we are dubious as to the strength of that field) as a significant perturbation.  Overall, it was likely just due to the fact that we only had time to perform one measurement, had we been able to take multiple we would have gotten closer.
+    For the horizontal field, we were actually within 1$\sigma$ of the NOAA value~(\ref{NOAA}).  This is likely due to our larger uncertainties on the horizontal field calculation - since we used fractional uncertainty and that value was simply smaller.  In the case of the vertical field, we were within 3$\sigma$, which is not terribly accurate.  Given more time, we could have made more measurements but due to time constraints we couldn't.  It is possible that we were thrown off due to other sources in the room, but it would have to be a significant source of field and we are not sure that anything in the room qualifies (aside from the control stack, but that is necessary to the experiment, plus we are dubious as to the strength of that field) as a significant perturbation.  Overall, it was likely just due to the fact that we only had time to perform one measurement, had we been able to take multiple we would have gotten closer.
 
     \hspace{.25cm}
 
   \subsection{RF Depumping}
-    The primary reason to measure RF depumping was to make a high-precision measurement of the Earth's ambient B field.  Once we had confirmed that we were indeed optically pumping the atoms (yet again) by observing the depump signal, we made high precision measurements of the Earth's B field.
+    The primary reason to take measurements related to RF depumping was to make a high-precision measurement of the Earth's ambient B field.  Once we had confirmed that we were indeed optically pumping the atoms (yet again) by observing the depump signal, we made high precision measurements of the Earth's B field.
 
     \begin{figure}[!htb]
       \centering
@@ -213,7 +213,7 @@
 
     \hspace{.25cm}
 
-    As can be seen, the fitted values actually correspond quite well to the values obtained from the NOAA(\ref{NOAA}).  Both of them are within 1$\sigma$ of the literature values, indicating that at we got a value closer to the literature than at least 67\% of measurements, which is an acceptable value.
+    As can be seen, the fitted values actually correspond quite well to the values obtained from the NOAA(\ref{NOAA}).  Both of them are within 1$\sigma$ of the literature values, indicating that at we got values that 67\% of precision measurements, performed randomly, would have gotten.
 
   \subsection{Larmor Precession}
     The first item of interest for this report in particular is a simple plot of the larmor precession itself.  We will see that, in particular, we can fit the sine curve and extract the frequency this way.  Choose for example Figure~\ref{sinwave} , taken at 0.055A (Vertical Helmholtz coils).
