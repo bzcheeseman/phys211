@@ -66,7 +66,7 @@ def gyromagnetic_ratio_fit():
 
     dB = np.sqrt(np.average(dI/Is)**2 + (0.5e-2/17e-2)**2) * np.ones_like(Bs) #propagate errors through, da = .5cm
 
-    freqs = (1/(2*np.pi))*np.array([data20[2], data33[2], data40[2], data45[2], data55[2], data65[2]])
+    freqs = np.array([data20[2], data33[2], data40[2], data45[2], data55[2], data65[2]])
     df = np.array([data20[1], data33[1], data40[1], data45[1], data55[1], data65[1]])
     # propagate df through previous section - larmor fit
 
@@ -115,10 +115,10 @@ def gyromagnetic_ratio_fit():
     plt.figure(figsize = (10, 10))
     plt.errorbar(Bs, freqs, xerr = Bs*dB, yerr = df, fmt = 'o')
     plt.plot(Bs, yFit, alpha = .6)
-    plt.text(Bs[0], 2.2e4, "$\omega = \gamma B + \omega_0$\n \
+    plt.text(Bs[0], 1.5e5, "$\omega = \gamma B + \omega_0$\n \
                               $\gamma$ = %.2f $\pm$ %.2f \, GHz/T\n \
                               $\omega_0$ = %.4f $\pm$ %.4f \, GHz \n \
-                              $\chi^2/n = %.2f" % ((popt[0]*1e-9), (devg*1e-9), (popt[1]*1e-6), (dev0*1e-6), chi_squared))
+                              $\chi^2/n = %.2f" % ((popt[0]*1e-9)/(2*np.pi), (devg*1e-9)/(2*np.pi), (popt[1]*1e-6)/(2*np.pi), (dev0*1e-6)/(2*np.pi), chi_squared))
     plt.xlabel("Vertical B Field (T)")
     plt.ylabel("Frequency (Hz)")
     plt.title("Finding the Gyromagnetic Ratio")
@@ -218,7 +218,7 @@ def plot_reduced_trace(dataset):
 if __name__ == '__main__':
 
     #larmor_fit("data/larmor_y0.020A.tsv", 80)
-    #gyromagnetic_ratio_fit() #DON"T RUN ANYMORE, GOT A GOOD VALUE
+    gyromagnetic_ratio_fit()
     #earth_field_fit() # need to figure out wtf - try to get some shape at least
     #plot_trace("data/s4_3_scope_trace.tsv")
     #plot_reduced_trace("data/s4_4_scope_trace.tsv")
