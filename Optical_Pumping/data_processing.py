@@ -43,7 +43,7 @@ def larmor_fit(dataset, freq):
     plt.xlabel("Time (s)")
     plt.ylabel("Signal Amplitude (-mV)")
     plt.title("Fitting to find the Larmor Frequency")
-    plt.text(0.00705, 0.0325, "f = %.0f $\pm$ %.0f MHz" % (popt[1]/(2*np.pi), np.sqrt(pcov[1,1])/(2*np.pi)))
+    #plt.text(0.00705, 0.0325, "f = %.3f $\pm$ %.3f kHz" % ((popt[1]*1e-3)/(2*np.pi), (np.sqrt(pcov[1,1])*1e-3)/(2*np.pi)))
     plt.savefig("plots/({}.{}).png".format(dset[0].split("/")[1], dset[1]))
 
     with open('data/fitparms_{}.{}.tsv'.format(dset[0].split("/")[1], dset[1]), 'w+')\
@@ -99,7 +99,7 @@ def gyromagnetic_ratio_fit():
 
         return mock_popt[0], mock_popt[1]
 
-    for i in range(0, 50):  #write c++ function to do this, python takes FOREVER
+    for i in range(0, 250):  #write c++ function to do this, python takes FOREVER
         tempg, tempo = mock_data()
         parms_gamma.append(tempg)
         parms_omega0.append(tempo)
@@ -116,9 +116,9 @@ def gyromagnetic_ratio_fit():
     plt.errorbar(Bs, freqs, xerr = Bs*dB, yerr = df, fmt = 'o')
     plt.plot(Bs, yFit, alpha = .6)
     plt.text(Bs[0], 2.2e4, "$\omega = \gamma B + \omega_0$\n \
-                              $\gamma$ = %.0f $\pm$ %.0f \, MHz/T\n \
-                              $\omega_0$ = %.5f $\pm$ %.5f \, MHz \n \
-                              $\chi^2/n = %.2f" % ((popt[0]*1e-6)/(2*np.pi), (devg*1e-6)/(2*np.pi), (popt[1]*1e-6)/(2*np.pi), (dev0*1e-6)/(2*np.pi), chi_squared))
+                              $\gamma$ = %.2f $\pm$ %.2f \, GHz/T\n \
+                              $\omega_0$ = %.4f $\pm$ %.4f \, GHz \n \
+                              $\chi^2/n = %.2f" % ((popt[0]*1e-9), (devg*1e-9), (popt[1]*1e-6), (dev0*1e-6), chi_squared))
     plt.xlabel("Vertical B Field (T)")
     plt.ylabel("Frequency (Hz)")
     plt.title("Finding the Gyromagnetic Ratio")
@@ -136,10 +136,10 @@ def earth_field_fit():
 
     dxdata = np.sqrt(np.average(.001/xdataprime)**2 + (0.5e-2/17e-2)**2)
 
-    def fitform(x, Bhe, Bve):
-        return 2.895e-9*np.sqrt(pow((Bhe - ((8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179)),2) + pow((Bve - x),2))
+    def fitform(x, Bhe, Bve, C):
+        return 2.895e-9*np.sqrt(pow((Bhe - ((8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179)),2) + pow((Bve - x),2)) + C
 
-    p = [4.27e10, 1.27e11]
+    p = [19000e-9, 500000e-9, 350]
 
     popt, pcov = curve_fit(fitform, xdata, ydata, p0 = p)
 
@@ -208,7 +208,7 @@ def plot_reduced_trace(dataset):
     sq_wave = .001*data[:,2]
 
     plt.plot(time, signal, label = "Trace")
-    plt.plot(time, sq_wave, label = "Square Wave")
+    plt.plot(time, sq_wave, label = r"Square Wave ($\times$ 0.001 for scale)")
     plt.xlabel("Time, (s)")
     plt.ylabel("Intensity, (-mV)")
     plt.title("The Pump-Depump Cycle, Reduced Wave")
@@ -217,8 +217,8 @@ def plot_reduced_trace(dataset):
 
 if __name__ == '__main__':
 
-    #larmor_fit("data/larmor_y0.055A.tsv", 130)
-    #gyromagnetic_ratio_fit()
-    earth_field_fit()
+    #larmor_fit("data/larmor_y0.020A.tsv", 80)
+    #gyromagnetic_ratio_fit() #DON"T RUN ANYMORE, GOT A GOOD VALUE
+    #earth_field_fit() # need to figure out wtf - try to get some shape at least
     #plot_trace("data/s4_3_scope_trace.tsv")
     #plot_reduced_trace("data/s4_4_scope_trace.tsv")
