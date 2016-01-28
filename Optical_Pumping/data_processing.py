@@ -44,7 +44,7 @@ def larmor_fit(dataset, freq):
     plt.ylabel("Signal Amplitude (-mV)")
     plt.title("Fitting to find the Larmor Frequency")
     #plt.text(0.00705, 0.0325, "f = %.3f $\pm$ %.3f kHz" % ((popt[1]*1e-3)/(2*np.pi), (np.sqrt(pcov[1,1])*1e-3)/(2*np.pi)))
-    plt.savefig("plots/({}.{}).png".format(dset[0].split("/")[1], dset[1]))
+    plt.savefig("plots/({}_{}).png".format(dset[0].split("/")[1], dset[1]))
 
     with open('data/fitparms_{}.{}.tsv'.format(dset[0].split("/")[1], dset[1]), 'w+')\
       as f:
@@ -110,7 +110,7 @@ def gyromagnetic_ratio_fit():
     devg = np.std(parms_gamma)
     dev0 = np.std(parms_omega0)
 
-    chi_squared = np.sum((freqs - yFit)**2/(df)**2)/(len(freqs))
+    chi_squared = np.sum((freqs - yFit)**2/(df**2))/(len(freqs))
 
     plt.figure(figsize = (10, 10))
     plt.errorbar(Bs, freqs, xerr = Bs*dB, yerr = df, fmt = 'o')
@@ -126,20 +126,21 @@ def gyromagnetic_ratio_fit():
     #plt.show()
 
 def earth_field_fit():
-    data = np.genfromtxt("data/earth_B_field_data.csv")
+    data = np.genfromtxt("data/earth_B_field_data.tsv")
 
     ydata = data[:,1]
     xdataprime = data[:,0]
     xdata = (8*1.257e-6*36)/(np.sqrt(125)*23.5e-2) * data[:,0]
 
-    #Bhapp = (8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179
+    Bhapp = -(8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179
+    print Bhapp * 1e9
 
     dxdata = np.sqrt(np.average(.001/xdataprime)**2 + (0.5e-2/17e-2)**2)
 
     def fitform(x, Bhe, Bve, C):
-        return 2.895e-9*np.sqrt(pow((Bhe - ((8*1.257e-6*36)/(np.sqrt(125)*25e-2) * 0.179)),2) + pow((Bve - x),2)) + C
+        return (5.79e-9/6.582119514e-16)*np.sqrt(((Bhe - Bhapp)**2)+((Bve-x)**2)) + C
 
-    p = [19000e-9, 500000e-9, 350]
+    p = [1e-5, 4.234e-5, 1]
 
     popt, pcov = curve_fit(fitform, xdata, ydata, p0 = p)
 
@@ -148,12 +149,15 @@ def earth_field_fit():
     yFit = fitform(xdata, *popt)
     yuFit = fitform(xdata, *p)
 
-    plt.plot(xdata, ydata, 'o')
-    plt.plot(xdata, yuFit, 'g')
+    plt.errorbar(xdata, ydata, xerr = dxdata, yerr=3*np.ones_like(ydata), fmt = 'o')
+    #plt.plot(xdata, yuFit, 'g')
     plt.plot(xdata, yFit, 'r')
+    plt.text(2e-5, 500, r"B_{H, E} = (18.5 \pm 0.7) \times 10^{-6}\,T"\
+                            "\n" \
+                        r"B_{V, E} = (52.2 \pm 1.5) \times 10^{-6}\,T")
     plt.ylabel("Frequency (kHz)")
     plt.xlabel("Vertical Applied B Field (T)")
-    plt.show()
+    plt.savefig("plots/earth_field.png")
 
 def plot_trace(dataset):
     data = np.genfromtxt(dataset, skip_header = 1, usecols = (0,1,3))
@@ -217,8 +221,8 @@ def plot_reduced_trace(dataset):
 
 if __name__ == '__main__':
 
-    #larmor_fit("data/larmor_y0.020A.tsv", 80)
-    gyromagnetic_ratio_fit()
-    #earth_field_fit() # need to figure out wtf - try to get some shape at least
-    #plot_trace("data/s4_3_scope_trace.tsv")
-    #plot_reduced_trace("data/s4_4_scope_trace.tsv")
+    #larmor_fit("data/larmor_y0.065A.tsv", 140) #- done
+    #gyromagnetic_ratio_fit() #- done
+    earth_field_fit() #done
+    #plot_trace("data/s4_3_scope_trace.tsv") #- done
+    #plot_reduced_trace("data/s4_4_scope_trace.tsv") #-done
