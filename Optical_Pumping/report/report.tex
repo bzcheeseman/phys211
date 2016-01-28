@@ -198,6 +198,8 @@
   \subsection{RF Depumping}
     The primary reason to take measurements related to RF depumping was to make a high-precision measurement of the Earth's ambient B field.  Once we had confirmed that we were indeed optically pumping the atoms (yet again) by observing the depump signal, we made high precision measurements of the Earth's B field.
 
+    \hspace{.25cm}
+
     \begin{figure}[!htb]
       \centering
       \includegraphics[scale=.7]{../plots/earth_field.png}
@@ -205,7 +207,7 @@
       \label{earth_field}
     \end{figure}
 
-    Figure~\ref{earth_field} was the way that we made these high-precision measurements.  Performing the fit was horrifyingly awful, and so let's spend a few moments understanding the fit statistics (as it will help us understand the uncertainties on what seems to be an excellent fit).  The \redchi value was, due to very low uncertainties in the data points, \redchi = $1.27\times10^{3}$, which is absurd.  This prompted a look at the covariance matrix, which also had some absurdly large values, on the order of $10^5$.  As we will do more later, we then decided to perform a fit on simulated data drawn from a normal distribution about each point in order to try and establish the variance in the fit parameters.  This returned values that were exactly half the final values shown on the plot.  However, they were not as stable as we would have liked, and so since the fit was a 2-parameter space, we were able to actually plot the 2-D surface embedded in 3-D that represented the fit parameters, and calculate the Jacobian and Hessian of the points where the fit parameters lie.
+    Figure~\ref{earth_field} was the way that we made these high-precision measurements.  Performing the fit was horrifyingly awful, and so let's spend a few moments understanding the fit statistics (as it will help us understand the uncertainties on what seems to be an excellent fit).  The \redchi value was, due to very low uncertainties in the data points, \redchi = $1.27\times10^{3}$, which is absurd.  This prompted a look at the covariance matrix, which also had some absurdly large values, on the order of $10^5$.  As we will do more later, we then decided to perform a fit on simulated data drawn from a normal distribution about each point in order to try and establish the variance in the fit parameters.  This returned values that were exactly half the final values shown on the plot.  However, they were not as stable as we would have liked, and so since the fit was a 2-parameter space, we were able to actually plot the 2-D surface embedded in 3-D that represented the fit parameters, and calculate the Jacobian and Hessian matrices of the points on the parameter space where the fit parameters lie.
 
     \hspace{.25cm}
 
@@ -213,10 +215,12 @@
 
     \hspace{.25cm}
 
-    As can be seen, the fitted values actually correspond quite well to the values obtained from the NOAA(\ref{NOAA}).  Both of them are within 1$\sigma$ of the literature values, indicating that at we got values that 67\% of precision measurements, performed randomly, would have gotten.
+    As can be seen, the fitted values actually correspond quite well to the values obtained from the NOAA(\ref{NOAA}).  Both of them are within 1$\sigma$ of the literature values, indicating that at we measured values that were as close to or closer to the literature value than 67\% of precision measurements.
 
   \subsection{Larmor Precession}
-    The first item of interest for this report in particular is a simple plot of the larmor precession itself.  We will see that, in particular, we can fit the sine curve and extract the frequency this way.  Choose for example Figure~\ref{sinwave} , taken at 0.055A (Vertical Helmholtz coils).
+    The first item of interest for this report in particular is a simple plot of the larmor precession itself.  We will see that, in particular, we can fit the sine curve and extract the frequency this way.  Choose for example Figure~\ref{sinwave} , taken at 0.055A (in the Vertical Helmholtz coils).
+
+    \hspace{.25cm}
 
     \begin{figure}[!htb]
       \centering
@@ -242,6 +246,8 @@
 
     We can from this extract values for the frequency of larmor precession and plot these values versus the value of the vertical field at that frequency in order to find the gyromagnetic ratio.
 
+    \hspace{.25cm}
+
     \begin{figure}[!htb]
       \centering
       \includegraphics[scale=.5]{../plots/gyromagnetic_ratio_fit.png}
@@ -253,7 +259,7 @@
 
     \hspace{.25cm}
 
-    Here again, we used a rather interesting technique (as for the sine wave above Figure~\ref{sinwave}) for which we will go into more detail here.  For each point, we use the estimated error on that point as the standard deviation of a normal distribution centered at our best guess value.  From that normal distribution, we use the numpy random functions to pick a random value within that distribution.  Once we've suitably randomized some simulated data, we fit to that simulated data.  Then we repeat this process (in this case, 5000 times) and record all the fit parameters.  We then assume that those fit parameters are normally distributed, and take the standard deviation of those fit parameters as the error in our fit.  If we were to take the standard deviation of the mean instead of the standard deviation, we would get a much smaller uncertainty, but that is not necessarily correct due to error in the x coordinate (in this case the B field).  Thus we pick the value that best represents the error of our dataset, and furthermore is independent of the number of iterations of this process (because then we could artificially deflate the uncertainty in the fit).
+    Here again, we used a rather interesting technique (as for the sine wave above Figure~\ref{sinwave}) for which we will go into more detail.  For each point, we use the estimated error on that point as the standard deviation of a normal distribution centered at our best guess value.  From that normal distribution, we use the numpy random functions to pick a random value within the distribution.  Once we've suitably randomized some simulated data, we fit to said simulated data.  Then we repeat this process (in this case, 5000 times) and record all the fit parameters.  We then assume that those fit parameters are normally distributed, and take the standard deviation of those fit parameters as the error in our fit.  If we were to take the standard deviation of the mean instead of the standard deviation, we would get a much smaller uncertainty, but that is not necessarily correct due to error in the x coordinate (in this case the B field).  Thus we pick the value that best represents the error of our dataset, and furthermore is independent of the number of iterations of this process (because then we could artificially deflate the uncertainty in the fit).
 
     \hspace{.25cm}
 
