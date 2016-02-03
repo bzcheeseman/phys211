@@ -2,18 +2,16 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import loadtxt
 
-def main():
-    data = np.genfromtxt("data/doppler_broadened.tsv")
+def plot_data(dataset):
+    t, ch1, ch2 = loadtxt(dataset, skiprows=1, usecols=(0,1,3))
 
-    xdata = data[:,0]
-    ydata = data[:,1]
-
-    plt.plot(xdata, ydata)
+    plt.plot(time, ch1)
 
 
 
 
 
 if __name__ == '__main__':
-    main()
+    plot_data("data/doppler_broadened.tsv")
