@@ -16,19 +16,24 @@ from scipy.signal import argrelmax
 from scipy.ndimage.filters import gaussian_filter
 
 def convert_time_freq():
-    time, chan1 = loadtxt("data/interferometer_cal.tsv", unpack=True, skiprows=1, usecols=(0,1))
+    time, chan1 = np.genfromtxt("data/interferometer_cal.tsv", unpack=True, skip_header=1, usecols=(0,1))
 
-    t, ch1 = selectdomain(time, chan1, [.06, .16])
+    time = time*1e-3
+
+    t, ch1 = selectdomain(time, chan1, [.06e-3, .16e-3])
 
     ##### Fitting consine #####
 
     # [A, B, omega1, omega2, delta1, delta2, C]
-    p = [1.8e-2, 6.68e-2, 7.264e1, 4.419e2, 1.773, -4.52, 0]
+    p = [1.8e-2, 6.68e-2, 7.264e4, 4.419e5, 1.773, -4.52, 0]
 
     popt, pcov = curve_fit(multi_cosine, t, ch1, p0 = p)
 
     yFit = multi_cosine(t, *popt)
     yuFit = multi_cosine(t, *p)
+
+    # plt.plot(t, ch1)
+    # plt.plot(t, yFit)
 
     ##### Getting exact peak locations #####
     def find_peaks():         # implement multiple runs?
@@ -38,29 +43,31 @@ def convert_time_freq():
         dt = []
 
         for number in t[argrelmax(yFit)]:
-            tempx, tempy = selectdomain(t, ch1, [number-.007, number+.005])
+            tempx, tempy = selectdomain(t, ch1, [number-.006e-3, number+.005e-3])
 
-            tempy = gaussian_filter(tempy, 5)
+            tempy = gaussian_filter(tempy, 7)
 
-            p = [.1, .003, tempx[argrelmax(tempy)[0]], -.03]
+            p = [.14, .0027e-3, tempx[argrelmax(tempy)[0]], -.05]
 
-            popt, pcov = curve_fit(gaussian, tempx, tempy)
+            # popt, pcov = curve_fit(gaussian, tempx, tempy)
 
             # tempyFit = gaussian(tempx, *popt)
             # tempyuFit = gaussian(tempx, *p)
             #
             # plt.plot(tempx, tempy)
-            # plt.plot(tempx, tempyFit)
-            # plt.plot(tempx, tempyuFit)
+            # plt.plot(tempx, tempyFit, 'r')
+            # plt.plot(tempx, tempyuFit, 'g')
 
             t_peak.append(tempx[argrelmax(tempy)[0]])
             ch1_peak.append(tempy[argrelmax(tempy)[0]])
 
-            dt.append(popt[1]/len(tempy))
+            dt.append(p[1]/len(tempy))
 
         return t_peak, ch1_peak, dt
 
     t_peak, ch1_peak, dt = find_peaks()
+
+    t_peak = np.ravel(t_peak)
 
     dt = np.absolute(dt)
 
@@ -88,7 +95,7 @@ def convert_time_freq():
 
             #print len(f), len(deltat), len(dt)
 
-            p_conv = [-1.569e13, 4.45e11]
+            p_conv = [-1.569e15, 4.45e13]
 
             convert_popt, convert_pcov = curve_fit(linear, delt, fp, p0 = p_conv)
 
@@ -104,7 +111,7 @@ def convert_time_freq():
 
         return parms_A, parms_B, deltat, fs
 
-    parms_A, parms_B, delt, fs = find_conv(25)
+    parms_A, parms_B, delt, fs = find_conv(3)
 
     deltat = np.ravel(delt)
     f = np.ravel(fs)
@@ -117,27 +124,25 @@ def convert_time_freq():
     plt.figure(figsize = (10, 10))
     plt.errorbar(deltat, f, fmt='o', label = "Data")
     plt.plot(deltat, conv_yFit, 'r', label = "Fitted Curve")
-    plt.text(.01365,f[0],"f = kt + C\nk = %.2e $\pm$ %.2f \nC = %.2e $\pm$ %.2f" % (conv_popt[0], np.std(parms_A), conv_popt[1], np.std(parms_B)))
-    plt.text(.01365,f[0]-.0075e11, r"$\tilde{\chi}^2$ = %.2e" % redchi)
+    plt.text(.01365e-3,f[0],"f = kt + C\nk = %.2e $\pm$ %.2f \nC = %.2e $\pm$ %.2f" % (conv_popt[0], np.std(parms_A), conv_popt[1], np.std(parms_B)))
+    plt.text(.01365e-3,f[0]-.0075e14, r"$\tilde{\chi}^2$ = %.2e" % redchi)
     plt.xlabel("Time (s)")
     plt.ylabel("Frequency (Hz)")
     plt.title("Linear Fit to Find Conversion from Time to Frequency")
-
-    # plt.figure(figsize = (10, 10))
-    # plt.plot(t, ch1, 'o', label = "Raw Data")
-    # plt.plot(t_peak, ch1_peak, 'ro', ms=15, label = "Peaks")
-    # plt.plot(t, yFit, 'r', label = "Fitted Curve")
-    # plt.plot(t, yuFit, 'g', label = "Guesses")
-    # plt.xlabel("Time (s)")
-    # plt.ylabel("Absorbtion")
-    # plt.title("Finding Conversion Factors")
-    # plt.legend()
     #plt.show()
 
+    plt.figure(figsize = (10, 10))
+    plt.plot(t, ch1, 'o', label = "Raw Data")
+    plt.plot(t_peak, ch1_peak, 'ro', ms=15, label = "Peaks")
+    plt.plot(t, yFit, 'r', label = "Fitted Curve")
+    plt.plot(t, yuFit, 'g', label = "Guesses")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Absorbtion")
+    plt.title("Finding Conversion Factors")
+    plt.legend()
+    #plt.show()
 
-
-
-def plot_data(dataset):
+def plot_data(dataset):   #need to update this code to be frequency on x axis, also need to double-check converstion, might be off by about 3 orders of magnitude
     t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
 
     ti, c1 = selectdomain(t, ch1, [.122, .15])
