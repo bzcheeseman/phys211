@@ -104,7 +104,7 @@ def convert_time_freq():
 
         return parms_A, parms_B, deltat, fs
 
-    parms_A, parms_B, delt, fs = find_conv(10)
+    parms_A, parms_B, delt, fs = find_conv(25)
 
     deltat = np.ravel(delt)
     f = np.ravel(fs)
@@ -112,9 +112,7 @@ def convert_time_freq():
     conv_popt = [np.average(parms_A), np.average(parms_B)]
     conv_yFit = linear(deltat, *conv_popt)
 
-    print len(f), len(conv_yFit)
-
-    redchi = np.sum((f - conv_yFit)**2/conv_yFit)/len(f)
+    redchi = np.sum(np.absolute(f - conv_yFit)/conv_yFit)/len(f)
 
     plt.figure(figsize = (10, 10))
     plt.errorbar(deltat, f, fmt='o', label = "Data")
