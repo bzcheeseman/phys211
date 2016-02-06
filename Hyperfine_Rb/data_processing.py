@@ -18,14 +18,14 @@ from scipy.ndimage.filters import gaussian_filter
 def convert_time_freq():
     time, chan1 = np.genfromtxt("data/interferometer_cal.tsv", unpack=True, skip_header=1, usecols=(0,1))
 
-    time = time*1e-3
+    time = time
 
-    t, ch1 = selectdomain(time, chan1, [.06e-3, .16e-3])
+    t, ch1 = selectdomain(time, chan1, [.06, .16])
 
     ##### Fitting consine #####
 
     # [A, B, omega1, omega2, delta1, delta2, C]
-    p = [1.8e-2, 6.68e-2, 7.264e4, 4.419e5, 1.773, -4.52, 0]
+    p = [1.8e-2, 6.68e-2, 7.264, 4.419e2, 1.773, -4.52, 0]
 
     popt, pcov = curve_fit(multi_cosine, t, ch1, p0 = p)
 
@@ -43,14 +43,14 @@ def convert_time_freq():
         dt = []
 
         for number in t[argrelmax(yFit)]:
-            tempx, tempy = selectdomain(t, ch1, [number-.006e-3, number+.005e-3])
+            tempx, tempy = selectdomain(t, ch1, [number-.007, number+.005])
 
             tempy = gaussian_filter(tempy, 7)
 
-            p = [.14, .0027e-3, tempx[argrelmax(tempy)[0]], -.05]
+            p = [.14, .0027, tempx[argrelmax(tempy)[0]], -.05]
 
             # popt, pcov = curve_fit(gaussian, tempx, tempy)
-
+            #
             # tempyFit = gaussian(tempx, *popt)
             # tempyuFit = gaussian(tempx, *p)
             #
@@ -81,6 +81,7 @@ def convert_time_freq():
         i = 0
         while i < nruns:
             t_pk = np.random.randn(len(t_peak)) * dt + t_peak
+
             delt = []
             for i in range(0, len(t_pk)-1):
                 delt.append(t_pk[i+1] - t_pk[i])
@@ -111,7 +112,7 @@ def convert_time_freq():
 
         return parms_A, parms_B, deltat, fs
 
-    parms_A, parms_B, delt, fs = find_conv(3)
+    parms_A, parms_B, delt, fs = find_conv(2)
 
     deltat = np.ravel(delt)
     f = np.ravel(fs)
@@ -124,50 +125,63 @@ def convert_time_freq():
     plt.figure(figsize = (10, 10))
     plt.errorbar(deltat, f, fmt='o', label = "Data")
     plt.plot(deltat, conv_yFit, 'r', label = "Fitted Curve")
-    plt.text(.01365e-3,f[0],"f = kt + C\nk = %.2e $\pm$ %.2f \nC = %.2e $\pm$ %.2f" % (conv_popt[0], np.std(parms_A), conv_popt[1], np.std(parms_B)))
-    plt.text(.01365e-3,f[0]-.0075e14, r"$\tilde{\chi}^2$ = %.2e" % redchi)
-    plt.xlabel("Time (s)")
-    plt.ylabel("Frequency (Hz)")
+    plt.text(.01365,f[0],"f = kt + C\nk = %.2e $\pm$ %.2f \nC = %.2e $\pm$ %.2f" % (conv_popt[0], np.std(parms_A), conv_popt[1], np.std(parms_B)))
+    plt.text(.01365,f[0]-.0075e11, r"$\tilde{\chi}^2$ = %.2e" % redchi)
+    plt.xlabel("Change in Time (d(s))")
+    plt.ylabel("Change in Frequency (d(Hz))")
     plt.title("Linear Fit to Find Conversion from Time to Frequency")
-    #plt.show()
+    plt.savefig("plots/linear_conversion.png")
+    plt.show()
 
-    plt.figure(figsize = (10, 10))
-    plt.plot(t, ch1, 'o', label = "Raw Data")
-    plt.plot(t_peak, ch1_peak, 'ro', ms=15, label = "Peaks")
-    plt.plot(t, yFit, 'r', label = "Fitted Curve")
-    plt.plot(t, yuFit, 'g', label = "Guesses")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Absorbtion")
-    plt.title("Finding Conversion Factors")
-    plt.legend()
-    #plt.show()
+    # plt.figure(figsize = (10, 10))
+    # plt.plot(t, ch1, 'o', label = "Raw Data")
+    # plt.plot(t_peak, ch1_peak, 'ro', ms=15, label = "Peaks")
+    # plt.plot(t, yFit, 'r', label = "Fitted Curve")
+    # #plt.plot(t, yuFit, 'g', label = "Guesses")
+    # plt.xlabel("Time (s)")
+    # plt.ylabel("Absorbtion")
+    # plt.title("Finding Conversion Factors")
+    # plt.savefig("plots/conversion.png")
+    # plt.legend()
+    # plt.show()
+
+    return conv_popt[0], conv_popt[1]
 
 def plot_data(dataset):   #need to update this code to be frequency on x axis, also need to double-check converstion, might be off by about 3 orders of magnitude
+
+    k, C = convert_time_freq()
+
     t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
+
+    freqs = k * t + C
 
     ti, c1 = selectdomain(t, ch1, [.122, .15])
 
+    f = k * ti + C
+
     c1_filter = gaussian_filter(c1, 10)
 
-    x0 = ti[argrelmax(c1_filter)]
+    x0 = f[argrelmax(c1_filter)]
 
-    p = [1e-3, .02, x0, -.02]
+    print x0
 
-    popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
+    p = [2.12e10, 3.6e11, x0, -.02]
+
+    popt, pcov = curve_fit(lorentzian, f, c1, p0 = p)
 
     print popt
 
-    yFit = lorentzian(ti, *popt)
-    yuFit = lorentzian(ti, *p)
+    yFit = lorentzian(f, *popt)
+    yuFit = lorentzian(f, *p)
 
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
     plt.figure(figsize = (10, 10))
-    plt.errorbar(t, ch1, yerr=ch1err, fmt='bo')
-    plt.errorbar(ti, c1, c1err, fmt='mo')
-    plt.plot(ti, yFit, 'r')
-    plt.plot(ti, yuFit, 'g')
+    plt.errorbar(freqs, ch1, yerr=ch1err, fmt='bo')
+    plt.errorbar(f, c1, c1err, fmt='mo')
+    plt.plot(f, yFit, 'r')
+    plt.plot(f, yuFit, 'g')
 
 
 
