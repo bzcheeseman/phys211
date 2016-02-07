@@ -1,4 +1,4 @@
-#%pylab inline
+%pylab inline
 
 import sys
 
@@ -136,33 +136,31 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
 
     k = conversions["Frequency Uncertainty"]/conversions["Time value"]
 
-    print k
-
     ti, c1 = selectdomain(t, ch1, [.122, .15])
 
     c1_filter = gaussian_filter(c1, 10)
 
-    x0 = f[argrelmax(c1_filter)]
+    x0 = ti[argrelmax(c1_filter)]
 
-    print x0
+    #print x0
 
-    p = [2.12e10, 3.6e11, x0, -.02]
+    p = [4e-4, 1e-2, x0, -.01]
 
-    popt, pcov = curve_fit(lorentzian, f, c1, p0 = p)
+    popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
 
-    print popt
-
-    yFit = lorentzian(f, *popt)
-    yuFit = lorentzian(f, *p)
+    yFit = lorentzian(ti, *popt)
+    yuFit = lorentzian(ti, *p)
 
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
+    print "Linewidth: %.2e Hz" % ((popt[2]+popt[1])-(popt[2]-popt[1]))*k
+
     plt.figure(figsize = (10, 10))
-    plt.errorbar(freqs, ch1, yerr=ch1err, fmt='bo')
-    plt.errorbar(f, c1, c1err, fmt='mo')
+    plt.errorbar(t, ch1, yerr=ch1err, fmt='bo')
+    plt.errorbar(ti, c1, c1err, fmt='mo')
     plt.plot(f, yFit, 'r')
-    plt.plot(f, yuFit, 'g')
+    plt.plot(ti, yuFit, 'g')
 
 
 
