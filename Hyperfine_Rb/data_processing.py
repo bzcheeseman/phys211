@@ -1,4 +1,4 @@
-%pylab inline
+#%pylab inline
 
 import sys
 
@@ -14,6 +14,7 @@ from scipy import loadtxt
 from scipy.optimize import curve_fit
 from scipy.signal import argrelmax
 from scipy.ndimage.filters import gaussian_filter
+from multiprocessing import Pool
 
 def convert_time_freq():
     time, chan1 = np.genfromtxt("data/interferometer_cal.tsv", unpack=True, skip_header=1, usecols=(0,1))
@@ -78,17 +79,21 @@ def convert_time_freq():
         parms_B = []
         deltat = []
         fs = []
-        i = 0
-        while i < nruns:
+
+        for j in range(0, nruns):
             t_pk = np.random.randn(len(t_peak)) * dt + t_peak
 
+            l = len(t_pk)
+
             delt = []
-            for i in range(0, len(t_pk)-1):
+            for i in range(0, l-1):
                 delt.append(t_pk[i+1] - t_pk[i])
             delt = np.ravel(delt)
 
+            ld = len(delt)
+
             fp = []
-            for i in range(0, len(delt)):
+            for i in range(0, ld):
                 fp.append((2.*3e8)/(delt[i]*(29.5e-2-10.5e-2)))
             fp = np.ravel(fp)
 
@@ -103,16 +108,14 @@ def convert_time_freq():
             #conv_yFit = linear(deltat, *convert_popt)
             #conv_yuFit = linear(deltat, *p_conv)
 
-            deltat=delt
-            fs=fp
+            deltat.append(delt)
+            fs.append(fp)
             parms_A.append(convert_popt[0])
             parms_B.append(convert_popt[1])
 
-            i += 1
-
         return parms_A, parms_B, deltat, fs
 
-    parms_A, parms_B, delt, fs = find_conv(2)
+    parms_A, parms_B, delt, fs = find_conv(5000)
 
     deltat = np.ravel(delt)
     f = np.ravel(fs)
