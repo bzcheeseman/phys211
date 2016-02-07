@@ -1,4 +1,4 @@
-%pylab inline
+#%pylab inline
 
 import sys
 
@@ -15,6 +15,10 @@ from scipy.optimize import curve_fit
 from scipy.signal import argrelmax
 from scipy.ndimage.filters import gaussian_filter
 from multiprocessing import Pool
+
+from matplotlib import rc
+rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+rc('text', usetex=True)
 
 def convert_time_freq():
     time, chan1 = np.genfromtxt("data/interferometer_cal.tsv", unpack=True, skip_header=1, usecols=(0,1))
@@ -136,15 +140,15 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
 
     k = conversions["Frequency Uncertainty"]/conversions["Time value"]
 
-    ti, c1 = selectdomain(t, ch1, [.0285, .0575])
+    ti, c1 = selectdomain(t, ch1, [.0825, .105])
 
-    c1_filter = gaussian_filter(c1, 10)
+    c1_filter = gaussian_filter(c1, 25)
 
     x0 = ti[argrelmax(c1_filter)]
 
     #print x0
 
-    p = [2.5e-4, 1e-2, x0, -.01]
+    p = [4e-3, 1.5e-2, x0, -.07]
 
     popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
 
@@ -154,13 +158,34 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
-    print "Linewidth: %.2e Hz" % ((popt[2]+popt[1])-(popt[2]-popt[1]))*k
+    #print "Linewidth: %.2e Hz" % (k*popt[1])
+    #print k
 
-    plt.figure(figsize = (10, 10))
+    f2 = "87 Rb F = 2"
+    f3 = "85 Rb F = 3"
+    f285 = "85 Rb F = 2"
+    f1 = "87 Rb F = 1"
+
+    plt.figure(figsize = (8, 8))
     plt.errorbar(t, ch1, yerr=ch1err, fmt='bo')
     plt.errorbar(ti, c1, c1err, fmt='mo')
-    plt.plot(ti, yFit, 'r')
-    plt.plot(ti, yuFit, 'g')
+    plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    #plt.plot(ti, yuFit, 'g')
+
+    plt.annotate(f2, (.07, .14), (.06, .2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate(f3, (.095, 0), (.085, -.2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate(f285, (.12, .3), (.12, .4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate(f1, (.19, .1), (.17, .2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+
+    plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
+
+    plt.xlabel("Time (s)")
+    plt.ylabel("Intensity $W/(m^2)$")
+    plt.title("Determining the linewidth of the doppler-broadened peak")
+    plt.savefig("plots/rb85_fwhm")
+    plt.show()
+
+    # need to point to each peak and point out which one it is
 
 
 
@@ -168,5 +193,5 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
 
 
 if __name__ == '__main__':
-    plot_data("data/doppler_broadened.tsv")
+    plot_data("data/doppler_free_all.tsv")
     #convert_time_freq()
