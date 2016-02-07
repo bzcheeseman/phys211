@@ -1,4 +1,4 @@
-#%pylab inline
+%pylab inline
 
 import sys
 
@@ -198,16 +198,21 @@ def plot_hyperfine(dataset):
 
     c1_filter = gaussian_filter(c1, 25)
 
-    x0 = ti[argrelmax(c1_filter)]
+    max_c1 = max(c1[argrelmax(c1_filter)])
+    m_c1 = np.where(max_c1 == c1)
+
+    x0 = ti[np.average(m_c1)]
 
     print x0
 
-    # p = [4e-3, 1.5e-2, x0, -.07]
-    #
-    # popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
-    #
-    # yFit = lorentzian(ti, *popt)
-    # yuFit = lorentzian(ti, *p)
+    # need to implement multi-lorentzian
+
+    p = [4e-3, 1.5e-2, x0, -.07]
+
+    popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
+
+    yFit = lorentzian(ti, *popt)
+    yuFit = lorentzian(ti, *p)
 
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
@@ -217,15 +222,15 @@ def plot_hyperfine(dataset):
 
     plt.figure(figsize = (8, 8))
     plt.errorbar(ti, c1, c1err, fmt='o')
-    # plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
-    # plt.plot(ti, yuFit, 'g')
+    plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    plt.plot(ti, yuFit, 'g')
 
     #plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
 
     plt.xlabel("Time (s)")
     plt.ylabel("Intensity $W/(m^2)$")
     plt.title("Determining the linewidth of the doppler-broadened peak")
-    plt.show()
+    #plt.show()
 
 
 
