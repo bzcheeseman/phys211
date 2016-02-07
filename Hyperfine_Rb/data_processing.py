@@ -136,7 +136,7 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
 
     k = conversions["Frequency Uncertainty"]/conversions["Time value"]
 
-    ti, c1 = selectdomain(t, ch1, [.122, .15])
+    ti, c1 = selectdomain(t, ch1, [.0285, .0575])
 
     c1_filter = gaussian_filter(c1, 10)
 
@@ -144,7 +144,7 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
 
     #print x0
 
-    p = [4e-4, 1e-2, x0, -.01]
+    p = [2.5e-4, 1e-2, x0, -.01]
 
     popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
 
@@ -159,7 +159,7 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
     plt.figure(figsize = (10, 10))
     plt.errorbar(t, ch1, yerr=ch1err, fmt='bo')
     plt.errorbar(ti, c1, c1err, fmt='mo')
-    plt.plot(f, yFit, 'r')
+    plt.plot(ti, yFit, 'r')
     plt.plot(ti, yuFit, 'g')
 
 
