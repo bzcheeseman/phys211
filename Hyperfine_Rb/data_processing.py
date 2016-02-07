@@ -132,7 +132,7 @@ def convert_time_freq():
 
     return {"Time value":np.average(deltat), "Time Uncertainty": np.std(deltat), "Frequency value": df, "Frequency Uncertainty":deltf}
 
-def plot_data(dataset):   #need to update this code to be frequency on x axis, also need to double-check converstion, might be off by about 3 orders of magnitude
+def plot_broadened_data(dataset):   #need to update this code to be frequency on x axis, also need to double-check converstion, might be off by about 3 orders of magnitude
 
     conversions = convert_time_freq()
 
@@ -180,18 +180,57 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
     plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
 
     plt.xlabel("Time (s)")
-    plt.ylabel("Intensity $W/(m^2)$")
+    plt.ylabel("Absorbtion $W/(m^2)$")
     plt.title("Determining the linewidth of the doppler-broadened peak")
     plt.savefig("plots/rb85_fwhm")
     plt.show()
 
     # need to point to each peak and point out which one it is
 
+def plot_hyperfine(dataset):
+    conversions = convert_time_freq()
 
+    t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
+
+    k = conversions["Frequency Uncertainty"]/conversions["Time value"]
+
+    ti, c1 = selectdomain(t, ch1, [.0825, .105])
+
+    c1_filter = gaussian_filter(c1, 25)
+
+    x0 = ti[argrelmax(c1_filter)]
+
+    print x0
+
+    # p = [4e-3, 1.5e-2, x0, -.07]
+    #
+    # popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
+    #
+    # yFit = lorentzian(ti, *popt)
+    # yuFit = lorentzian(ti, *p)
+
+    ch1err = est_error(ch1, 1e-3)
+    c1err = est_error(c1, 1e-3)
+
+    #print "Linewidth: %.2e Hz" % (k*popt[1])
+    #print k
+
+    plt.figure(figsize = (8, 8))
+    plt.errorbar(ti, c1, c1err, fmt='o')
+    # plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    # plt.plot(ti, yuFit, 'g')
+
+    #plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
+
+    plt.xlabel("Time (s)")
+    plt.ylabel("Intensity $W/(m^2)$")
+    plt.title("Determining the linewidth of the doppler-broadened peak")
+    plt.show()
 
 
 
 
 if __name__ == '__main__':
-    plot_data("data/doppler_free_all.tsv")
+    #plot_broadened_data("data/doppler_free_all.tsv")
     #convert_time_freq()
+    plot_hyperfine("data/doppler_free_pk2.tsv")
