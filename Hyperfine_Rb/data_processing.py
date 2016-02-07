@@ -78,7 +78,6 @@ def convert_time_freq():
         parms_A = []
         parms_B = []
         deltat = []
-        fs = []
 
         for j in range(0, nruns):
             t_pk = np.random.randn(len(t_peak)) * dt + t_peak
@@ -92,49 +91,28 @@ def convert_time_freq():
 
             ld = len(delt)
 
-            fp = []
-            for i in range(0, ld):
-                fp.append((2.*3e8)/(delt[i]*(29.5e-2-10.5e-2)))
-            fp = np.ravel(fp)
-
-            #h = 6.62e-34*np.ones_like(f)
-
-            #print len(f), len(deltat), len(dt)
-
-            p_conv = [-1.569e15, 4.45e13]
-
-            convert_popt, convert_pcov = curve_fit(linear, delt, fp, p0 = p_conv)
-
-            #conv_yFit = linear(deltat, *convert_popt)
-            #conv_yuFit = linear(deltat, *p_conv)
-
             deltat.append(delt)
-            fs.append(fp)
-            parms_A.append(convert_popt[0])
-            parms_B.append(convert_popt[1])
 
-        return parms_A, parms_B, deltat, fs
+        return deltat
 
-    parms_A, parms_B, delt, fs = find_conv(5000)
+    delt = find_conv(5000)
 
     deltat = np.ravel(delt)
-    f = np.ravel(fs)
+    df = 3e8/(2*(29.5e-2 - 10.5e-2))
 
-    conv_popt = [np.average(parms_A), np.average(parms_B)]
-    conv_yFit = linear(deltat, *conv_popt)
+    deltf = np.sqrt((.5e-2/29.5e-2)**2 + (.5e-2/10.5e-2)**2) * df
 
-    redchi = np.sum(np.absolute(f - conv_yFit)/conv_yFit)/len(f)
+    f = np.ones_like(deltat) * df
 
-    plt.figure(figsize = (10, 10))
-    plt.errorbar(deltat, f, fmt='o', label = "Data")
-    plt.plot(deltat, conv_yFit, 'r', label = "Fitted Curve")
-    plt.text(.01365,f[0],"f = kt + C\nk = %.2e $\pm$ %.2f \nC = %.2e $\pm$ %.2f" % (conv_popt[0], np.std(parms_A), conv_popt[1], np.std(parms_B)))
-    plt.text(.01365,f[0]-.0075e11, r"$\tilde{\chi}^2$ = %.2e" % redchi)
-    plt.xlabel("Change in Time (d(s))")
-    plt.ylabel("Change in Frequency (d(Hz))")
-    plt.title("Linear Fit to Find Conversion from Time to Frequency")
-    plt.savefig("plots/linear_conversion.png")
-    plt.show()
+    # plt.figure(figsize = (10, 10))
+    # plt.errorbar(deltat, f, fmt='o', label = "Data")
+    # plt.xlabel("Change in Time (d(s))")
+    # plt.ylabel("Change in Frequency (d(Hz))")
+    # plt.title("Linear Fit to Find Conversion from Time to Frequency")
+    # plt.savefig("plots/linear_conversion.png")
+    # plt.show()
+
+    # print np.average(deltat), np.std(deltat), df, deltf
 
     # plt.figure(figsize = (10, 10))
     # plt.plot(t, ch1, 'o', label = "Raw Data")
@@ -148,19 +126,19 @@ def convert_time_freq():
     # plt.legend()
     # plt.show()
 
-    return conv_popt[0], conv_popt[1]
+    return {"Time value":np.average(deltat), "Time Uncertainty": np.std(deltat), "Frequency value": df, "Frequency Uncertainty":deltf}
 
 def plot_data(dataset):   #need to update this code to be frequency on x axis, also need to double-check converstion, might be off by about 3 orders of magnitude
 
-    k, C = convert_time_freq()
+    conversions = convert_time_freq()
 
     t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
 
-    freqs = k * t + C
+    k = conversions["Frequency Uncertainty"]/conversions["Time value"]
+
+    print k
 
     ti, c1 = selectdomain(t, ch1, [.122, .15])
-
-    f = k * ti + C
 
     c1_filter = gaussian_filter(c1, 10)
 
@@ -192,5 +170,5 @@ def plot_data(dataset):   #need to update this code to be frequency on x axis, a
 
 
 if __name__ == '__main__':
-    #plot_data("data/doppler_broadened.tsv")
-    convert_time_freq()
+    plot_data("data/doppler_broadened.tsv")
+    #convert_time_freq()
