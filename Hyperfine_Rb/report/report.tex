@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[margin=.5in]{geometry}
 \usepackage{graphicx, dblfloatfix}
-\usepackage{amsmath, amssymb, amsfonts, mathrsfs, mathtools}
+\usepackage{amsmath, amssymb, amsfonts, mathrsfs, mathtools, physics}
 \usepackage[english]{babel}
 \usepackage[autostyle, english = american]{csquotes}
 \usepackage[normalem]{ulem}
@@ -11,9 +11,7 @@
 
 
 \newcommand{\redchi}{$\tilde{\chi}^2\,$}
-\DeclareMathOperator{\erf}{erf}
 \DeclareMathOperator{\cov}{cov}
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter{\parens}{\lparen}{\rparen}
 
 \title{Optical Pumping}
@@ -37,6 +35,14 @@
 
   In particular, we discuss the methods used for finding the information required, including the methods used to find the Hyperfine transitions, measure the linewidth of the resonances, and the linewidth of the doppler-broadened peak.
 
-\section{Theory} %%%%%%%%%%%%%%%%%%%%%%%%
+\section{Theory}
+  Rubidium is often used as an atom for optical experiments because it has a hydrogen-like spectrum in its ground state, which allows for the splitting and simplification of the system hamiltonian.  If we ignore the relativistic effects and assume that the nucleus is much heavier than the outer electrons, we can write the Hamiltonian of the system as the sum of different parts.  We have
+  \begin{gather*}
+    H_{kin} = \frac{p^2}{2m} \\
+    H_{em} = \frac{-Z_{ef\!f}e^2}{4\pi\epsilon_0r} \\
+    H_{so} = \frac{1}{m_e e c^2}\frac{1}{r}\pdv{V}{r}\vec{L} \\
+    H_{hyp, 1} = \alpha \vec{J}\cdot\vec{I} \\
+    H_{hyp, 2} = stuff
+  \end{gather*}
 
 \end{document}
