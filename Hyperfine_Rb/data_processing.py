@@ -297,8 +297,8 @@ def FWHM_hyperfine(dataset):
     hyperfine_text3 = "Linewidth of Hyperfine State: $%.2e\,\pm\,%.2e$" % (lw, dlw)
 
     plt.figure(figsize = (10, 10))
-    plt.errorbar(ti, c1, c1err, fmt='mo')
-    plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    plt.errorbar(ti, c1, c1err, fmt='o')
+    plt.plot(ti, yFit, 'r', lw=2, alpha=.8, label="Lorentzian Fit")
     plt.text(.0899, .06, "%s\n%s\n%s" % (hyperfine_text1, hyperfine_text2, hyperfine_text3))
     plt.xlabel("Time (s)")
     plt.ylabel("Absorbtion $W/(m^2)$")
@@ -312,5 +312,5 @@ def FWHM_hyperfine(dataset):
 if __name__ == '__main__':
     #plot_broadened_data("data/doppler_free_all.tsv")
     #convert_time_freq()
-    plot_hyperfine("data/doppler_free_pk2.tsv")
-    #FWHM_hyperfine("data/doppler_free_pk2.tsv")
+    #plot_hyperfine("data/doppler_free_pk2.tsv")
+    FWHM_hyperfine("data/doppler_free_pk2.tsv")
