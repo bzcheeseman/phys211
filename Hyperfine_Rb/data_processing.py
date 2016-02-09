@@ -244,13 +244,51 @@ def plot_hyperfine(dataset):
     plt.xlabel("Time (s)")
     plt.ylabel("Intensity $W/(m^2)$")
     plt.title("Determining the positions of the Hyperfine peaks")
+    plt.savefig("plots/hyperfine.png")
     plt.show()
 
+def FWHM_hyperfine(dataset):
+    conversions = convert_time_freq()
 
+    t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
+
+    k = conversions["Frequency value"]/conversions["Time value"]
+
+    ti, c1 = selectdomain(t, ch1, [.09, .091])
+
+    c1_filter = gaussian_filter(c1, 5)
+
+    x0 = ti[argrelmin(c1_filter)]
+
+    print x0
+
+    p = [-9e-6, 2.35e-4, x0, 1e-2, 1.18e-1]
+
+    popt, pcov = curve_fit(lorentzian_back, ti, c1, p0 = p)
+
+    print 1.054e-34/(6.626e-34 * popt[1] * k)
+    print popt[1], np.sqrt(pcov[1,1])
+
+    yFit = lorentzian_back(ti, *popt)
+    yuFit = lorentzian_back(ti, *p)
+
+    ch1err = est_error(ch1, 1e-3)
+    c1err = est_error(c1, 1e-3)
+
+    plt.figure(figsize = (8, 8))
+    plt.errorbar(ti, c1, c1err, fmt='mo')
+    plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+
+    plt.xlabel("Time (s)")
+    plt.ylabel("Absorbtion $W/(m^2)$")
+    plt.title("Determining the linewidth of a Hyperfine Feature peak")
+    plt.savefig("plots/rb87_hyperfine.png")
+    plt.show()
 
 
 
 if __name__ == '__main__':
     #plot_broadened_data("data/doppler_free_all.tsv")
     #convert_time_freq()
-    plot_hyperfine("data/doppler_free_pk2.tsv")
+    #plot_hyperfine("data/doppler_free_pk2.tsv")
+    FWHM_hyperfine("data/doppler_free_pk2.tsv")
