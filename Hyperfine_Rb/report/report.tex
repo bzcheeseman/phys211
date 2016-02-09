@@ -14,6 +14,9 @@
 \DeclareMathOperator{\cov}{cov}
 \DeclarePairedDelimiter{\parens}{\lparen}{\rparen}
 
+\newcommand{\twohalfmf}[2]{$5^2 #1_{1/2},\, f = 2,\, m_f = #2$}
+\newcommand{\twohalf}[1]{$5^2 #1_{1/2},\, f = 2$}
+
 \title{Optical Pumping}
 \author{Aman LaChapelle}
 
@@ -36,6 +39,7 @@
   In particular, we discuss the methods used for finding the information required, including the methods used to find the Hyperfine transitions, measure the linewidth of the resonances, and the linewidth of the doppler-broadened peak.
 
 \section{Theory}
+  \subsection{Energy of Rb}
   Rubidium is often used as an atom for optical experiments because it has a hydrogen-like spectrum in its ground state, which allows for the splitting and simplification of the system hamiltonian.  If we ignore the relativistic effects and assume that the nucleus is much heavier than the outer electrons, we can write the Hamiltonian of the system as the sum of different parts.  We have
   \begin{gather*}
     H_{kin} = \frac{p^2}{2m} \\
@@ -49,6 +53,19 @@
 
   \hspace{.25cm}
 
-  The second two are more complex.  $H_{hyp, 1}$ is the hyperfine interaction that occurs between the electon's total angular momentum $\vec{J} = \vec{L} + \vec{S}$ and the atom's intrinsic nuclear spin $\vec{I}$.  The constant $\alpha$ is called the magnetic hyperfine structure constant.  This interaction is also present in other atoms, but we see it very prominently in atoms like Rb due to the fact that the outer valence electrons typically have very high $\ell$ (hereafter the quantum number associated with $\vec{L}$) states, which directly increases j (quantum number associated with $\vec{J}$), it is a magnetic dipole interaction.  Along that same vein, we have $H_{hyp, 2}$.  It is the interaction between the electric quadrupole moment of the nucleus and the electron.  The dipole moment of the interaction is given in $H_{em}$.
+  The second two are more complex.  $H_{hyp, 1}$ is the hyperfine interaction that occurs between the electon's total angular momentum $\vec{J} = \vec{L} + \vec{S}$ and the atom's intrinsic nuclear spin $\vec{I}$.  The constant $\alpha$ is called the magnetic hyperfine structure constant.  This interaction is also present in other atoms, but we see it very prominently in atoms like Rb due to the fact that the outer valence electrons typically have very high $\ell$ (hereafter the quantum number associated with $\vec{L}$) states, which directly increases j (quantum number associated with $\vec{J}$), it is a magnetic dipole interaction.  Along that same vein, we have $H_{hyp, 2}$.  It is the interaction between the electric quadrupole moment of the nucleus and the electron.  The dipole moment of the interaction is given in $H_{em}$.  As with any other separable hamiltonian, we can apply non-degenerate perturbation theory and calculate the energy shift due to the perturbation quite simply.  Thus we can simply write down the energy of the system as
+  \begin{equation*}
+    E_{tot} = E_0 + E_{hyp}
+  \end{equation*}
+  where we have wrapped all the non-hyperfine parts into one term, and the two hyperfine hamiltonians into the $E_{hyp}$ term.
+
+  \hspace{.25cm}
+
+  \subsection{Electron Transitions}
+  The ground state for 85Rb and 87Rb is the \twohalf{S} state.  Recall spectroscopic notation: $n^{2s+1}\ell_{j}$.  Since we are measuring the hyperfine transitions between the \twohalf{P} states, we need some way to get the electrons into that state.  We do this with a pump beam.  In the orientation that we use, we happen to use the pump beam reflected and passed through a linear polarizer as our probe beam, but this is not neccesary.  We pump the ensemble into the \twohalf{P} states with a 780 nm laser.  From there we let the hyperfine splitting occur as it normally would.
+
+  \hspace{.25cm}
+
+  The pump beam pumps the atoms into a certain state, but the probe beam is what we measure.  What we actually measure is the intensity of the probe beam as it passes through the sample, and then invert that signal on our instrumentation in order to plot the atoms' absorbtion of photons as a function of time (and since the laser sweeps frequencies as a function of time, frequency as well).  In the particular case of the hyperfine transition peaks, for example, we see absorbtion dips \textbf{at} the transition energies, because the atoms have nowhere to go and thus the photons simply pass through.  We can then find the difference in frequency between hyperfine states by measuring the difference between the times at each peak tip and from that converting into frequency.
 
 \end{document}

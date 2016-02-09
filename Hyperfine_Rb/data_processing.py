@@ -118,10 +118,10 @@ def convert_time_freq():
 
     # print np.average(deltat), np.std(deltat), df, deltf
 
-    interferometer_text = "Fit Form:\n \
-                          $A\cos(\omega_1 t + \delta_1) + B\cos(\omega_2 t + \delta_2)$"
-
-
+    # interferometer_text = "Fit Form:\n \
+    #                       $A\cos(\omega_1 t + \delta_1) + B\cos(\omega_2 t + \delta_2)$"
+    #
+    #
     # plt.figure(figsize = (10, 10))
     # plt.plot(t, ch1, 'o', label = "Raw Data")
     # plt.plot(t_peak, ch1_peak, 'ro', ms=15, label = "Peaks")
@@ -130,7 +130,7 @@ def convert_time_freq():
     # plt.text(.08, .11, interferometer_text)
     # #plt.plot(t, yuFit, 'g', label = "Guesses")
     # plt.xlabel("Time (s)")
-    # plt.ylabel("Absorbtion")
+    # plt.ylabel("Absorbtion $W/(m^2)$")
     # plt.title("Finding Conversion Factors")
     # plt.legend()
     # plt.savefig("plots/conversion.pdf")
@@ -239,16 +239,23 @@ def plot_hyperfine(dataset):
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
+
+
     plt.figure(figsize=(8,8))
     plt.errorbar(ti, c1, c1err, fmt='o')
     plt.plot(ts, cs, 'ro', label = "Peak Locations")
     #plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
     #plt.plot(ti, yuFit, 'g')
 
-    #plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
+    plt.annotate("Hyperfine, f = 0,1", (ts[0], cs[0]), (.085, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate("Crossover", (ts[1], cs[1]), (.083, .05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate("Hyperfine, f = 1,2", (ts[2], cs[2]), (.091, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate("Crossover", (ts[3], cs[3]), (.083, .06), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate("Crossover", (ts[4], cs[4]), (.083, .07), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    plt.annotate("Hyperfine, f = 2,3", (ts[5], cs[5]), (.097, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
 
     plt.xlabel("Time (s)")
-    plt.ylabel("Intensity $W/(m^2)$")
+    plt.ylabel("Absorbtion $W/(m^2)$")
     plt.title("Determining the positions of the Hyperfine peaks")
     plt.legend()
     plt.savefig("plots/hyperfine.pdf")
