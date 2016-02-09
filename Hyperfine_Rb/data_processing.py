@@ -5,7 +5,7 @@ import sys
 sys.path.append("..")
 
 from PythonLibrary.selectDomain import selectdomain
-from PythonLibrary.residuals import lorentzian, multi_cosine, linear, gaussian
+from PythonLibrary.residuals import *
 from PythonLibrary.estError import est_error
 
 import numpy as np
@@ -118,16 +118,22 @@ def convert_time_freq():
 
     # print np.average(deltat), np.std(deltat), df, deltf
 
+    interferometer_text = "Fit Form:\n \
+                          $A\cos(\omega_1 t + \delta_1) + B\cos(\omega_2 t + \delta_2)$"
+
+
     # plt.figure(figsize = (10, 10))
     # plt.plot(t, ch1, 'o', label = "Raw Data")
     # plt.plot(t_peak, ch1_peak, 'ro', ms=15, label = "Peaks")
     # plt.plot(t, yFit, 'r', label = "Fitted Curve")
+    #
+    # plt.text(.08, .11, interferometer_text)
     # #plt.plot(t, yuFit, 'g', label = "Guesses")
     # plt.xlabel("Time (s)")
     # plt.ylabel("Absorbtion")
     # plt.title("Finding Conversion Factors")
-    # plt.savefig("plots/conversion.png")
     # plt.legend()
+    # plt.savefig("plots/conversion.pdf")
     # plt.show()
 
     return {"Time value":np.average(dt), "Time Uncertainty": np.std(dt), "Frequency value": df, "Frequency Uncertainty":deltf}
@@ -182,7 +188,7 @@ def plot_broadened_data(dataset):   #need to update this code to be frequency on
     plt.xlabel("Time (s)")
     plt.ylabel("Absorbtion $W/(m^2)$")
     plt.title("Determining the linewidth of the doppler-broadened peak")
-    plt.savefig("plots/rb85_fwhm")
+    plt.savefig("plots/rb85_fwhm.pdf")
     plt.show()
 
     # need to point to each peak and point out which one it is
@@ -235,7 +241,7 @@ def plot_hyperfine(dataset):
 
     plt.figure(figsize=(8,8))
     plt.errorbar(ti, c1, c1err, fmt='o')
-    plt.plot(ts, cs, 'ro')
+    plt.plot(ts, cs, 'ro', label = "Peak Locations")
     #plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
     #plt.plot(ti, yuFit, 'g')
 
@@ -244,7 +250,8 @@ def plot_hyperfine(dataset):
     plt.xlabel("Time (s)")
     plt.ylabel("Intensity $W/(m^2)$")
     plt.title("Determining the positions of the Hyperfine peaks")
-    plt.savefig("plots/hyperfine.png")
+    plt.legend()
+    plt.savefig("plots/hyperfine.pdf")
     plt.show()
 
 def FWHM_hyperfine(dataset):
@@ -277,14 +284,21 @@ def FWHM_hyperfine(dataset):
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
-    plt.figure(figsize = (8, 8))
+    hyperfine_text1 = r"$f(t) = \frac{A}{\pi}\frac{\frac{1}{2}\Gamma}{(t - t_0)^2 + (\frac{1}{2}\Gamma)^2} + Bt + C$"
+
+    hyperfine_text2 = r"$f(t) = \frac{%.2e}{\pi}\frac{\frac{1}{2}%.2e}{(t - %.2e)^2  + (\frac{1}{2}%.2e)^2} + %.2et + %.2e$" % (popt[0], popt[1], popt[2], popt[1], popt[3], popt[4])
+
+    hyperfine_text3 = "Linewidth of Hyperfine State: $%.2e\,\pm\,%.2e$" % (lw, dlw)
+
+    plt.figure(figsize = (10, 10))
     plt.errorbar(ti, c1, c1err, fmt='mo')
     plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
-
+    plt.text(.0899, .06, "%s\n%s\n%s" % (hyperfine_text1, hyperfine_text2, hyperfine_text3))
     plt.xlabel("Time (s)")
     plt.ylabel("Absorbtion $W/(m^2)$")
     plt.title("Determining the linewidth of a Hyperfine Feature peak")
-    plt.savefig("plots/rb87_hyperfine.png")
+    plt.legend()
+    plt.savefig("plots/rb87_hyperfine.pdf")
     plt.show()
 
 
@@ -292,5 +306,5 @@ def FWHM_hyperfine(dataset):
 if __name__ == '__main__':
     #plot_broadened_data("data/doppler_free_all.tsv")
     #convert_time_freq()
-    #plot_hyperfine("data/doppler_free_pk2.tsv")
-    FWHM_hyperfine("data/doppler_free_pk2.tsv")
+    plot_hyperfine("data/doppler_free_pk2.tsv")
+    #FWHM_hyperfine("data/doppler_free_pk2.tsv")

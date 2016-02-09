@@ -42,7 +42,13 @@
     H_{em} = \frac{-Z_{ef\!f}e^2}{4\pi\epsilon_0r} \\
     H_{so} = \frac{1}{m_e e c^2}\frac{1}{r}\pdv{V}{r}\vec{L} \\
     H_{hyp, 1} = \alpha \vec{J}\cdot\vec{I} \\
-    H_{hyp, 2} = stuff
+    H_{hyp, 2} = \frac{\beta}{2I(2I-1)j(2j-1)}\parens*{3(\vec{I}\cdot\vec{J})^2 + \frac{3}{2}(\vec{I}\cdot\vec{J}) - I(I+1)j(j+1)}
   \end{gather*}
+
+  The first three are fairly basic - they stem from the electron's motion and interactions between the electron's magnetic moment and the magnetic moment of its motion around the nucleus.  They are the standard additions to the Hydrogen atom hamiltonian with the exception of the relativistic correction term.
+
+  \hspace{.25cm}
+
+  The second two are more complex.  $H_{hyp, 1}$ is the hyperfine interaction that occurs between the electon's total angular momentum $\vec{J} = \vec{L} + \vec{S}$ and the atom's intrinsic nuclear spin $\vec{I}$.  The constant $\alpha$ is called the magnetic hyperfine structure constant.  This interaction is also present in other atoms, but we see it very prominently in atoms like Rb due to the fact that the outer valence electrons typically have very high $\ell$ (hereafter the quantum number associated with $\vec{L}$) states, which directly increases j (quantum number associated with $\vec{J}$), it is a magnetic dipole interaction.  Along that same vein, we have $H_{hyp, 2}$.  It is the interaction between the electric quadrupole moment of the nucleus and the electron.  The dipole moment of the interaction is given in $H_{em}$.
 
 \end{document}
