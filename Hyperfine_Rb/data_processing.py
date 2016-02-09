@@ -1,4 +1,4 @@
-%pylab inline
+#%pylab inline
 
 import sys
 
@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import loadtxt
 from scipy.optimize import curve_fit
-from scipy.signal import argrelmax
+from scipy.signal import argrelmax, argrelmin
 from scipy.ndimage.filters import gaussian_filter
 from multiprocessing import Pool
 
@@ -100,13 +100,13 @@ def convert_time_freq():
         return deltat
 
     delt = find_conv(5000)
+    dt = np.ravel(delt)
 
-    deltat = np.ravel(delt)
     df = 3e8/(2*(29.5e-2 - 10.5e-2))
 
     deltf = np.sqrt((.5e-2/29.5e-2)**2 + (.5e-2/10.5e-2)**2) * df
 
-    f = np.ones_like(deltat) * df
+    f = np.ones_like(dt) * df
 
     # plt.figure(figsize = (10, 10))
     # plt.errorbar(deltat, f, fmt='o', label = "Data")
@@ -130,7 +130,7 @@ def convert_time_freq():
     # plt.legend()
     # plt.show()
 
-    return {"Time value":np.average(deltat), "Time Uncertainty": np.std(deltat), "Frequency value": df, "Frequency Uncertainty":deltf}
+    return {"Time value":np.average(dt), "Time Uncertainty": np.std(dt), "Frequency value": df, "Frequency Uncertainty":deltf}
 
 def plot_broadened_data(dataset):   #need to update this code to be frequency on x axis, also need to double-check converstion, might be off by about 3 orders of magnitude
 
@@ -192,45 +192,60 @@ def plot_hyperfine(dataset):
 
     t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
 
-    k = conversions["Frequency Uncertainty"]/conversions["Time value"]
+    k = conversions["Frequency value"]/conversions["Time value"]
+    dk = np.sqrt((conversions["Time Uncertainty"]/conversions["Time value"])**2 + (conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2)
 
     ti, c1 = selectdomain(t, ch1, [.0825, .105])
 
-    c1_filter = gaussian_filter(c1, 25)
+    x = [.08625, .0879, .0893, .0906, .0922, .0950]
 
-    max_c1 = max(c1[argrelmax(c1_filter)])
-    m_c1 = np.where(max_c1 == c1)
+    ts = []
+    cs = []
 
-    x0 = ti[np.average(m_c1)]
+    for i in range(0, len(x)):
+        n = x[i]
 
-    print x0
+        temp_ti, temp_c1 = selectdomain(ti, c1, [n-.0004, n+.0004])
 
-    # need to implement multi-lorentzian
+        c1_filter = gaussian_filter(temp_c1, 4)
 
-    p = [4e-3, 1.5e-2, x0, -.07]
+        c1_filter_minus_lin = c1_filter - ((c1_filter[-1] - c1_filter[0])/(temp_ti[-1] - temp_ti[0]) * temp_ti)
 
-    popt, pcov = curve_fit(lorentzian, ti, c1, p0 = p)
+        # plt.plot(temp_ti, c1_filter)
+        # plt.plot(temp_ti[argrelmin(c1_filter_minus_lin)], temp_c1[argrelmin(c1_filter_minus_lin)], 'o')
 
-    yFit = lorentzian(ti, *popt)
-    yuFit = lorentzian(ti, *p)
+        ts.append(temp_ti[argrelmin(c1_filter_minus_lin)])
+        cs.append(temp_c1[argrelmin(c1_filter_minus_lin)])
+
+    diff = []
+    ddiff = []
+    for i in range(0, len(ts) - 1):
+        temp = (ts[i+1] - ts[i]) * k * 1e-6
+        diff.append(temp)
+        ddiff.append((.0002 * k * 1e-6)/temp)
+
+    dk = np.sqrt(dk**2 + np.average(ddiff)**2)
+
+    print diff[0], dk * diff[0]
+    print diff[1] + diff[2], dk * (diff[1] + diff[2])
+    print diff[-1] + diff[-2], dk * (diff[-1] + diff[-2])
 
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
-    #print "Linewidth: %.2e Hz" % (k*popt[1])
-    #print k
-
-    plt.figure(figsize = (8, 8))
+    plt.figure(figsize=(8,8))
     plt.errorbar(ti, c1, c1err, fmt='o')
-    plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
-    plt.plot(ti, yuFit, 'g')
+    plt.plot(ts, cs, 'ro')
+    #plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    #plt.plot(ti, yuFit, 'g')
 
     #plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
 
     plt.xlabel("Time (s)")
     plt.ylabel("Intensity $W/(m^2)$")
-    plt.title("Determining the linewidth of the doppler-broadened peak")
-    #plt.show()
+    plt.title("Determining the positions of the Hyperfine peaks")
+    plt.show()
+
 
 
 
