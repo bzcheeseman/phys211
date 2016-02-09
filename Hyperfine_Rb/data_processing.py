@@ -253,7 +253,7 @@ def FWHM_hyperfine(dataset):
     t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
 
     k = conversions["Frequency value"]/conversions["Time value"]
-
+    dk = np.sqrt((conversions["Time Uncertainty"]/conversions["Time value"])**2 + (conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2)
     ti, c1 = selectdomain(t, ch1, [.09, .091])
 
     c1_filter = gaussian_filter(c1, 5)
@@ -266,8 +266,10 @@ def FWHM_hyperfine(dataset):
 
     popt, pcov = curve_fit(lorentzian_back, ti, c1, p0 = p)
 
-    print 1.054e-34/(6.626e-34 * popt[1] * k)
-    print popt[1], np.sqrt(pcov[1,1])
+    lw = 1.054e-34/(6.626e-34 * popt[1] * k)
+    dlw = np.sqrt((np.sqrt(pcov[1,1])/popt[1])**2 + dk**2) * 1.054e-34/(6.626e-34 * popt[1] * k)
+
+    print "Linewidth of Hyperfine State: %.2e +- %.2e" % (lw, dlw)
 
     yFit = lorentzian_back(ti, *popt)
     yuFit = lorentzian_back(ti, *p)
