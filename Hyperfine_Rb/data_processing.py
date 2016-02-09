@@ -14,7 +14,6 @@ from scipy import loadtxt
 from scipy.optimize import curve_fit
 from scipy.signal import argrelmax, argrelmin
 from scipy.ndimage.filters import gaussian_filter
-from multiprocessing import Pool
 
 from matplotlib import rc
 rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
