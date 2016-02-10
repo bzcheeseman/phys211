@@ -163,6 +163,8 @@ def plot_broadened_data(dataset):   #need to update this code to be frequency on
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
+    print 2*(popt[2]*k/3e8)*np.sqrt((2*1.38e-23*300*np.log(2))/1.419e-25)
+
     #print "Linewidth: %.2e Hz" % (k*popt[1])
     #print k
 
@@ -171,24 +173,24 @@ def plot_broadened_data(dataset):   #need to update this code to be frequency on
     f285 = "85 Rb F = 2"
     f1 = "87 Rb F = 1"
 
-    plt.figure(figsize = (8, 8))
-    plt.errorbar(t, ch1, yerr=ch1err, fmt='bo')
-    plt.errorbar(ti, c1, c1err, fmt='mo')
-    plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
-    #plt.plot(ti, yuFit, 'g')
-
-    plt.annotate(f2, (.07, .14), (.06, .2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate(f3, (.095, 0), (.085, -.2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate(f285, (.12, .3), (.12, .4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate(f1, (.19, .1), (.17, .2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-
-    plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
-
-    plt.xlabel("Time (s)")
-    plt.ylabel("Absorbtion $W/(m^2)$")
-    plt.title("Determining the linewidth of the doppler-broadened peak")
-    plt.savefig("plots/rb85_fwhm.pdf")
-    plt.show()
+    # plt.figure(figsize = (8, 8))
+    # plt.errorbar(t, ch1, yerr=ch1err, fmt='bo')
+    # plt.errorbar(ti, c1, c1err, fmt='mo')
+    # plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    # #plt.plot(ti, yuFit, 'g')
+    #
+    # plt.annotate(f2, (.07, .14), (.06, .2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate(f3, (.095, 0), (.085, -.2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate(f285, (.12, .3), (.12, .4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate(f1, (.19, .1), (.17, .2), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    #
+    # plt.text(.05, -.25, "85 Rb F = 3 Linewidth: %.2e $\pm$ %.2e Hz" % (k*popt[1], np.sqrt((conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2 + (conversions["Time Uncertainty"]/conversions["Time value"])**2) * k*np.sqrt(pcov[1,1])))
+    #
+    # plt.xlabel("Time (s)")
+    # plt.ylabel("Absorbtion $W/(m^2)$")
+    # plt.title("Determining the linewidth of the doppler-broadened peak")
+    # plt.savefig("plots/rb85_fwhm.pdf")
+    # plt.show()
 
     # need to point to each peak and point out which one it is
 
@@ -307,15 +309,15 @@ def FWHM_hyperfine(dataset):
 
     hyperfine_text2 = r"$f(t) = \frac{%.2e}{\pi}\frac{\frac{1}{2}%.2e}{(t - %.2e)^2  + (\frac{1}{2}%.2e)^2} + %.2et + %.2e$" % (popt[0], popt[1], popt[2], popt[1], popt[3], popt[4])
 
-    hyperfine_text3 = "Linewidth of Hyperfine State: $%.2e\,\pm\,%.2e$" % (lw, dlw)
+    hyperfine_text3 = "Lifetime of Hyperfine State: $%.2e\,\pm\,%.2e$ s" % (lw, dlw)
 
     plt.figure(figsize = (10, 10))
     plt.errorbar(ti, c1, c1err, fmt='o')
     plt.plot(ti, yFit, 'r', lw=2, alpha=.8, label="Lorentzian Fit")
-    plt.text(.0899, .06, "%s\n%s\n%s" % (hyperfine_text1, hyperfine_text2, hyperfine_text3))
+    plt.text(.0899, .06, "%s\n%s" % (hyperfine_text1, hyperfine_text3))
     plt.xlabel("Time (s)")
     plt.ylabel("Absorbtion $W/(m^2)$")
-    plt.title("Determining the linewidth of a Hyperfine Feature peak")
+    plt.title("Determining the lifetime of a Hyperfine Feature peak")
     plt.legend()
     plt.savefig("plots/rb87_hyperfine.pdf")
     plt.show()
@@ -323,7 +325,7 @@ def FWHM_hyperfine(dataset):
 
 
 if __name__ == '__main__':
-    #plot_broadened_data("data/doppler_free_all.tsv")
+    plot_broadened_data("data/doppler_free_all.tsv")
     #convert_time_freq()
-    plot_hyperfine("data/doppler_free_pk2.tsv")
+    #plot_hyperfine("data/doppler_free_pk2.tsv")
     #FWHM_hyperfine("data/doppler_free_pk2.tsv")

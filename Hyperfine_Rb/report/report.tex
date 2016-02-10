@@ -6,8 +6,11 @@
 \usepackage[autostyle, english = american]{csquotes}
 \usepackage[normalem]{ulem}
 \usepackage[title,titletoc,toc]{appendix}
+\usepackage{pgfplotstable}
 \usepackage{array, booktabs, colortbl}
 \MakeOuterQuote{"}
+
+\pgfplotsset{compat=1.12}
 
 
 \newcommand{\redchi}{$\tilde{\chi}^2\,$}
@@ -82,9 +85,10 @@
   \hspace{.25cm}
 
   We can characterize the doppler broadening in terms of frequency, and write the full width at half max as
-  \begin{equation*}
+  \begin{equation}
     \Gamma = 2\frac{\nu_0}{c}\parens*{\frac{2k_BT}{M}\ln{2}}^{1/2}.
-  \end{equation*}
+    \label{doppler}
+  \end{equation}
   We can derive this relation from the Boltzmann distribution - given that the atoms are in some thermal state we can describe the probability distribution of their velocities with the Boltzmann distribution.  We will refrain from deriving this relation here, however.
 
   \subsection{Crossover Frequencies}
@@ -94,7 +98,7 @@
   \subsection{Apparatus}
   It will be much simpler to explain the components of the optical setup if there is something to refer to, so here we will show a rendering of the optical table as seen from above.
 
-  \begin{figure}
+  \begin{figure}[!htb]
     \centering
     \includegraphics[scale=.25]{hyperfine_apparatus.png}
     \caption{A depiction of the optical table as seen from above.  The dark dashed arrow corresponds to the pump beam, while the lighter dashed arrow corresponds to the probe beam.}
@@ -132,7 +136,7 @@
     \label{freq_conv}
   \end{equation}
 
-  \begin{figure}
+  \begin{figure}[!htb]
     \centering
     \includegraphics[scale=.75]{../plots/conversion.pdf}
     \caption{We have fit to the form shown in order to clean up the data.  From there, we have applied a gaussian filter for increasing values of the kernel standard deviation (see the documentation for numpy.gaussian\_filter for more information) in order to determine the correct coordinates for the peaks on the time axis.  The other axis is more or less irrelevant.  We have superimposed two cosine waves, because there appears to be some lower frequency oscillation in the system.  Since the fit is not crucial (we only use it as a first smoothing of the data to find the peaks), we do not cite a \redchi value, but visually the fit is good.  Also note that this is the cleanest part of the interferometer spectrum, and is shown because it is so clean.}
@@ -145,7 +149,7 @@
 
   Since the laser sweeps frequency (roughly) linearly, the conversion should be linear.  Thus, we have
   \begin{equation*}
-    \Delta f = k \times \Delta t.
+    (\Delta f \pm \delta f) = k \times (\Delta t \pm \delta t).
   \end{equation*}
   Given the fact that we have values for $\delta t$ and $\delta f$, we calculate $k$ as:
   \begin{equation}
@@ -153,16 +157,21 @@
     \label{k}
   \end{equation}
 
+  We can calculate the uncertainty in $k$ as the quadratic sum of the fractional uncertainty in t and f.  We use a quadratic sum because the uncertainty in f comes from an uncertainty in the length of the interferometer arms (again, propagated as a fractional uncertainty), while uncertainty in t comes from an uncertainty in the fit.
+
+  \hspace{.25cm}
+
   The inquisitive reader might question why there isn't a constant offset in our determination for k.  Since we are only concerned with differences in time and frequency, such a constant offset would simply cancel anyway.  We must be careful - this calibration can only be used to relate \textbf{differences} in time to \textbf{differences} in frequency.  It is not an absolute conversion, nor is it perfect - the laser has idiosyncrasies that cause mode hops - a phenomenon that causes discontinuities in the spectrum and makes the saw tooth shape of the laser's frequency sweep distort significantly from the linear (modulo one period).  It is however, good enough especially when we can see that the region of interest is free of discontinuities.  So, we can use this value for $k$ in the future to make the necessary conversions.
 
 \section{Data and Uncertainty Analysis}
   \subsection{Doppler Broadened Spectrum}
-  The doppler-broadened spectrum is not very pretty.  We are simply using a version of the spectrum where the vapor cell is inside the interferometer to make alignment easier, as well as to clean up the spectrum.  The overall width of the peak (the large peak, not the hyperfine dips) is still the same as the doppler-broadened peak that would occur outside the interferometer, just easier to see.
+  The doppler-broadened spectrum is not very pretty, unfortunately~\ref{full_spectrum}.  We are simply using a version of the spectrum where the vapor cell is inside the interferometer to make alignment easier, as well as to clean up the spectrum.  The overall width of the peak (the large peak, not the hyperfine dips) is still the same as the doppler-broadened peak that would occur outside the interferometer, just easier to see.
 
-  \begin{figure}
+  \begin{figure}[!htb]
     \centering
     \includegraphics[scale=.75]{../plots/rb85_fwhm.pdf}
     \caption{For this fit we simply found the maximum again using a very rough gaussian filter and fit using manual adjustment of the other fit parameters.  The uncertainty in the linewidth comes from the covariance matrix element corresponding to the full width at half max of the fit form, suitably converted into frequency with Eq.~\ref{k} (taking into account uncertainty in k).}
+    \label{full_spectrum}
   \end{figure}
 
   \hspace{.25cm}
@@ -171,17 +180,76 @@
 
   \hspace{.25cm}
 
+  We can compare the measured doppler-broadened linewidth to a predicted value given by Eq.~\ref{doppler}.  Plugging in values, using 300K for room temperature and using the mass of a rubidium atom, we return the value $3.55 \times 10^7$ Hz, which corresponds nicely (but not exactly) to the measured value.  This is likely due to some other broadening mechanism, one possibility is that the temperature was slightly higher than what we expected, combined with the fact that we averaged masses of 85Rb and 87Rb could cause a broadening of this kind.  Another possibility is that the lasers were not perfectly aligned, that could also cause broadening of this sort.
+
+  \subsection{Hyperfine Transitions}
   If we want to look closer at a given peak, we choose the 87Rb F = 2 peak.  We can zoom in and identify all the transitions, shown in Figure~\ref{hyperfine}.
 
   \hspace{.25cm}
 
-  \begin{figure}
+  \begin{figure}[!htb]
     \centering
     \includegraphics[scale=.75]{../plots/hyperfine.pdf}
     \caption{Finding the peaks exactly on this plot caused much consternation.  We found that in order to find the smaller peaks on the left, we had to first apply 5 iterations of the gaussian filter, and give each section a linear offset before being able to determine the local minimum that defined the peak.  The better-resolved peaks were quite simple, it was easy to apply a single filter and find the minimum that way.  Unfortunately, two of the very well-resolved peaks were crossover features, but sometimes that's just how life goes.}
     \label{hyperfine}
   \end{figure}
 
-  
+  There is some difficulty in determining uncertainty values for the peaks on this spectrum - since some of them are quite small and only barely visible, it is not entirely certain which part of the peak we are looking at.  Common sense tells us that we are likely looking at the very tip, but in practice this is not always true - we might be looking off to one side of the tip or something similar that might cause problems when trying to isolate the peak (the minimum of that neighborhood, suitably rotated).  If we are searching for the tip of the peak and can see the side of the peak, we might be seeing the transition from the hyperfine dip into the doppler-broadened peak instead of the tip of the peak.  Thus for the smaller peaks our uncertainty in the peak location is much larger than for the better-resolved peak.  What it essentially means is that for the smaller peaks, the uncertainty is dominated by peak location, while for the better-resolved peaks uncertainty is dominated by uncertainty in our conversion factor, $k$.
+
+  \hspace{.25cm}
+
+  In order to choose the hyperfine and crossover peaks, we make use of the fact that the crossovers occur exactly in between the hyperfine features.  Since the gap between the top two hyperfine features is large, there must be two crossover peaks in between them (one for the first and last hyperfine peaks, and one for the second and last).  The last one is trivial, the outermost peaks must be hyperfine and so the ones next to them must be crossovers.  Thus we can pinpoint exactly which peaks are which quite easily.
+
+  \hspace{.25cm}
+
+  In both cases we add uncertainties in quadrature, as again, the uncertainties are unrelated.  Both sources come from the fits, but because the two were calculated separately we can add the fractional uncertainties in quadrature and then apply that to the final value to extract uncertainty in said final value.  However, actually calculating differences in time (simple subtraction of the peak centers) between the peaks and adding the differences so that we find the difference between two hyperfine peaks and converting to frequency, we reach the following final values for the differences between the hyperfine transitions:
+
+  \hspace{.25cm}
+
+  \begin{table}[!htb]
+  	\centering
+  	\pgfplotstabletypeset[
+     		every head row/.style={before row=\toprule, after row=\midrule},
+     		every last row/.style={after row=\bottomrule},
+     		columns/0/.style ={precision=0, column type = {|c|},column name=Frequency Differences (MHz)},
+     		columns/1/.style ={precision=0, column type = {|c|}, column name=Uncertainties (MHz)},
+        columns/2/.style ={precision=1, column type = {|c|}, column name=Literature Values (MHz)},
+        columns/3/.style ={precision=1, column type = {|c|}, column name=Standard Deviations Away ($\sigma$)},
+     		every even row/.style={before row={\rowcolor[gray]{0.9}}}]{../hyperfine_splitting.txt}
+    \caption{Uncertainties are absolute.  The transitions are, in descending order, 0$\rightarrow$1, 1$\rightarrow$2, and 2$\rightarrow$3.}
+    \label{hyperfine_splitting}
+  \end{table}
+
+  In reference to Figure~\ref{hyperfine}, obviously these values are not something that can simply be seen directly from the plot.  However, they do help to confirm which features are crossover and which are hyperfine transitions.  The fact that the values for the higher two states agree so well (within $1\sigma$!) indicates that our choices were well-motivated.  The first hyperfine feature, however, is off by almost $2\sigma$.  This would indicate some sort of error in either measuring the peak tip, or something else entirely.  To be perfectly candid, we are unsure as to what would have caused this error, but our most likely source is that the peak itself occurs at the very edge of the doppler peak.  This means that what we have found to be the peak tip may not, in fact, be the peak tip - the feature is not well resolved.  Due to time constraints we were unable to take more spectra, and so we are unfrotunately stuck.  However, it is very possible to take more spectra and find much more accurate values  from peaks that are better-resolved as we can see from the other two transition frequencies.
+
+  \subsection{Single Hyperfine State Lifetime}
+  Zooming in even further, we can focus in on one of the hyperfine dips.  We choose the one that is best-resolved, as we are zooming in quite close in order to avoid fitting the noise outside the peak.
+
+  \hspace{.25cm}
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.75]{../plots/rb87_hyperfine.pdf}
+    \caption{A simple fit form was employed here, we simply fit a Lorentzian form to the hyperfine feature.  We do not calculate the \redchi value because the covariance matrix diagonal elements were 2-3 orders of magnitude lower than the corresponding fit value, which would imply a very low \redchi value anyway.  Furthermore the off-diagonal elements were very nearly zero (of order $10^-7$) universally, which again indicates an excellent fit where the minimum of the parameter space is quite well defined.  The quoted uncertainty on the lifetime is dominated by the uncertainty in the conversion factor.}
+    \label{lifetime}
+  \end{figure}
+
+  It is important to take a moment and ponder why the lifetime we measured is off from the lifetime that is generally accepted of 28 ns ($28\cdot10^{-9}$ sec).  We know that it's not due to any calculated uncertainty (as we can see), rather there is a physical effect that is causing   There are any number of broadening effects, in this case we have to narrow down which one caused this error.  In this kind of experiment, it is important to consider the fact that external fields can have a large impact on atoms in any state, and when they are already optically pumped, instead of shifting the states we will simply see broadening (especially in the uppermost energy level).  In this case, the experimental setup was such that the CCD camera was quite near to the vapor cell.  The stray electric fields within the vapor cell can and do cause Stark broadening, not enough to see the states split but enough to see the states broaden by quite a bit.  Since our value is not too far off - we are within an order of magnitude, we firmly believe that this is the reason for our lifetime decrease.
+
+\section{Conclusion}
+  In taking data we noticed that there were a few recurring sources of error that likely caused most of the broadening effects that we saw.  We hypothesize that the cause is Stark broadening due to stray fields coming from the CCD camera.  In aligning the laser, we had to find a good angle to ensure that the two laser points were well-aligned on the detector and their luminescences were well aligned in the vapor cell.  This necessecitated that we put the CCD quite close to the vapor cell, which is a strong source of broadening.  Another problem that likely caused broadening is that the vapor cell likely was not heated, which can cause accumulation of the rubidium atoms on the walls and lenses of the vapor cell, again causing broadening and other reflections.
+
+  \hspace{.25cm}
+
+  This work was undertaken in collaboration with Vasish Baungally.  Many thanks to the staff of the Advanced Undergraduate Physics Laboratory espeicially Aaron Mowitz for answering emails at times after midnight answering inane questions.
+
+  \begin{thebibliography}{10}
+    \bibitem{lab manual}
+    	University of Chicago Department of Physics. "Hyperfine Spectroscopy of Rubidium"\\
+    	https://wiki.uchicago.edu/display/P211manuals/Hyperfine+Spectroscopy+of+Rubidium. (Accessed Feb. 3-10, 2016)
+
+    \bibitem{taylor}
+    	Taylor, John. \emph{An Introduction to Error Analysis}. Sausalito: University Science Books, 1997.
+  \end{thebibliography}
 
 \end{document}
