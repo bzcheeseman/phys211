@@ -198,7 +198,10 @@ def plot_hyperfine(dataset):
     t, ch1, ch2 = loadtxt(dataset, unpack = True, skiprows=1, usecols=(0,1,3))
 
     k = conversions["Frequency value"]/conversions["Time value"]
+
     dk = np.sqrt((conversions["Time Uncertainty"]/conversions["Time value"])**2 + (conversions["Frequency Uncertainty"]/conversions["Frequency value"])**2)
+
+    #print k, dk, conversions["Frequency value"], conversions["Frequency Uncertainty"]
 
     ti, c1 = selectdomain(t, ch1, [.0825, .105])
 
@@ -231,34 +234,44 @@ def plot_hyperfine(dataset):
 
     dk = np.sqrt(dk**2 + np.average(ddiff)**2)
 
-    print diff[0], dk * diff[0]
-    print diff[1] + diff[2], dk * (diff[1] + diff[2])
-    print diff[-1] + diff[-2], dk * (diff[-1] + diff[-2])
+    diffs = np.array(["%.18e" % diff[0], "%.18e" % (diff[1]+diff[2]), "%.18e" % (diff[-1] + diff[-2])])
+    ddiffs = np.array(["%.18e" % (dk * diff[0]), "%.18e" % (dk * (diff[1] + diff[2])), "%.18e" % (dk * (diff[-1] + diff[-2]))])
+
+    #print diffs[0]
+    #print diffs[1]
+    #print diffs[2]
 
     ch1err = est_error(ch1, 1e-3)
     c1err = est_error(c1, 1e-3)
 
+    headers = ["Differences in MHz", "Uncertainties"]
+
+    to_file = np.transpose(np.vstack(([diffs], [ddiffs])))
+    #print np.shape(to_file)
+
+    np.savetxt("hyperfine_splitting.txt", to_file, fmt="%s\t%s")
 
 
-    plt.figure(figsize=(8,8))
-    plt.errorbar(ti, c1, c1err, fmt='o')
-    plt.plot(ts, cs, 'ro', label = "Peak Locations")
-    #plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
-    #plt.plot(ti, yuFit, 'g')
 
-    plt.annotate("Hyperfine, f = 0,1", (ts[0], cs[0]), (.085, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate("Crossover", (ts[1], cs[1]), (.083, .05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate("Hyperfine, f = 1,2", (ts[2], cs[2]), (.091, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate("Crossover", (ts[3], cs[3]), (.083, .06), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate("Crossover", (ts[4], cs[4]), (.083, .07), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-    plt.annotate("Hyperfine, f = 2,3", (ts[5], cs[5]), (.097, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-
-    plt.xlabel("Time (s)")
-    plt.ylabel("Absorbtion $W/(m^2)$")
-    plt.title("Determining the positions of the Hyperfine peaks")
-    plt.legend()
-    plt.savefig("plots/hyperfine.pdf")
-    plt.show()
+    # plt.figure(figsize=(8,8))
+    # plt.errorbar(ti, c1, c1err, fmt='o')
+    # plt.plot(ts, cs, 'ro', label = "Peak Locations")
+    # #plt.plot(ti, yFit, 'r', label="Lorentzian Fit")
+    # #plt.plot(ti, yuFit, 'g')
+    #
+    # plt.annotate("Hyperfine, f = 0,1", (ts[0], cs[0]), (.085, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate("Crossover", (ts[1], cs[1]), (.083, .05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate("Hyperfine, f = 1,2", (ts[2], cs[2]), (.091, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate("Crossover", (ts[3], cs[3]), (.083, .06), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate("Crossover", (ts[4], cs[4]), (.083, .07), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    # plt.annotate("Hyperfine, f = 2,3", (ts[5], cs[5]), (.097, -.05), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+    #
+    # plt.xlabel("Time (s)")
+    # plt.ylabel("Absorbtion $W/(m^2)$")
+    # plt.title("Determining the positions of the Hyperfine peaks")
+    # plt.legend()
+    # plt.savefig("plots/hyperfine.pdf")
+    # plt.show()
 
 def FWHM_hyperfine(dataset):
     conversions = convert_time_freq()
@@ -312,5 +325,5 @@ def FWHM_hyperfine(dataset):
 if __name__ == '__main__':
     #plot_broadened_data("data/doppler_free_all.tsv")
     #convert_time_freq()
-    #plot_hyperfine("data/doppler_free_pk2.tsv")
-    FWHM_hyperfine("data/doppler_free_pk2.tsv")
+    plot_hyperfine("data/doppler_free_pk2.tsv")
+    #FWHM_hyperfine("data/doppler_free_pk2.tsv")
