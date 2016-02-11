@@ -165,7 +165,7 @@
 
 \section{Data and Uncertainty Analysis}
   \subsection{Doppler Broadened Spectrum}
-  The doppler-broadened spectrum is not very pretty, unfortunately~\ref{full_spectrum}.  We are simply using a version of the spectrum where the vapor cell is inside the interferometer to make alignment easier, as well as to clean up the spectrum.  The overall width of the peak (the large peak, not the hyperfine dips) is still the same as the doppler-broadened peak that would occur outside the interferometer, just easier to see.
+  The doppler-broadened spectrum is not very pretty, unfortunately as we can see in Figure~\ref{full_spectrum}.  We are simply using a version of the spectrum where the vapor cell is inside the interferometer to make alignment easier, as well as to clean up the spectrum.  The overall width of the peak (the large peak, not the hyperfine dips) is still the same as the doppler-broadened peak that would occur outside the interferometer, just easier to see.
 
   \begin{figure}[!htb]
     \centering
@@ -180,7 +180,7 @@
 
   \hspace{.25cm}
 
-  We can compare the measured doppler-broadened linewidth to a predicted value given by Eq.~\ref{doppler}.  Plugging in values, using 300K for room temperature and using the mass of a rubidium atom, we return the value $3.55 \times 10^7$ Hz, which corresponds nicely (but not exactly) to the measured value.  This is likely due to some other broadening mechanism, one possibility is that the temperature was slightly higher than what we expected, combined with the fact that we averaged masses of 85Rb and 87Rb could cause a broadening of this kind.  Another possibility is that the lasers were not perfectly aligned, that could also cause broadening of this sort.
+  We can compare the measured doppler-broadened linewidth to a predicted value given by Eq.~\ref{doppler}.  Plugging in values, using 300K for room temperature and using the mass of a rubidium atom, we return the value $3.55 \times 10^7$ Hz, which corresponds nicely (but not exactly) to the measured value.  This is likely due to some other broadening mechanism, one possibility is that the temperature was slightly higher than what we expected, combined with the fact that we averaged masses of 85Rb and 87Rb could cause a broadening of this kind.  Another possibility is that the lasers were not perfectly aligned, that could also cause broadening of this sort.  Another possible source is the Stark broadening that we see come in later on due to the presence of the CCD camera.
 
   \subsection{Hyperfine Transitions}
   If we want to look closer at a given peak, we choose the 87Rb F = 2 peak.  We can zoom in and identify all the transitions, shown in Figure~\ref{hyperfine}.
@@ -202,7 +202,7 @@
 
   \hspace{.25cm}
 
-  In both cases we add uncertainties in quadrature, as again, the uncertainties are unrelated.  Both sources come from the fits, but because the two were calculated separately we can add the fractional uncertainties in quadrature and then apply that to the final value to extract uncertainty in said final value.  However, actually calculating differences in time (simple subtraction of the peak centers) between the peaks and adding the differences so that we find the difference between two hyperfine peaks and converting to frequency, we reach the following final values for the differences between the hyperfine transitions:
+  In both cases we add uncertainties in quadrature, as again, the uncertainties are unrelated.  Both sources come from the fits, but because the two were calculated separately we can add the fractional uncertainties in quadrature and then apply that to the final value to extract uncertainty in said final value.  However, actually calculating differences in time (simple subtraction of the peak centers) between the peaks and adding the differences so that we find the difference between two hyperfine peaks and converting to frequency, we reach the following final values for the differences between the hyperfine transitions, see Table~\ref{hyperfine_splitting}
 
   \hspace{.25cm}
 
@@ -220,10 +220,10 @@
     \label{hyperfine_splitting}
   \end{table}
 
-  In reference to Figure~\ref{hyperfine}, obviously these values are not something that can simply be seen directly from the plot.  However, they do help to confirm which features are crossover and which are hyperfine transitions.  The fact that the values for the higher two states agree so well (within $1\sigma$!) indicates that our choices were well-motivated.  The first hyperfine feature, however, is off by almost $2\sigma$.  This would indicate some sort of error in either measuring the peak tip, or something else entirely.  To be perfectly candid, we are unsure as to what would have caused this error, but our most likely source is that the peak itself occurs at the very edge of the doppler peak.  This means that what we have found to be the peak tip may not, in fact, be the peak tip - the feature is not well resolved.  Due to time constraints we were unable to take more spectra, and so we are unfrotunately stuck.  However, it is very possible to take more spectra and find much more accurate values  from peaks that are better-resolved as we can see from the other two transition frequencies.
+  In reference to Figure~\ref{hyperfine}, obviously these values are not something that can simply be seen directly from the plot.  However, they do help to confirm which features are crossover and which are hyperfine transitions.  The fact that the values for the higher two states agree so well (within $1\sigma$!) indicates that our choices were well-motivated.  The first hyperfine feature, however, is off by almost $2\sigma$.  This would indicate some sort of error in either measuring the peak tip, or something else entirely.  To be perfectly candid, we are unsure as to what would have caused this error, but our most likely source is that the peak itself occurs at the very edge of the doppler peak.  This means that what we have found to be the peak tip may not, in fact, be the peak tip - the feature is not well resolved.  Due to time constraints we were unable to take more spectra, and so we are unfortunately stuck.  However, it is very possible to take more spectra and find much more accurate values from peaks that are better-resolved, as we can see from the other two transition frequencies.
 
   \subsection{Single Hyperfine State Lifetime}
-  Zooming in even further, we can focus in on one of the hyperfine dips.  We choose the one that is best-resolved, as we are zooming in quite close in order to avoid fitting the noise outside the peak.
+  Zooming in even further, we can focus in on one of the hyperfine dips.  We choose the one that is best-resolved, as we are zooming in quite close in order to avoid fitting the noise outside the peak.  See Figure~\ref{lifetime}.
 
   \hspace{.25cm}
 
