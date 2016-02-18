@@ -91,9 +91,9 @@ def calibration(plot_cal):
     yFit = linear(cal_line_x, *lin)
     yuFit = linear(cal_line_x, *p_lin)
 
-    plt.figure(figsize=(10, 10))
-    plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
-    plt.plot(cal_line_x, yFit)
+    # plt.figure(figsize=(10, 10))
+    # plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
+    # plt.plot(cal_line_x, yFit)
 
     return lin
     # save figure, etc.
@@ -106,15 +106,17 @@ def spectrum(dataset, plot_full = False):
     except ValueError:
         data = np.genfromtxt(dataset, skip_header=26, usecols=(0,1))
 
+    data_x = linear(data[:,0], *conversion)
+
     if dataset == "data/direct_spec_port_open.tsv":
-        domain = [275, 360]
+        domain = [450, 550]
     else:
-        domain = [265, 360]
+        domain = [415, 565]
 
-    peak_x, peak_y = selectdomain(data[:,0], data[:,1], domain)
+    peak_x, peak_y = selectdomain(data_x, data[:,1], domain)
 
-    back_x, back_y = selectdomain(data[:,0], data[:,1], [150, 700], domain)
-    back_x_full, back_y_full = selectdomain(data[:,0], data[:,1], [150, 700])
+    back_x, back_y = selectdomain(data_x, data[:,1], [150, 800], domain)
+    back_x_full, back_y_full = selectdomain(data_x, data[:,1], [150, 800])
 
     p_back = np.array([1e4, -7e-3, 6e2])
 
@@ -127,18 +129,18 @@ def spectrum(dataset, plot_full = False):
 
     if plot_full:
         plt.figure(figsize=(10, 10))
-        plt.errorbar(data[:,0], data[:,1], np.sqrt(data[:,1]), fmt='o', ms=1)
+        plt.errorbar(data_x, data[:,1], np.sqrt(data[:,1]), fmt='o', ms=1)
         plt.errorbar(peak_x, peak_y, np.sqrt(peak_y), fmt='o', ms=1, label = "Region of Interest")
         plt.plot(back_x_full, back_yFit, label = "Background Fit")
         plt.ylabel("Counts")
-        plt.xlabel("Channel")
+        plt.xlabel("Energy (keV)")
         plt.title("Isolating the Peak")
         plt.legend()
         plt.savefig("plots/peak_isolation_%s.pdf" % dataset.split("/")[1].split(".")[0])
 
     flat_peak = peak_y - to_subtract_y
 
-    peak_p = [450, 18, 310, 11]
+    peak_p = [450, 18, 500, 11]
 
     peak_popt, peak_pcov = curve_fit(gaussian, peak_x, flat_peak, p0 = peak_p)
     peak_yFit = gaussian(peak_x, *peak_popt)
@@ -157,9 +159,9 @@ def spectrum(dataset, plot_full = False):
 
     plt.figure(figsize=(10, 10))
     plt.errorbar(peak_x, flat_peak, np.sqrt(flat_peak), fmt='o')
-    plt.plot(peak_x, peak_yFit, label = "Gaussian Fit\nCenter: %.0f $\pm$ %.0f keV\nCountrate: %.2f counts/s" % (linear(peak_popt[2], *conversion), np.absolute(linear(peak_popt[1]/np.sqrt(len(peak_x)), *conversion)), peak_popt[0]/livetime))
+    plt.plot(peak_x, peak_yFit, label = "Gaussian Fit\nCenter: %.0f $\pm$ %.0f keV\nCountrate: %.2f counts/s" % (peak_popt[2], np.absolute(peak_popt[1]/np.sqrt(len(peak_x))), peak_popt[0]/livetime))
     plt.ylabel("Counts (after subtracting background)")
-    plt.xlabel("Channel")
+    plt.xlabel("Energy (keV)")
     plt.title("Finding the Peak Center")
     plt.legend()
     plt.savefig("plots/peak_center_%s.pdf" % dataset.split("/")[1].split(".")[0])
@@ -172,8 +174,8 @@ def spectrum(dataset, plot_full = False):
 
 
 if __name__ == '__main__':
-    #calibration(True)
+    # calibration(True)
     datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
     for dataset in datasets:
         spectrum("data/%s" % dataset, True) #convert channel axis to energy
-    #spectrum("data/direct_spec_port_open.tsv", True)
+    # spectrum("data/direct_spec_port_open.tsv", True)
