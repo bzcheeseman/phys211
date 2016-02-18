@@ -91,9 +91,12 @@ def calibration(plot_cal):
     yFit = linear(cal_line_x, *lin)
     yuFit = linear(cal_line_x, *p_lin)
 
-    # plt.figure(figsize=(10, 10))
-    # plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
-    # plt.plot(cal_line_x, yFit)
+    plt.figure(figsize=(10, 10))
+    plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
+    plt.plot(cal_line_x, yFit, alpha = .7, lw = sqrt(lin_pcov[0,0]), label="Slope Uncertainty: %.3f" % sqrt(lin_pcov[0,0]))
+    plt.title("%.3fx + %.3f" % (lin[0], lin[1]))
+    plt.legend()
+    plt.savefig("plots/tentative_cal.pdf")
 
     return lin
     # save figure, etc.
@@ -174,8 +177,8 @@ def spectrum(dataset, plot_full = False):
 
 
 if __name__ == '__main__':
-    # calibration(True)
-    datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
-    for dataset in datasets:
-        spectrum("data/%s" % dataset, True) #convert channel axis to energy
+    calibration(True)
+    # datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
+    # for dataset in datasets:
+    #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
     # spectrum("data/direct_spec_port_open.tsv", True)
