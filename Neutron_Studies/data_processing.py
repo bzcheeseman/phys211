@@ -180,12 +180,12 @@ def cross_section(dataset):
 
         return 500
 
-    calibrate()
-    data = np.genfromtxt("data/cross_section/al/%s" % dataset, skip_header=26)
+    #calibrate()
+    data = np.genfromtxt("data/cross_section/carbon/%s" % dataset, skip_header=26)
 
     xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
 
-    with open("data/cross_section/al/%s" % dataset) as f:
+    with open("data/cross_section/carbon/%s" % dataset) as f:
         f.seek(300)
         try:
             livetime = float(f.read(6))
@@ -215,4 +215,4 @@ if __name__ == '__main__':
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
     # spectrum("data/run_3/shielded_carbon.tsv", True)
-    cross_section("al_3_75cm.tsv")
+    cross_section("carbon_17_5cm.tsv")
