@@ -17,12 +17,15 @@ rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
 rc('text', usetex=True)
 
 def calibration(plot_cal):
-    data = np.genfromtxt("data/na_22_cal.tsv", skip_header=26, usecols=(0,2))
+    try:
+        data = np.genfromtxt("data/run_3/na_22_cal_2.tsv", skip_header=26, usecols=(0,2))
+    except Exception:
+        data = np.genfromtxt("data/run_3/na_22_cal_2.tsv", skip_header=26)
     data_err = np.sqrt(data[:,1])
 
-    peak_1_x, peak_1_y = selectdomain(data[:,0], data[:,1], [230, 400])
+    peak_1_x, peak_1_y = selectdomain(data[:,0], data[:,1], [120, 180])
 
-    p1 = [1e6, 50, 315, -10, 200]
+    p1 = [1e6, 50, 170, -10, 200]
 
     popt1, pcov1 = curve_fit(gaussian_back, peak_1_x, peak_1_y, p0 = p1)
 
@@ -31,9 +34,9 @@ def calibration(plot_cal):
 
     #print popt1[2]
 
-    peak_2_x, peak_2_y = selectdomain(data[:,0], data[:,1], [675, 875])
+    peak_2_x, peak_2_y = selectdomain(data[:,0], data[:,1], [330, 430])
 
-    p2 = [1e6, 100, 777, 0]
+    p2 = [1e6, 100, 350, 0]
 
     popt2, pcov2 = curve_fit(gaussian, peak_2_x, peak_2_y, p0 = p2)
 
@@ -42,12 +45,12 @@ def calibration(plot_cal):
 
     #print popt2[2]
 
-    data_cs = np.genfromtxt("data/cs_137_cal.tsv", skip_header=26, usecols=(0,2))
+    data_cs = np.genfromtxt("data/run_3/cs_137_cal_2.tsv", skip_header=26, usecols=(0,2))
     cs_err = np.sqrt(data_cs[:,1])
 
-    peak_3_x, peak_3_y = selectdomain(data_cs[:,0], data_cs[:,1], [325, 500])
+    peak_3_x, peak_3_y = selectdomain(data_cs[:,0], data_cs[:,1], [160, 230])
 
-    p3 = [1e3, 50, 500, -10, 200]
+    p3 = [1e3, 50, 200, -10, 200]
 
     popt3, pcov3 = curve_fit(gaussian_back, peak_3_x, peak_3_y, p0 = p3)
 
@@ -59,9 +62,9 @@ def calibration(plot_cal):
     if plot_cal:
         plt.figure(figsize=(10,10))
 
-        plt.annotate("Na-22 511 keV", (popt1[2], 1.7e4), (popt1[2]+50, 1.7e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-        plt.annotate("Cs-137 662 keV", (popt3[2], .98e4),  (popt3[2], 1.3e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-        plt.annotate("Na-22 1275 keV", (popt2[2], 3e3), (popt2[2], 4e3), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        # plt.annotate("Na-22 511 keV", (popt1[2], 1.7e4), (popt1[2]+50, 1.7e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        # plt.annotate("Cs-137 662 keV", (popt3[2], .98e4),  (popt3[2], 1.3e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        # plt.annotate("Na-22 1275 keV", (popt2[2], 3e3), (popt2[2], 4e3), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
 
         plt.errorbar(data[:,0], data[:,1], data_err)
         # plt.plot(peak_1_x, yuFit1)
@@ -88,15 +91,15 @@ def calibration(plot_cal):
 
     print lin
 
-    yFit = linear(cal_line_x, *lin)
-    yuFit = linear(cal_line_x, *p_lin)
-
-    plt.figure(figsize=(10, 10))
-    plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
-    plt.plot(cal_line_x, yFit, alpha = .7, lw = sqrt(lin_pcov[0,0]), label="Slope Uncertainty: %.3f" % sqrt(lin_pcov[0,0]))
-    plt.title("%.3fx + %.3f" % (lin[0], lin[1]))
-    plt.legend()
-    plt.savefig("plots/tentative_cal.pdf")
+    # yFit = linear(cal_line_x, *lin)
+    # yuFit = linear(cal_line_x, *p_lin)
+    #
+    # plt.figure(figsize=(10, 10))
+    # plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
+    # plt.plot(cal_line_x, yFit, alpha = .7, lw = np.sqrt(lin_pcov[0,0]), label="Slope Uncertainty: %.3f" % np.sqrt(lin_pcov[0,0]))
+    # plt.title("%.3fx + %.3f" % (lin[0], lin[1]))
+    # plt.legend()
+    # plt.savefig("plots/tentative_cal.pdf")
 
     return lin
     # save figure, etc.
@@ -111,19 +114,16 @@ def spectrum(dataset, plot_full = False):
 
     data_x = linear(data[:,0], *conversion)
 
-    if dataset == "data/direct_spec_port_open.tsv":
-        domain = [450, 550]
-    else:
-        domain = [415, 565]
+    domain = [2000, 2450]
 
     peak_x, peak_y = selectdomain(data_x, data[:,1], domain)
 
-    back_x, back_y = selectdomain(data_x, data[:,1], [150, 800], domain)
-    back_x_full, back_y_full = selectdomain(data_x, data[:,1], [150, 800])
+    back_x, back_y = selectdomain(data_x, data[:,1], [800, 3500], domain)
+    back_x_full, back_y_full = selectdomain(data_x, data[:,1], [800, 3500])
 
-    p_back = np.array([1e4, -7e-3, 6e2])
+    p_back = np.array([1e4, -1e-3, 6e2])
 
-    back_popt, back_pcov = curve_fit(exponential, back_x, back_y, p0 = p_back)
+    back_popt, back_pcov = curve_fit(exponential, back_x, back_y, p0 = p_back, maxfev=int(1e4))
 
     back_yFit = exponential(back_x_full, *back_popt)
     back_yuFit = exponential(back_x_full, *p_back)
@@ -139,11 +139,11 @@ def spectrum(dataset, plot_full = False):
         plt.xlabel("Energy (keV)")
         plt.title("Isolating the Peak")
         plt.legend()
-        plt.savefig("plots/peak_isolation_%s.pdf" % dataset.split("/")[1].split(".")[0])
+        plt.savefig("plots/peak_isolation_%s.pdf" % dataset.split("/")[2].split(".")[0])
 
     flat_peak = peak_y - to_subtract_y
 
-    peak_p = [450, 18, 500, 11]
+    peak_p = [450, 18, 2200, 11]
 
     peak_popt, peak_pcov = curve_fit(gaussian, peak_x, flat_peak, p0 = peak_p)
     peak_yFit = gaussian(peak_x, *peak_popt)
@@ -167,18 +167,54 @@ def spectrum(dataset, plot_full = False):
     plt.xlabel("Energy (keV)")
     plt.title("Finding the Peak Center")
     plt.legend()
-    plt.savefig("plots/peak_center_%s.pdf" % dataset.split("/")[1].split(".")[0])
+    plt.savefig("plots/peak_center_%s.pdf" % dataset.split("/")[2].split(".")[0])
+
+def cross_section(dataset):
+
+    def calibrate():
+        data = np.genfromtxt("data/cross_section/na_compton.tsv", skip_header=26)
+        xdata, ydata = selectdomain(data[:,0], data[:,1], [100, 2048])
+        plt.figure(figsize=(10, 10))
+        plt.plot(xdata, ydata)
+        plt.savefig("plots/calibration.pdf")
+
+        return 500
+
+    calibrate()
+    data = np.genfromtxt("data/cross_section/%s" % dataset, skip_header=26)
 
 
 
+    xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
 
+    with open("data/cross_section/%s" % dataset) as f:
+        f.seek(300)
+        try:
+            livetime = float(f.read(6))
+        except Exception:
+            f.seek(404)
+            livetime = float(f.read(6))
+        f.close()
+    print livetime
 
+    countrate = np.trapz(ydata, xdata)/livetime
 
+    with open("data/cross_section/countrates.tsv", 'a+') as f:
+        f.write(str(countrate))
+        f.write("\t")
+        f.write(dataset)
+        f.write("\n")
+        f.close()
+
+    print np.trapz(ydata, xdata)/livetime
+
+    plt.plot(xdata, ydata)
 
 
 if __name__ == '__main__':
-    calibration(True)
+    # calibration(True)
     # datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
-    # spectrum("data/direct_spec_port_open.tsv", True)
+    #spectrum("data/run_3/nolead_portopen.tsv", True)
+    cross_section("cu_3_5cm.tsv")
