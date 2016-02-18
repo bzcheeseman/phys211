@@ -7,9 +7,9 @@ xdata_1 = np.genfromtxt("data/cross_section/countrates.tsv", dtype="string", use
 xdata_cu = []
 for i in range(0, len(xdata_1)):
     try:
-        xdata.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
+        xdata_cu.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
     except Exception:
-        xdata.append(0)
+        xdata_cu.append(0)
 
 print xdata
 

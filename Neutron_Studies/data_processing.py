@@ -214,5 +214,5 @@ if __name__ == '__main__':
     # datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
-    spectrum("data/run_3/shielded_paraffin.tsv", True)
+    spectrum("data/run_3/shielded_carbon.tsv", True)
     # cross_section("cu_1_25cm.tsv")
