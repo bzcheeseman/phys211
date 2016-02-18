@@ -215,4 +215,4 @@ if __name__ == '__main__':
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
     # spectrum("data/run_3/shielded_carbon.tsv", True)
-    cross_section("pb_20_0cm.tsv")
+    cross_section("pb_5_0cm.tsv")
