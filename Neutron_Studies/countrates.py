@@ -20,4 +20,7 @@ for i in range(0, len(xdata_1)):
         pass
 
 plt.plot(xdata_al, ydata_al, 'o')
-plt.show()
+plt.xlabel("Absorber Thickenss (cm)")
+plt.ylabel("Countrate (cout/sec)")
+plt.title("Countrate Plots")
+#plt.savefig("plots/countrate_cu.pdf")
