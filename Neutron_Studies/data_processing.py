@@ -181,13 +181,11 @@ def cross_section(dataset):
         return 500
 
     calibrate()
-    data = np.genfromtxt("data/cross_section/%s" % dataset, skip_header=26)
-
-
+    data = np.genfromtxt("data/cross_section/cu/%s" % dataset, skip_header=26)
 
     xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
 
-    with open("data/cross_section/%s" % dataset) as f:
+    with open("data/cross_section/cu/%s" % dataset) as f:
         f.seek(300)
         try:
             livetime = float(f.read(6))
@@ -216,5 +214,5 @@ if __name__ == '__main__':
     # datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
-    #spectrum("data/run_3/nolead_portopen.tsv", True)
-    cross_section("cu_3_5cm.tsv")
+    spectrum("data/run_3/shielded_paraffin.tsv", True)
+    # cross_section("cu_1_25cm.tsv")
