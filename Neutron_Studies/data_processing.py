@@ -181,11 +181,11 @@ def cross_section(dataset):
         return 500
 
     #calibrate()
-    data = np.genfromtxt("data/cross_section/pb/%s" % dataset, skip_header=26)
+    data = np.genfromtxt("data/cross_section/%s" % dataset, skip_header=26)
 
     xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
 
-    with open("data/cross_section/pb/%s" % dataset) as f:
+    with open("data/cross_section/%s" % dataset) as f:
         f.seek(300)
         try:
             livetime = float(f.read(6))
@@ -208,6 +208,59 @@ def cross_section(dataset):
 
     plt.plot(xdata, ydata)
 
+def countrates(dataset):
+    ydata = np.genfromtxt("data/cross_section/countrates.tsv", usecols=(0))
+
+    xdata_1 = np.genfromtxt("data/cross_section/countrates.tsv", dtype="string", usecols=(1))
+
+    xdata_cu = [0]
+    ydata_cu = [23.2394366197]
+    xdata_al = [0]
+    ydata_al = [23.2394366197]
+    xdata_c = [0]
+    ydata_c = [23.2394366197]
+    xdata_pb = [0]
+    ydata_pb = [23.2394366197]
+
+    if dataset == "cu":
+        dataset_x = xdata_cu
+        dataset_y = ydata_cu
+    elif dataset == "al":
+        dataset_x = xdata_al
+        dataset_y = ydata_al
+    elif dataset == "carbon":
+        dataset_x = xdata_c
+        dataset_y = ydata_c
+    elif dataset == "pb":
+        dataset_x = xdata_pb
+        dataset_y = ydata_pb
+
+    for i in range(0, len(xdata_1)):
+        try:
+            if xdata_1[i].split("_")[0] == "cu":
+                xdata_cu.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
+                ydata_cu.append(ydata[i])
+            elif xdata_1[i].split("_")[0] == "al":
+                xdata_al.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
+                ydata_al.append(ydata[i])
+            elif xdata_1[i].split("_")[0] == "carbon":
+                xdata_c.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
+                ydata_c.append(ydata[i])
+            elif xdata_1[i].split("_")[0] == "pb":
+                xdata_pb.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
+                ydata_pb.append(ydata[i])
+        except Exception:
+            pass
+
+    baseline = 4.23917702529 * np.ones_like(dataset_x)
+
+    plt.plot(dataset_x, dataset_y, 'o')
+    plt.plot(dataset_x, baseline)
+    plt.xlabel("Absorber Thickenss (cm)")
+    plt.ylabel("Countrate (count/sec)")
+    plt.title("Countrate Plots")
+    #plt.savefig("plots/countrate_pb.pdf")
+
 
 if __name__ == '__main__':
     # calibration(True)
@@ -215,4 +268,5 @@ if __name__ == '__main__':
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
     # spectrum("data/run_3/shielded_carbon.tsv", True)
-    cross_section("pb_5_0cm.tsv")
+    # cross_section("pb_blocked.tsv")
+    countrates("carbon")
