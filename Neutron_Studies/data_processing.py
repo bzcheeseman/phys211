@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
+from scipy.special import cbrt
 import os
 
 import sys
@@ -174,7 +175,7 @@ def spectrum(dataset, plot_full = False):
     plt.legend()
     plt.savefig("plots/peak_center_%s.pdf" % dataset.split("/")[2].split(".")[0])
 
-def cross_section(dataset):
+def cross_section(dataset, plot = False):
 
     def calibrate():
         data = np.genfromtxt("data/cross_section/na_compton.tsv", skip_header=26)
@@ -193,99 +194,193 @@ def cross_section(dataset):
     # calibrate()
     data = np.genfromtxt("data/cross_section/%s" % dataset, skip_header=26)
 
-    xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
+    def sim_data(n_runs):
+        countrates = []
+        for i in range(0, n_runs):
+            start = np.random.randn(1)*50 + 1500
 
-    with open("data/cross_section/%s" % dataset) as f:
-        f.seek(300)
-        try:
-            livetime = float(f.read(6))
-        except Exception:
-            f.seek(404)
-            livetime = float(f.read(6))
-        f.close()
-    print livetime
+            xdata, ydata = selectdomain(data[:,0], data[:,1], [start, 2048])
 
-    countrate = np.trapz(ydata, xdata)/livetime
+            with open("data/cross_section/%s" % dataset) as f:
+                f.seek(300)
+                try:
+                    livetime = float(f.read(6))
+                except Exception:
+                    f.seek(404)
+                    livetime = float(f.read(6))
+                f.close()
+            #print livetime
+
+            countrates.append(np.trapz(ydata, xdata)/livetime)
+
+        return countrates
+
+
+    countrates = sim_data(1500)
+
+    countrate = np.average(countrates)
+    dc = np.std(countrates)
 
     with open("data/cross_section/countrates.tsv", 'a+') as f:
-        for line in f:
-            if line.split(" ")[2].split("_")[0] == dataset.split("_")[0]:
-                break
-            else:
-                f.write(str(countrate))
-                f.write("\t")
-                f.write(dataset)
-                f.write("\n")
+        f.write(str(countrate))
+        f.write("\t")
+        f.write(dataset)
+        f.write("\t")
+        f.write(str(dc))
+        f.write("\n")
         f.close()
 
-    print np.trapz(ydata, xdata)/livetime
+    #print np.trapz(ydata, xdata)/livetime
 
-    plt.figure(figsize=(10, 10))
-    plt.semilogy(data[:,0], data[:,1])
-    plt.fill_between(xdata, np.min(ydata), ydata, alpha = 0.5, label="Region of Interest: \n 3 x 1275 keV Compton Edge - End = channel 1500-2048")
-    plt.xlabel("Channel")
-    plt.ylabel("Counts (log(counts))")
-    plt.title("Showing Region of Interest - 3.75 cm Al")
-    plt.legend(loc=0)
-    plt.savefig("plots/example_cross_section_highlight_roi.pdf")
+    if plot:
+        xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
+
+        plt.figure(figsize=(10, 10))
+        plt.semilogy(data[:,0], data[:,1])
+        plt.fill_between(xdata, np.min(ydata), ydata, alpha = 0.5, label="Region of Interest: \n 3 x 1275 keV Compton Edge - End = channel 1500-2048")
+        plt.xlabel("Channel")
+        plt.ylabel("Counts (log(counts))")
+        plt.title("Showing Region of Interest - 3.75 cm Al")
+        plt.legend(loc=0)
+        # plt.savefig("plots/example_cross_section_highlight_roi.pdf")
 
 def countrates(dataset):
     ydata = np.genfromtxt("data/cross_section/countrates.tsv", usecols=(0))
 
     xdata_1 = np.genfromtxt("data/cross_section/countrates.tsv", dtype="string", usecols=(1))
 
+    dy_1 = np.genfromtxt("data/cross_section/countrates.tsv", usecols=(2))
+
     xdata_cu = [0]
-    ydata_cu = [23.2394366197]
+    ydata_cu = [23.4563458529]
     xdata_al = [0]
-    ydata_al = [23.2394366197]
+    ydata_al = [23.4563458529]
     xdata_c = [0]
-    ydata_c = [23.2394366197]
+    ydata_c = [23.4563458529]
     xdata_pb = [0]
-    ydata_pb = [23.2394366197]
+    ydata_pb = [23.4563458529]
+    dy_cu = [3.90536763219]
+    dy_al = [3.90536763219]
+    dy_c = [3.90536763219]
+    dy_pb = [3.90536763219]
+
+    Na = 6.022e23
 
     if dataset == "cu":
         dataset_x = xdata_cu
         dataset_y = ydata_cu
+        dy = dy_cu
+        rho = 8.92
+        A = 63.546
     elif dataset == "al":
         dataset_x = xdata_al
         dataset_y = ydata_al
+        dy = dy_al
+        rho = 2.70
+        A = 26.98
     elif dataset == "carbon":
         dataset_x = xdata_c
         dataset_y = ydata_c
+        dy = dy_c
+        rho = 2.26
+        A = 12.01
     elif dataset == "pb":
         dataset_x = xdata_pb
         dataset_y = ydata_pb
+        dy = dy_pb
+        rho = 11.34
+        A = 207.2
 
     for i in range(0, len(xdata_1)):
         try:
             if xdata_1[i].split("_")[0] == "cu":
                 xdata_cu.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
                 ydata_cu.append(ydata[i])
+                dy_cu.append(dy_1[i])
             elif xdata_1[i].split("_")[0] == "al":
                 xdata_al.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
                 ydata_al.append(ydata[i])
+                dy_al.append(dy_1[i])
             elif xdata_1[i].split("_")[0] == "carbon":
                 xdata_c.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
                 ydata_c.append(ydata[i])
+                dy_c.append(dy_1[i])
             elif xdata_1[i].split("_")[0] == "pb":
                 xdata_pb.append(float(xdata_1[i].split("_")[1])+.01*float(xdata_1[i].split("_")[2]))
                 ydata_pb.append(ydata[i])
+                dy_pb.append(dy_1[i])
         except Exception:
             pass
 
     baseline = 4.23917702529 * np.ones_like(dataset_x)
 
-    plt.plot(dataset_x, dataset_y, 'o')
-    plt.plot(dataset_x, baseline)
+    dataset_x = np.array(sorted(dataset_x, reverse=True))
+    dataset_y = np.array(sorted(dataset_y))
+    dy = np.array(sorted(dy))
+
+
+    p = [15.44, -.3, 7]
+
+    popt, pcov = curve_fit(exponential, dataset_x, dataset_y, p0 = p)
+
+    fitx = np.linspace(dataset_x[0], dataset_x[-1], 500)
+
+    yFit = exponential(fitx, *popt)
+    yuFit = exponential(fitx, *p)
+
+    #print popt
+
+    sigma = np.absolute(popt[1])/(rho*Na/A)
+    dsigma = np.absolute(np.sqrt(pcov[1,1]))/(rho*Na/A)
+
+    with open("data/cross_section/neutron_rad.tsv", 'a+') as f:
+        f.write(str(sigma))
+        f.write("\t")
+        f.write(str(dsigma))
+        f.write("\t")
+        f.write(str(A))
+        f.write("\n")
+        f.close()
+
+    plt.errorbar(dataset_x, dataset_y, dy, fmt='o')
+    plt.plot(dataset_x, baseline, label="Baseline/Background Level")
+    plt.plot(fitx, yFit, lw=np.sqrt(pcov[1,1]))
+    plt.text(6, 20, r"Fit Form: $R(0)e^{\frac{\rho N_A \sigma}{A} x} + C$"\
+                        "\n"\
+                        r"$\frac{\rho N_A \sigma}{A} = (%.2f\,\pm\,%.2f)\,cm^{-1}$"\
+                        "\n"\
+                        r"$\sigma = (%.2e\,\pm\,%.1e)\,cm^{2}$" % (np.absolute(popt[1]), np.sqrt(pcov[1,1]), sigma, dsigma))
     plt.xlabel("Absorber Thickenss (cm)")
     plt.ylabel("Countrate (count/sec)")
     plt.title("Countrate Plots")
-    #plt.savefig("plots/countrate_pb.pdf")
+    plt.legend()
+    plt.savefig("plots/countrate_%s.pdf" % dataset)
 
+def neutron_radius():
+    data = np.genfromtxt("data/cross_section/neutron_rad.tsv", usecols=(0,1,2))
+    sigma = data[:,0]
+    dsigma = data[:,1]
+    A = data[:,2]
+
+    xdata = np.sqrt(sigma/(2*np.pi))
+    ydata = cbrt(A)
+
+    print ydata
+
+    popt = np.polyfit(xdata, ydata, 1)
+
+    yFit = linear(xdata, *popt)
+
+    print popt
+
+    plt.semilogx(xdata, ydata, 'o')
+    plt.semilogx(xdata, yFit)
+    plt.show()
 
 if __name__ == '__main__':
     # calibration(True)
     # datasets = []
+
     # for f in os.listdir("data/run_3"):
     #     try:
     #         f.split("_")[2]
@@ -296,5 +391,14 @@ if __name__ == '__main__':
     # for dataset in datasets:
     #     spectrum("data/run_3/%s" % dataset, True)
     # spectrum("data/run_3/shielded_carbon.tsv", True)
-    cross_section("al/al_3_75cm.tsv")
-    # countrates("carbon")
+
+    # for item in ["al", "cu", "pb", "carbon"]:
+    #     for f in os.listdir("data/cross_section/%s" % item):
+    #         if f.split(".")[1] == "tsv":
+    #             cross_section("%s/%s" % (item, f))
+    # cross_section("0_thickness.tsv")
+    # cross_section("pb_blocked.tsv")
+    #
+    # countrates("pb")
+
+    neutron_radius()
