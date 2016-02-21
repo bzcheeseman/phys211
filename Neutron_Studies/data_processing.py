@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
+import os
 
 import sys
 
@@ -152,7 +153,7 @@ def spectrum(dataset, plot_full = False):
     peak_popt, peak_pcov = curve_fit(gaussian, peak_x, flat_peak, p0 = peak_p)
     peak_yFit = gaussian(peak_x, *peak_popt)
 
-    print peak_popt
+    # print peak_popt
 
     with open(dataset) as f:
         f.seek(298)
@@ -162,7 +163,7 @@ def spectrum(dataset, plot_full = False):
             f.seek(404)
             livetime = float(f.read(6))
         f.close()
-    print livetime
+    # print livetime
 
     plt.figure(figsize=(10, 10))
     plt.errorbar(peak_x, flat_peak, np.sqrt(flat_peak), fmt='o')
@@ -178,13 +179,18 @@ def cross_section(dataset):
     def calibrate():
         data = np.genfromtxt("data/cross_section/na_compton.tsv", skip_header=26)
         xdata, ydata = selectdomain(data[:,0], data[:,1], [100, 2048])
+
         plt.figure(figsize=(10, 10))
         plt.plot(xdata, ydata)
+        plt.annotate("Na-22 1275 keV Compton Edge", (500, 50), (750, 200), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        plt.xlabel("Channel")
+        plt.ylabel("Counts")
+        plt.title("One Point Calibration")
         plt.savefig("plots/calibration.pdf")
 
         return 500
 
-    #calibrate()
+    # calibrate()
     data = np.genfromtxt("data/cross_section/%s" % dataset, skip_header=26)
 
     xdata, ydata = selectdomain(data[:,0], data[:,1], [1500, 2048])
@@ -202,15 +208,26 @@ def cross_section(dataset):
     countrate = np.trapz(ydata, xdata)/livetime
 
     with open("data/cross_section/countrates.tsv", 'a+') as f:
-        f.write(str(countrate))
-        f.write("\t")
-        f.write(dataset)
-        f.write("\n")
+        for line in f:
+            if line.split(" ")[2].split("_")[0] == dataset.split("_")[0]:
+                break
+            else:
+                f.write(str(countrate))
+                f.write("\t")
+                f.write(dataset)
+                f.write("\n")
         f.close()
 
     print np.trapz(ydata, xdata)/livetime
 
-    plt.plot(xdata, ydata)
+    plt.figure(figsize=(10, 10))
+    plt.semilogy(data[:,0], data[:,1])
+    plt.fill_between(xdata, np.min(ydata), ydata, alpha = 0.5, label="Region of Interest: \n 3 x 1275 keV Compton Edge - End = channel 1500-2048")
+    plt.xlabel("Channel")
+    plt.ylabel("Counts (log(counts))")
+    plt.title("Showing Region of Interest - 3.75 cm Al")
+    plt.legend(loc=0)
+    plt.savefig("plots/example_cross_section_highlight_roi.pdf")
 
 def countrates(dataset):
     ydata = np.genfromtxt("data/cross_section/countrates.tsv", usecols=(0))
@@ -267,10 +284,17 @@ def countrates(dataset):
 
 
 if __name__ == '__main__':
-    calibration(True)
-    # datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
+    # calibration(True)
+    # datasets = []
+    # for f in os.listdir("data/run_3"):
+    #     try:
+    #         f.split("_")[2]
+    #         continue
+    #     except IndexError:
+    #         datasets.append(f)
+    #
     # for dataset in datasets:
-    #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
+    #     spectrum("data/run_3/%s" % dataset, True)
     # spectrum("data/run_3/shielded_carbon.tsv", True)
-    # cross_section("pb_blocked.tsv")
+    cross_section("al/al_3_75cm.tsv")
     # countrates("carbon")
