@@ -68,13 +68,13 @@ def calibration(plot_cal):
 
         plt.errorbar(data[:,0], data[:,1], data_err)
         # plt.plot(peak_1_x, yuFit1)
-        plt.plot(peak_1_x, yFit1, alpha=.8, lw=3, label="Center: %.0f" % popt1[2])
+        plt.plot(peak_1_x, yFit1, alpha=.8, lw=3, label="Center: %.0f $\pm$ %.2f channel" % (popt1[2], np.sqrt(pcov1[2,2])))
         # plt.plot(peak_2_x, yuFit2)
-        plt.plot(peak_2_x, yFit2, alpha=.8, lw=3, label="Center: %.0f" % popt2[2])
+        plt.plot(peak_2_x, yFit2, alpha=.8, lw=3, label="Center: %.0f $\pm$ %.2f channel" % (popt2[2], np.sqrt(pcov2[2,2])))
         #plt.figure(figsize=(10, 10))
         plt.errorbar(data_cs[:,0], data_cs[:,1], cs_err)
         # plt.plot(peak_3_x, yuFit3)
-        plt.plot(peak_3_x, yFit3, alpha=.8, lw=3, label="Center: %.0f" % popt3[2])
+        plt.plot(peak_3_x, yFit3, alpha=.8, lw=3, label="Center: %.0f $\pm$ %.2f channel" % (popt3[2], np.sqrt(pcov3[2,2])))
         plt.xlabel("Channel")
         plt.ylabel("Counts")
         plt.title("Energy Calibration Using Known Sources")
@@ -89,17 +89,21 @@ def calibration(plot_cal):
 
     lin, lin_pcov = curve_fit(linear, cal_line_x, cal_line_y, p0 = p_lin)
 
-    print lin
+    # print lin
 
-    # yFit = linear(cal_line_x, *lin)
-    # yuFit = linear(cal_line_x, *p_lin)
-    #
-    # plt.figure(figsize=(10, 10))
-    # plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o')
-    # plt.plot(cal_line_x, yFit, alpha = .7, lw = np.sqrt(lin_pcov[0,0]), label="Slope Uncertainty: %.3f" % np.sqrt(lin_pcov[0,0]))
-    # plt.title("%.3fx + %.3f" % (lin[0], lin[1]))
-    # plt.legend()
-    # plt.savefig("plots/tentative_cal.pdf")
+    yFit = linear(cal_line_x, *lin)
+    yuFit = linear(cal_line_x, *p_lin)
+
+    if plot_cal:
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(cal_line_x, cal_line_y, x_err, fmt='o', ms=np.average(x_err), label="Point Uncertainty: %.3f channel" % np.average(x_err))
+        plt.plot(cal_line_x, yFit, alpha = .7, lw = np.sqrt(lin_pcov[0,0]), label="Slope Uncertainty: %.3f keV/channel" % np.sqrt(lin_pcov[0,0]))
+        plt.xlabel("Channel")
+        plt.ylabel("Energy (keV)")
+        plt.text(175, 1100, "Ax + B \n %.3fx + %.3f" % (lin[0], lin[1]))
+        plt.title("Calibrating Channel to Energy")
+        plt.legend(loc=4)
+        plt.savefig("plots/channel_energy_cal.pdf")
 
     return lin
     # save figure, etc.
@@ -263,10 +267,10 @@ def countrates(dataset):
 
 
 if __name__ == '__main__':
-    # calibration(True)
+    calibration(True)
     # datasets = ["direct_spec_port_closed.tsv", "direct_spec_port_open.tsv", "shielded_carbon_port_open.tsv", "shielded_paraffin_port_open.tsv", "shielded_spec_port_closed.tsv", "shielded_spec_port_open.tsv"]
     # for dataset in datasets:
     #     spectrum("data/%s" % dataset, True) #convert channel axis to energy
     # spectrum("data/run_3/shielded_carbon.tsv", True)
     # cross_section("pb_blocked.tsv")
-    countrates("carbon")
+    # countrates("carbon")
