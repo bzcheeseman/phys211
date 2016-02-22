@@ -64,9 +64,9 @@ def calibration(plot_cal):
     if plot_cal:
         plt.figure(figsize=(10,10))
 
-        # plt.annotate("Na-22 511 keV", (popt1[2], 1.7e4), (popt1[2]+50, 1.7e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-        # plt.annotate("Cs-137 662 keV", (popt3[2], .98e4),  (popt3[2], 1.3e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
-        # plt.annotate("Na-22 1275 keV", (popt2[2], 3e3), (popt2[2], 4e3), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        plt.annotate("Na-22 511 keV", (popt1[2], 1.7e4), (popt1[2]+50, 1.7e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        plt.annotate("Cs-137 662 keV", (popt3[2], .98e4),  (popt3[2], 1.3e4), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
+        plt.annotate("Na-22 1275 keV", (popt2[2], 3e3), (popt2[2], 4e3), arrowprops = dict(width=2, headwidth=4, facecolor="red"))
 
         plt.errorbar(data[:,0], data[:,1], data_err)
         # plt.plot(peak_1_x, yuFit1)
@@ -401,7 +401,7 @@ def neutron_radius():
     plt.show()
 
 if __name__ == '__main__':
-    # calibration(True)
+    calibration(True)
     # datasets = []
 
     # for f in os.listdir("data/run_3"):
@@ -424,4 +424,4 @@ if __name__ == '__main__':
     #
     # countrates("pb")
 
-    neutron_radius()
+    # neutron_radius()
