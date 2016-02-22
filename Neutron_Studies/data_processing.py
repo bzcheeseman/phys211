@@ -362,19 +362,42 @@ def neutron_radius():
     dsigma = data[:,1]
     A = data[:,2]
 
-    xdata = np.sqrt(sigma/(2*np.pi))
-    ydata = cbrt(A)
+    ydata = np.sqrt(sigma/(2*np.pi))
+    xdata = cbrt(A)
+    dy = np.sqrt(dsigma/(2*np.pi))
 
-    print ydata
+    #print ydata
+    def sim_data(nruns):
+        r0 = []
+        dbw = [] # de broglie wavelength
+        for i in range(0, nruns):
+            yd = np.random.randn(len(ydata))*np.min(dy) + ydata
+            popt = np.polyfit(xdata, yd, 1)
+            r0.append(popt[0])
+            dbw.append(popt[1])
 
-    popt = np.polyfit(xdata, ydata, 1)
+        return r0, dbw
+
+    r0, dbw = sim_data(1500)
+
+    popt = [np.average(r0), np.average(dbw)]
+    pcov = [np.std(r0), np.std(dbw)]
 
     yFit = linear(xdata, *popt)
+    yFit_max = linear(xdata, *np.add(popt,pcov))
+    yFit_min = linear(xdata, *np.subtract(popt,pcov))
 
-    print popt
-
-    plt.semilogx(xdata, ydata, 'o')
-    plt.semilogx(xdata, yFit)
+    plt.figure(figsize=(10, 10))
+    plt.errorbar(xdata, ydata, yerr=dy, fmt='o')
+    plt.plot(xdata, yFit, label="Best Fit")
+    plt.plot(xdata, yFit_max, label="Plus 1$\sigma$")
+    plt.plot(xdata, yFit_min, label="Minus 1$\sigma$")
+    plt.text(xdata[0], ydata[0] + 1e-12, "$r_0A^{1/3} + \lambda$ \n $r_{0} = %.1f\,\pm\,%.1f\,fm$ \n $\lambda = %.0f\,\pm\,%.0f\,fm$" % (popt[0]*1e13, pcov[0]*1e13, popt[1]*1e13, pcov[1]*1e13))
+    plt.xlabel("$A^{1/3}$ $(g/mol)^{1/3}$")
+    plt.ylabel(r"$\sqrt{\frac{\sigma}{2 \pi}}$ $(\sqrt{\frac{cm^2}{rad}})$")
+    plt.title("Radius and deBroglie Wavelength of the Neutron")
+    plt.legend(loc=3)
+    plt.savefig("plots/neutron_radius.pdf")
     plt.show()
 
 if __name__ == '__main__':
