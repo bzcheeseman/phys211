@@ -168,7 +168,7 @@ def spectrum(dataset, plot_full = False):
 
     plt.figure(figsize=(10, 10))
     plt.errorbar(peak_x, flat_peak, np.sqrt(flat_peak), fmt='o')
-    plt.plot(peak_x, peak_yFit, label = "Gaussian Fit\nCenter: %.0f $\pm$ %.0f keV\nCountrate: %.2f counts/s" % (peak_popt[2], np.absolute(peak_popt[1]/np.sqrt(len(peak_x))), peak_popt[0]/livetime))
+    plt.plot(peak_x, peak_yFit, label = "Gaussian Fit\nCenter: %.0f $\pm$ %.0f keV\nCountrate: %.2f $\pm$ %.2f counts/s" % (peak_popt[2], np.absolute(peak_popt[1]/np.sqrt(len(peak_x))), peak_popt[0]/livetime, np.sqrt(peak_pcov[0,0])/livetime))
     plt.ylabel("Counts (after subtracting background)")
     plt.xlabel("Energy (keV)")
     plt.title("Finding the Peak Center")
@@ -401,18 +401,18 @@ def neutron_radius():
     plt.show()
 
 if __name__ == '__main__':
-    calibration(True)
-    # datasets = []
+    # calibration(True)
 
-    # for f in os.listdir("data/run_3"):
-    #     try:
-    #         f.split("_")[2]
-    #         continue
-    #     except IndexError:
-    #         datasets.append(f)
-    #
-    # for dataset in datasets:
-    #     spectrum("data/run_3/%s" % dataset, True)
+    datasets = []
+    for f in os.listdir("data/run_3"):
+        try:
+            f.split("_")[2]
+            continue
+        except IndexError:
+            datasets.append(f)
+
+    for dataset in datasets:
+        spectrum("data/run_3/%s" % dataset, True)
     # spectrum("data/run_3/shielded_carbon.tsv", True)
 
     # for item in ["al", "cu", "pb", "carbon"]:

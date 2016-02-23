@@ -83,9 +83,18 @@
   \end{equation*}
   where $r_0$ is the radius of the neutron and $A$ is the average atomic mass.  We should thus be able to, given accurate cross sections, determine the radius of the neutron by plotting $\sqrt{\frac{\sigma}{2\pi}}$ versus $A^{1/3}$, fitting a line and extracting the slope and intercept of that line.  Those two parameters should return the radius and the deBroglie wavelength of a neutron, respectively.
 
-\section{Experimental Procedure}
+\section{Experimental Procedure, Data and Uncertainty Analysis}
+  It should be mentioned that unless otherwise mentioned, all the plot uncertainties are from counting, so we estimate them as $\sqrt{n}$.
   \subsection{Neutron Mass}
-  stuff about the deuteron reaction here, we use the energy of the capture photon to get the mass of the neutron
+  The first step for this portion of the experiment was to calibrate the channel axis on the PHA.  The software generally collects data as counts versus channel, but each channel corresponds to an energy - the question is what energy does it correspond to.  In order to calibrate this axis, we take several sources that emit photons at known energies with high consistency and use these to calibrate the axis.  As we can see in Figure~\ref{cal_peaks}, this produces an excellent calibration of the channel axis as long as we know the peak locations and what energies they correspond to with high precision.  Given such a high precision measurement, we are able to calibrate the axis quite well.  In order to make sure that our numbers are good, we took the first fit and randomly chose guess parameters from a normal distribution centered at the best-fit parameters.  In this way we were able to make sure that the fit shown corresponds to the best fit possible.
+
+  \hspace{.25cm}
+
+  Now that we actually have the peak locations, and we know what the energies correspond to, we are able to fit a line through these points in order to determine the calibration from channel to energy, as we can see in Figure~\ref{calibration}.  The linewidth and point size were chosen to represent the relative size of the uncertainty in the slope and points, respectively.  As we can see, both are quite small.  Thus the uncertainties that come up in our calibration will be negligible going forward - we can trust that our calibration is true.
+
+  \hspace{.25cm}
+
+  In order to take measurements, we perform a series of tests in order to determine things like background counts, how well the lead attenuates photons from the source shielding (Figure~\ref{apparatus}), and other factors.  The first measurement we make is with the open detector, no lead shielding, with the port open and then with the port closed.  We see that the count rate of photons is quite similar - the photon source is the shielding of the PuBe source - as we can see in Figure~\ref{nolead}.  If we now shield the detector with lead in order to determine background counts, we see spectra as shown in Figure~\ref{lead}
 
   \subsection{Neutron Radius}
   stuff about how we used the cross sections and integrated to get the count rates and fit exponentials and whatnot
@@ -93,9 +102,6 @@
   \hspace{.25cm}
 
   merge with data/analysis maybe?  Or merge with the theory section?
-
-
-\section{Data and Uncertainty Analysis}
 
 \section{Conclusion}
 
@@ -125,6 +131,40 @@
     \end{tabular}
     \caption{The top image is the experimental setup that we used to determine the radius of the neutron, the bottom image is the setup that allowed us to measure the capture photons from the deuteron reaction.  In reality, the wooden stand for the absorber was much closer to the detector for practicality reasons, but the essential setup is the same.}
     \label{apparatus}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.5]{../plots/calibration_peaks.pdf}
+    \caption{Peaks are labeled on the plot itself, and the centers are cited as well.  It is clear that the centers are known to within better than 1 channel.  The 3 peaks were fit to the form $f(x) = Ae^{\frac{-(x-\mu)^2}{2\sigma^2}} + Bx + C.$ The \redchi values of the three peaks are, from left to right, 1.96, 2.14, and 4.62.  These values indicate good fits, and this is also reflected in the uncertainty for the peak centers.}
+    \label{cal_peaks}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.5]{../plots/channel_energy_cal.pdf}
+    \caption{The \redchi value for this line is 0.94, almost a perfect fit.  The uncertainty in the slope is noted on the plot itself, it is 0.006 kev/channel.  The uncertainty in the intercept is the same as the point uncertainty quoted as 0.055 channel.  This corresponds to approximately 0.17 keV, or less than 0.04\% of the lowest measurement.  Since we will be making measurements at the 2000 keV range, this uncertainty is less than 0.01\%.}
+    \label{calibration}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \begin{tabular}{c c}
+      \includegraphics[scale=.4]{../plots/peak_isolation_nolead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_isolation_nolead_portopen.pdf} \\
+      \includegraphics[scale=.4]{../plots/peak_center_nolead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_center_nolead_portopen.pdf} \\
+    \end{tabular}
+    \caption{The background fit was a simple decaying exponential, $f(x) = Ae^{-Bx} + C$.  In both cases the \redchi value was not stellar (from left to right, 26.45 and 27.87) but we are not necessarily looking for a perfect fit in this instance, we only need to verify the peak center (to make sure we are measuring the right feature) and amplitude to find the countrate, which is the amplitude of the Gaussian fit perfomed on the two bottom peaks divided by the livetime.  The bottom two peaks are zoomed in plots of the green regions on the top two plots, and each peak corresponds to the plot directly above it.  The \redchi values for the bottom two peaks are 13.23 and 14.54 from left to right.  Again, not stellar but we can visually confirm that the fits are good enough for our purposes.}
+    \label{nolead}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \begin{tabular}{c c}
+      \includegraphics[scale=.4]{../plots/peak_isolation_lead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_isolation_lead_portopen.pdf} \\
+      \includegraphics[scale=.4]{../plots/peak_center_lead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_center_lead_portopen.pdf} \\
+    \end{tabular}
+    \caption{The background fit on the top two plots had a much better \redchi value, 3.86 and 4.21 from left to right, but it's nearly meaningless because as we can see on the bottom two plots, the countrates have a 10\% uncertainty, and from the \redchi values (76.33 and 86.19) we know that the fits mean very little aside from giving us a baseline for what will give us roughly zero.}
+    \label{lead}
   \end{figure}
 
 \end{document}
