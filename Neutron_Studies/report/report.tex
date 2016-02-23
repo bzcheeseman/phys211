@@ -61,7 +61,7 @@
     E' = \frac{E}{1+\frac{E}{mc^2}\parens*{1-\cos{\theta}}}
   \end{equation*}
 
-  and given that the scattering angle is going to be roughly $\pi$, we can therefore calculate an approximate energy for the scattered photon $E'$ given input energies.  If we calculate $E'$ for a proton of energy that is approximately 7 MeV and for an electron of 1 MeV, and take the quotient, we return a value of approximately 3, as we can read from Figure~\ref{response}. Thus we can be certain we will set our ROI to begin at the channel that is 3 times the Na-22 1275 keV Compton edge.
+  and given that the scattering angle is going to be roughly $\pi$, we can therefore calculate an approximate energy for the scattered photon $E'$ given input energies.  If we calculate $E'$ for a proton of energy that is approximately 7 MeV and for an electron of 1 MeV, and take the quotient, we return a value of 3, as we can read from Figure~\ref{response}. Thus we can be certain we will set our ROI to begin at the channel that is 3 times the Na-22 1275 keV Compton edge.
 
   \hspace{.25cm}
 
@@ -94,14 +94,53 @@
 
   \hspace{.25cm}
 
-  In order to take measurements, we perform a series of tests in order to determine things like background counts, how well the lead attenuates photons from the source shielding (Figure~\ref{apparatus}), and other factors.  The first measurement we make is with the open detector, no lead shielding, with the port open and then with the port closed.  We see that the count rate of photons is quite similar - the photon source is the shielding of the PuBe source - as we can see in Figure~\ref{nolead}.  If we now shield the detector with lead in order to determine background counts, we see spectra as shown in Figure~\ref{lead}
-
-  \subsection{Neutron Radius}
-  stuff about how we used the cross sections and integrated to get the count rates and fit exponentials and whatnot
+  In order to take measurements, we perform a series of tests in order to determine things like background counts, how well the lead attenuates photons from the source shielding (Figure~\ref{apparatus}), and other factors.  The first measurement we make is with the open detector, no lead shielding, with the port open and then with the port closed.  We see that the count rate of photons is quite similar - the photon source is the shielding of the PuBe source - as we can see in Figure~\ref{nolead}.  If we now shield the detector with lead in order to determine background counts, we see spectra as shown in Figure~\ref{lead}, both of which are very close to zero.  This effectively gives us a background that we can use to compare further measurements against.  Visually, we will be able to see if the peaks are better-defined and/or larger than these then we actually have a peak and thus a valid countrate.
 
   \hspace{.25cm}
 
-  merge with data/analysis maybe?  Or merge with the theory section?
+  We compare measurements from two different experimental setups (Figure~\ref{apparatus}).  In the space between the lead and the NaI detector, we put 6 inches of carbon or paraffin.  If we put in paraffin, we observe a peak that reappears at the capture photon energy, and we expect this peak occurs due to the hydrogen in the paraffin, not the carbon.  In order to test this, we will make a measurement of the countrate under the region where we expect to see the capture photon with paraffin in front of the detector.  We will then compare it with blocks of carbon in order to ensure that the reaction is in fact the capture reaction caused by the hydrogen nuclei and not a scattering event off the carbon.  Thus we expect the peak to disappear in the case where we have the carbon in front of the detector.
+
+  \hspace{.25cm}
+
+  Looking at Figure~\ref{paraffin}, we note that the countrate is quite small, but is non-zero.  Furthermore, the peak is easily identifiable.  If we now take a look at Figure~\ref{carbon}, we see that the peak is hardly identifiable at all.  Qualitatively, we can see that there is obviously no peak in the carbon case.  Quantitatively, we can cite the fact that the fitted countrate for the paraffin case is $0.29 \pm 0.01$ and the fitted countrate for the carbon case is $0.07 \pm 0.01$, and these two values are statistically different.  The carbon value is $22\sigma$ away from the paraffin value and it is thus statistically impossible for these two measurements to have 'true' values that are the same.  These two countrates indicate that there is a phenomenon that occurs in the paraffin that does not occur in the carbon that causes an increase in countrate.
+
+  \hspace{.25cm}
+
+  Since we know that there is in fact a capture photon being emitted in the paraffin, we can find the center of that peak and use the energy of the capture photon to determine the mass of the neutron.  The center of the peak (and thus the value for the energy of the capture photon) is $2179 \pm 6\, keV$.  We can take this and plug it into an expresison for the conservation of energy,
+  \begin{gather*}
+    E_p + E_n = E_d + E_\gamma \\
+    m_p + m_n = m_d + \frac{E_\gamma}{c^2} \\
+    m_n = m_d + \frac{E_\gamma}{c^2} - m_p \\
+    m_n = 1.00862 \pm 0.00002 \, amu
+  \end{gather*}
+  which is actually quite a good approximation of the literature value of the mass which is 1.00866 amu.  Our value is off by approximately $2\sigma$, which means that approximately 97\% of accurate results will be closer to the literature value, but for an experiment set up with blocks of wax, this is an excellent agreement.  We also quite likely underestimated our uncertainty, however these were the values that the fit returned which is an accurate representation of our experimental results.  At most we would have been within $1\sigma$, but that would be manipulating data and uncertainties because we know what the answer \textit{should be} as opposed to what we \textit{measured}.  This might suggest that there is an external source of uncertainty such as the ambient light or even that we had extra paraffin that attenuated capture photons or some other mechanism entirely.
+
+  \subsection{Neutron Radius}
+  Moving on now to measuring the radius of the neutron, we again must calibrate the channel axis, but we only have one feature that we can use to calibrate said axis.  Thus we perform a so-called 1-point calibration.  As described in section 2.2 and in Figure~\ref{roi}, we pick out the Na-22 1275 keV compton edge and choose an ROI that corresponds to the approimate response of the detector to a scattered proton as opposed to the scattered electron from the Na-22 source.  We thus choose the region of interest to be 3 times the value chosen for the Na-22 compton edge.  In order to determine the countrates, we integrate over the region of interest and divide by the livetime.  Uncertainty will come from the the points themselves - each individual point has uncertainty of $\sqrt{n}$ - and the livetime which is less than 0.01\% and is thus negligible.  The countrates' uncertainty comes from taking simulated data drawn from a normal distribution about the real data points with standard distribution equal to the uncertainty on each point.  We then integrate over this simulated data and return the set of values.  Then we repeat the simulation 1500 times.  The average of this set is what we report as our best value, with the standard deviation of the set of simulated values as the uncertainty on the best value.
+
+  \hspace{.25cm}
+
+  We then make measurements of counts versus absorber material and thickness.  If we examine Figure~\ref{rates:rates}, we can see that all the countrates are above the baseline to within uncertainties with the exception of one point on Figure~\ref{rates:rates}.d.  This means that, in general, we don't have to worry about the baseline affecting our measurements.  The uncertainty on the cross sections comes from the sources above - the uncertainty on our best value for the numerical integral over the region of interest.  If we gather the cross sections here,
+
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      Aluminum & Carbon & Copper & Lead \\ \hline
+      $(4.50\pm.45)e-24 \, cm^2$ & $(2.01\pm.33)e-24 \, cm^2$ & $(6.48\pm.14)e-24 \, cm^2$ & $(8.56\pm.36)e-24 \, cm^2$ \\ \hline
+    \end{tabular}
+  \end{center}
+
+  we see the inkling of a pattern.  If we recall section 2.2, where we established that this relation
+  \begin{equation*}
+    \sqrt{\frac{\sigma}{2\pi}} = r_0 A^{1/3} + \lambda
+  \end{equation*}
+  holds, we realize that if we plot these cross sections versus the average atomic masses we have a method for actually determining the radius of the neutron.
+
+  \hspace{.25cm}
+
+  Having actually done this, plotting $\sqrt{\sigma/2\pi}$ vs $A^{1/3}$, we see that we have a line.  In reference to Figure~\ref{radius}, we see that we can actually extract values for the neutron radius and its deBroglie wavelength.
+
+
 
 \section{Conclusion}
 
@@ -150,8 +189,8 @@
   \begin{figure}[!htb]
     \centering
     \begin{tabular}{c c}
-      \includegraphics[scale=.4]{../plots/peak_isolation_nolead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_isolation_nolead_portopen.pdf} \\
-      \includegraphics[scale=.4]{../plots/peak_center_nolead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_center_nolead_portopen.pdf} \\
+      \includegraphics[width=.5\linewidth]{../plots/peak_isolation_nolead_portclosed.pdf} & \includegraphics[width=.5\linewidth]{../plots/peak_isolation_nolead_portopen.pdf} \\
+      \includegraphics[width=.5\linewidth]{../plots/peak_center_nolead_portclosed.pdf} & \includegraphics[width=.5\linewidth]{../plots/peak_center_nolead_portopen.pdf} \\
     \end{tabular}
     \caption{The background fit was a simple decaying exponential, $f(x) = Ae^{-Bx} + C$.  In both cases the \redchi value was not stellar (from left to right, 26.45 and 27.87) but we are not necessarily looking for a perfect fit in this instance, we only need to verify the peak center (to make sure we are measuring the right feature) and amplitude to find the countrate, which is the amplitude of the Gaussian fit perfomed on the two bottom peaks divided by the livetime.  The bottom two peaks are zoomed in plots of the green regions on the top two plots, and each peak corresponds to the plot directly above it.  The \redchi values for the bottom two peaks are 13.23 and 14.54 from left to right.  Again, not stellar but we can visually confirm that the fits are good enough for our purposes.}
     \label{nolead}
@@ -160,11 +199,59 @@
   \begin{figure}[!htb]
     \centering
     \begin{tabular}{c c}
-      \includegraphics[scale=.4]{../plots/peak_isolation_lead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_isolation_lead_portopen.pdf} \\
-      \includegraphics[scale=.4]{../plots/peak_center_lead_portclosed.pdf} & \includegraphics[scale=.4]{../plots/peak_center_lead_portopen.pdf} \\
+      \includegraphics[width=.5\linewidth]{../plots/peak_isolation_lead_portclosed.pdf} & \includegraphics[width=.5\linewidth]{../plots/peak_isolation_lead_portopen.pdf} \\
+      \includegraphics[width=.5\linewidth]{../plots/peak_center_lead_portclosed.pdf} & \includegraphics[width=.5\linewidth]{../plots/peak_center_lead_portopen.pdf} \\
     \end{tabular}
-    \caption{The background fit on the top two plots had a much better \redchi value, 3.86 and 4.21 from left to right, but it's nearly meaningless because as we can see on the bottom two plots, the countrates have a 10\% uncertainty, and from the \redchi values (76.33 and 86.19) we know that the fits mean very little aside from giving us a baseline for what will give us roughly zero.}
+    \caption{The background fit on the top two plots had a much better \redchi value, 3.86 and 4.21 from left to right, but it's nearly meaningless because as we can see on the bottom two plots, the countrates have a 10\% uncertainty, and from the \redchi values (176.33 and 186.19) we know that the fits mean very little aside from giving us a baseline for what will give us roughly zero, and even that is barely meaningful.}
     \label{lead}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \begin{tabular}{c c}
+      \includegraphics[scale=.4]{../plots/peak_isolation_shielded_paraffin.pdf} \\ \includegraphics[scale=.4]{../plots/peak_center_shielded_paraffin.pdf} \\
+    \end{tabular}
+    \caption{A very small peak to be sure, but a peak nonetheless.  Importantly we note the uncertainty on the countrate - the reported countrate is \textbf{not} within uncertainties of zero.  The \redchi value is surprisingly good, it is 28.31 which can be explained by the fact that the data is well-spread about the fitted curve, although it is plausible that the fitted curve describes the mean of the data.  Furthermore, in this case (and others) when the values are below 0 from subtracting the background, the uncertainty is ill-defined and as such the \redchi value is inflated artificially.}
+    \label{paraffin}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \begin{tabular}{c c}
+      \includegraphics[scale=.4]{../plots/peak_isolation_shielded_carbon.pdf} \\ \includegraphics[scale=.4]{../plots/peak_center_shielded_carbon.pdf} \\
+    \end{tabular}
+    \caption{This peak is barely there.  We can see that the uncertainty on the fit is about 14\%, and even this is quite low for the true uncertainty.  We can see visually that if there is a peak there, it's miniscule and barely above the background level.  In fact, the spread from the lowest point to the highest point is roughly even about zero, there's almost no evidence of a peak at all.}
+    \label{carbon}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \begin{center}
+      \begin{tabular}{c c}
+        \begin{tabular}{c}
+          \includegraphics[width=.5\linewidth]{../plots/countrate_al.pdf} \\
+          \small (a) Aluminum countrate; \redchi = 2.87
+        \end{tabular}\label{rates:al} & \begin{tabular}{c}
+          \includegraphics[width=.5\linewidth]{../plots/countrate_carbon.pdf} \\
+          \small (b) Carbon countrate; \redchi = 5.21
+        \end{tabular}\label{rates:carbon} \\
+        \begin{tabular}{c}
+          \includegraphics[width=.5\linewidth]{../plots/countrate_cu.pdf} \\
+          \small (c) Copper countrate; \redchi = 6.69
+        \end{tabular}\label{rates:cu} & \begin{tabular}{c}
+          \includegraphics[width=.5\linewidth]{../plots/countrate_pb.pdf} \\
+          \small (d) Lead countrate; \redchi = 1.24
+        \end{tabular}\label{rates:pb}
+      \end{tabular}
+      \caption{As we can see, the fits are fairly good.  The background level is shown in each plot simply to get an idea of what the background is.  For this level, we filled the absorber stand with as much lead as we could and took a spectrum.}
+      \label{rates:rates}
+    \end{center}
+  \end{figure}
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.7]{../plots/neutron_radius.pdf}
+    \caption{stuff about the +1sigma, -1sigma, etc}
+    \label{radius}
   \end{figure}
 
 \end{document}
