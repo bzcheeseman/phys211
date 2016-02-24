@@ -1,0 +1,12 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Theory}{2}
+\contentsline {subsection}{\numberline {2.1}Zeeman Effect}{2}
+\contentsline {subsection}{\numberline {2.2}Thermal Noise, Boltzmann and Bose-Einstein Statistics}{2}
+\contentsline {subsection}{\numberline {2.3}B-flip, RF De-Pumping and Larmor Precession}{3}
+\contentsline {section}{\numberline {3}Apparatus and Experimental Methods}{3}
+\contentsline {section}{\numberline {4}Data/Uncertainty Analysis}{5}
+\contentsline {subsection}{\numberline {4.1}B Flip}{5}
+\contentsline {subsection}{\numberline {4.2}RF Depumping}{7}
+\contentsline {subsection}{\numberline {4.3}Larmor Precession}{8}
+\contentsline {section}{\numberline {5}Conclusion}{10}
