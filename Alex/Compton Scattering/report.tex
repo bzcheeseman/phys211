@@ -88,6 +88,12 @@ Knowing $E_{Compton} = \frac{hc}{\lambda_2}$ we obtain
 
 Our setup consists of a pair of radioactive Caesium-137 sources housed in a radio-insulating box with a narrow opening. These produce gamma rays at 662 keV, which come out the opening as a collimated beam. The radioactive decay is directed at a cylindrical aluminum rod that scatters incoming photons at random angles – some energy loss is incurred. Finally, we have a NaI crystal and behind it a photomultiplier tube housed, again, in a radio-insulating box with a narrow opening that points at the scatterer. Each photon that strikes the NaI crystal will produce an output from the PMT. The size of the PMT pulses will be proportional to the energy of the photons that caused them. This signal is then sent to a PHA for quantification, and the data is then finally stored as a histogram on the computer. The PMT is mounted on a rail such that we can alter the angle between the PMT and the original sources without changing the distance from the PMT to the scatterer.
 
+\hspace{.25cm}
+
+For this lab, we use a crystal of sodium iodide doped with thallium as our detector. Iodine is a high Z material, so there is a large cross section for interaction for photons passing through the detector. When a high-energy photon scatters in the crystal, electrons carry away the deposited energy and are propelled through the solid. These high energy electrons knock into other electrons and create many smaller energy events, known as an electron shower. In turn, the thallium dopant is excited, and when it quickly de-excites, new photons are emitted. The amount of light given off by the thallium dopant is proportional to the energy left by the initial higher-energy photon. This process is called scintillation. Impurities will mean less light given out in proportion to energy, or even disruption of the linear relationship.
+
+In order to make use of this new scintillation light, the crystal is optically coupled to a photomultiplier tube (PMT). This tube is a series of dynodes each held at a higher voltage potential. The scintillation photons released by the thallium are absorbed in the first dynode of the PMT and kick out electrons via the photoelectric effect. These electrons are accelerated toward the next dynode where they produce more electrons.  At each stage the number of electrons kicked out exceeds the number of electrons coming in, so a small input signal gets "multiplied" into a larger output signal at the final plate. The multiplication factor of the PMT is determined by the number of dynodes and the applied high voltage.
+
 \subsection{Energy Calibration}
 As mentioned earlier, the data from the PMT is stored as a histogram. However, our x-axis will need calibration, as the PHA will only know to assign higher energies to higher channel numbers. We do not calibrate directly on the PHA software, as we expect some drift to the (true) calibration throughout the experimental procedure. We use a 3-point calibration using the known energies of Ba-133 and Cs-137 gamma decay peaks. We chose Ba-133 because it conveniently gives us two peaks, so we can very confidently place two calibration points at the same time. We use the formula from our introduction for the Compton energy, and we use the maximum angle of 135 degrees to obtain real energy values to assign to the centroids of our peaks on the computer software. This allows us to convert channel number to energy in keV. We have two sets of calibration data, one for each day of the experiment:
 
@@ -97,9 +103,9 @@ As mentioned earlier, the data from the PMT is stored as a histogram. However, o
     \begin{tabular}{| l | l | l |}
     \hline
     Source & Channel Number & Energy [keV] \\ \hline
-    Ba-133 & 118 & 81 \\ \hline
-    Ba-133 & 505 & 356 \\ \hline
-    Cs-137 & 921 & 662 \\ \hline
+    Ba-133 & 118 $\pm 3$ & 81 \\ \hline
+    Ba-133 & 505 $\pm 3$ & 356 \\ \hline
+    Cs-137 & 921 $\pm 3$ & 662 \\ \hline
     \end{tabular}
 \end{center}
 
@@ -118,9 +124,9 @@ Due to our equipment shutting off at the end of day 1, we decided that it would 
     \begin{tabular}{| l | l | l |}
     \hline
     Source & Channel Number & Energy [keV] \\ \hline
-    Ba-133 & 117 & 81 \\ \hline
-    Ba-133 & 499 & 356 \\ \hline
-    Cs-137 & 909 & 662 \\ \hline
+    Ba-133 & 117 $\pm 3$ & 81 \\ \hline
+    Ba-133 & 499 $\pm 3$ & 356 \\ \hline
+    Cs-137 & 909 $\pm 3$ & 662 \\ \hline
     \end{tabular}
 \end{center}
 
@@ -130,9 +136,9 @@ Due to our equipment shutting off at the end of day 1, we decided that it would 
     \begin{tabular}{| l | l | l |}
     \hline
     Source & Channel Number & Energy [keV] \\ \hline
-    Ba-133 & 116 & 81 \\ \hline
-    Ba-133 & 498 & 356 \\ \hline
-    Cs-137 & 903 & 662 \\ \hline
+    Ba-133 & 116 $\pm 3$ & 81 \\ \hline
+    Ba-133 & 498 $\pm 3$ & 356 \\ \hline
+    Cs-137 & 903 $\pm 3$ & 662 \\ \hline
     \end{tabular}
 \end{center}
 
