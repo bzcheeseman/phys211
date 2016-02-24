@@ -11,6 +11,9 @@ def lorentzian_back(x, A, Gamma, x0, B, C):
 def gaussian(x, A, sigma, center, C):
     return A*np.exp(-(x-center)**2/(2*sigma**2)) + C
 
+def gaussian_back(x, A, sigma, center, B, C):
+    return A*np.exp(-(x-center)**2/(2*sigma**2)) + B*x + C
+
 def linear(x, A, B):
     return A*x + B
 
