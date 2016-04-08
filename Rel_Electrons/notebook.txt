@@ -1,0 +1,5 @@
+oscilloscope output - pictures on dropbox
+
+final gain - coarse = 1, fine gain = 3.0
+
+Co-57, Bi-207 - plot the data and include in lab notebook
