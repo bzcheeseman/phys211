@@ -67,6 +67,6 @@ class data_manage(object):
 
 if __name__ == '__main__':
     # mine = co_57
-    obj = data_manage("data/co_57.tsv")
-    obj.plot([0, 200])
+    obj = data_manage("data/in_116.tsv")
+    obj.plot(style='r-')
     obj.find_peaks(100)
