@@ -3,3 +3,20 @@ oscilloscope output - pictures on dropbox
 final gain - coarse = 1, fine gain = 3.0
 
 Co-57, Bi-207 - plot the data and include in lab notebook
+
+bi-207 1.7 MeV cal peak = 1393 +- 1, 55 +- 1
+
+cs-137 .66 MeV peak = 522 +- 1
+
+co-57 peaks = 45 +- 5, 115 +- 2
+
+ba-133 peaks = 57, 82, 43
+
+T | E
+310 +- 10 | 450 +- 1 - bi
+675 +- 10 | 840 +- 1 - bi
+375 +- 10 | 522 +- 1 - cs
+160 +- 10 | 278 +- 1 - ba
+175 +- 10 | 301 +- 1 - ba
+830 +- 10 | 997 +- 1 - na
+259 +- 10 | 394 +- 1 - na
