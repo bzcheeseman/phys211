@@ -231,6 +231,8 @@ class data_manage(object):
         b = popt[0]*2*3e8**2
         m = popt[1]/2
 
+        print np.sqrt(np.absolute((m * 3e8**2)**2 - min(pc)**2))/3e8**2
+
         yFit = residuals.linear(T, *popt)
         yuFit = residuals.linear(T, popt[0], 9.109e-31)
 
