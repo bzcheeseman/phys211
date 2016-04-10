@@ -28,3 +28,6 @@ def cosine(x, A, omega, delta, C):
 
 def multi_cosine(x, A, B, omega1, omega2, delta1, delta2, C):
     return A*np.cos(omega1*x + delta1) + B*np.cos(omega2*x + delta2) + C
+
+def square_root(x, A, B, C):
+    return A*np.sqrt(np.absolute(x**2 + B*x)) + C

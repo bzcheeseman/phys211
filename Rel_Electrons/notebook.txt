@@ -26,3 +26,15 @@ T | E
 700 +- 10 | 862 +- 1 - in
 850 +- 10 | 1019 +- 1 - in
 1475 +- 10 | 1660 +- 1 - in
+
+p^2/2T = mnr = BT + C
+
+p^2/2T = T/2c^2 + 2 m0
+
+p^2c^2 = T^2 + 2 m0 c^2 => for small T
+p^2 = 2 m0 = norm of the momentum 4-vector in the Lorentz metric
+
+p^2c^2 = 2 B c^2 T^2 + C c^2 T
+=> B = 1/(2c^2), C = 2 m0
+
+p^2 c^2 = 2 m0 c^2 T + T^2
