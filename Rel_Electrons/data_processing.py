@@ -209,7 +209,7 @@ class data_manage(object):
     def notebook_process(self):
         T = [310, 675, 375, 160, 175, 830, 259, 200, 475, 700, 850]
         E = [450, 840, 522, 278, 301, 997, 394, 328, 649, 862, 1019]
-        dT = 7*np.ones_like(T)
+        dT = 4*np.ones_like(T)
         dE = np.ones_like(E)
 
         T = self.convert(np.sort(T))
@@ -220,34 +220,31 @@ class data_manage(object):
         # print E
 
         pc = 2*E - T
-        p = pc/3e8
 
-        mnr = p**2/(2*T)
+        mnr = pc**2/(2*T)
         dmnr = np.sqrt((dT/T)**2 + (dE/E)**2) * mnr
 
-        p0 = [1/(2*3e8**2), .4e-17]
+        p0 = [.5, .511]
 
         popt, pcov = curve_fit(residuals.linear, T, mnr, p0 = p0)
-        b = popt[0]*2*3e8**2
-        m = popt[1]/2
-
-        print np.sqrt(np.absolute((m * 3e8**2)**2 - min(pc)**2))/3e8**2
+        b = popt[0]*2
+        m = popt[1]/.511
 
         yFit = residuals.linear(T, *popt)
-        yuFit = residuals.linear(T, popt[0], 9.109e-31)
+        yuFit = residuals.linear(T, popt[0], .511)
 
         plt.figure(figsize=(10, 10))
         plt.title("Finding $m_e^*$ and the Relativistic Dispersion Relation")
         plt.errorbar(T, mnr, xerr=dT, yerr=dmnr, fmt='.')
-        plt.plot(T, yuFit, label="$m = 9.109e-31$ kg")
-        plt.plot(T, yFit, label = "$m = (%.2e \pm %.2e)$ kg" % (popt[1]/2, pcov[1,1]))
-        plt.ylabel("Effective Mass (kg)")
-        plt.xlabel("Kinetic Energy (kg)")
-        plt.text(T[0], 1.2e-17, "$p^2/2T = BT + C$ \n\
-        $B = 1/2c^2$ \n\
-        $C = 2m$ \n\
-        $B\cdot(2c^2) = %.2f \pm %.2e$ \n\
-        $C/2 = %.2e \pm %.2e$" % (b, pcov[0,0]/popt[0] * b, m, pcov[1,1]/popt[1] * m))
+        plt.plot(T, yuFit, label="$m = 511 \,\, keV/c^2$")  #fix this
+        plt.plot(T, yFit, label = "$m = (%.4f \pm %.4f) \, MeV/c^2$" % (popt[1], pcov[1,1]))  #fix this
+        plt.ylabel("Effective Mass (eV)")  #not effective mass anymore
+        plt.xlabel("Kinetic Energy (kg)")  #sure
+        plt.text(T[0], 1, "$p^2c^2/2T = BT + C$ \n\
+        $B = 1/2$ \n\
+        $C = mc^2$ \n\
+        $2B \, (unitless) = %.3f \pm %.3f$ \n\
+        $C/.511 \, (unitless) = %.4f \pm %.4f$" % (b, pcov[0,0]/popt[0] * b, m, pcov[1,1]/popt[1] * m))
         plt.legend()
         plt.savefig("plots/dispersion.pdf") # gotta see if this actually works or not - effective mass is kinda iffy
 
