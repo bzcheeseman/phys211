@@ -114,27 +114,95 @@
     \subsection{Calibration}
       The first step in performing our analysis is calibrating our instrumentation.  Thus, we perform a linear fit to extract the parameters by which the energy is related to a PHA channel.  Results are summarized in Figure~\ref{fig:calibration}.
 
-      \begin{figure}[h]
-        \centering
-        \includegraphics[width=\linewidth]{../plots/calibration.pdf}
-        \caption{The point uncertainties are extraordinarily low because we are using full-energy peaks to get these points.  This means that they can be determined to around 1 channel, and as such uncertainties will be very small. \label{fig:calibration}}
-      \end{figure}
+      \begin{widetext}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/calibration.pdf}
+          \caption{The point uncertainties are extraordinarily low because we are using full-energy peaks to get these points.  This means that they can be determined to around 1 channel, and as such uncertainties will be very small. \label{fig:calibration}}
+        \end{figure}
+
+      \end{widetext}
 
       The energy peaks we used were the following:
 
-      \begin{tabular}{|c|c|c|}
-        Element & Channel & Energy \\
-        Co-57 & 45 & .122 MeV \\
-        Na-22 & 394 & .511 MeV \\
-        Bi-207 & 450 & .5696 MeV \\
-        Cs-137 & 522 & .662 MeV \\
-        Na-22 & 997 & 1.2745 MeV \\
-        In-116 & 1019 & 1.2933 MeV \\
-        Bi-207 & 1393 & 1.7697 MeV
-      \end{tabular}
+      \begin{table}[h]
+        \centering
+        \begin{tabular}{|c|c|c|}
+          \hline
+          Element & Channel ($\pm1$ channel) & Energy (exact) \\ \hline
+          Co-57 & 45 & .122 MeV \\ \hline
+          Na-22 & 394 & .511 MeV \\ \hline
+          Bi-207 & 450 & .5696 MeV \\ \hline
+          Cs-137 & 522 & .662 MeV \\ \hline
+          Na-22 & 997 & 1.2745 MeV \\ \hline
+          In-116 & 1019 & 1.2933 MeV \\ \hline
+          Bi-207 & 1393 & 1.7697 MeV \\ \hline
+        \end{tabular}
+        \caption{Correspondence between element, channel and full energy capture peaks. \label{tab:calibration_points}}
+      \end{table}
+
+      In order to propagate uncertainties forward, we took a normal distribution around each point and simulated 1000 data sets where each point was drawn from this normal distribution at random.  The fit uncertainties reflect the standard deviation of that fit parameter after performing this check.
 
     \subsection{Feature Identification}
-      
+      The first step in identifying our features is to simply plot the spectra for each element and point out features we will be using later.  We will begin with Cs-137 since its spectrum is the simplest and work our way up.  We will notice that some sources didn't give any noticeable compton edges, and only contributed peaks.  These peaks were mainly used for calibration - we had no real use for peaks that don't have identifiable compton edges.  The observant reader will also notice that our calibration curve doesn't include the second Co-57 peak.  This is because we weren't sure what the feature just below it in energy was, and whether it was a peak or compton edge, or possibly even vice-versa (though that seemed unlikely).  Mostly, we are unsure of what that feature is and labeled it as a full energy peak because it most likely is (and from the decay scheme it's where it should be), but in any case we were not confident in that peak and so left it out.
+
+      \begin{widetext}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/Cs-137.pdf}
+          \caption{Cs-137 with full energy peak and Compton edge identified \label{fig:cs}}
+        \end{figure}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/Na-22.pdf}
+          \caption{Na-22 with full energy peaks and Compton edges identified \label{fig:na}}
+        \end{figure}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/Co-57.pdf}
+          \caption{Co-57 with full energy peaks identified \label{fig:co}}
+        \end{figure}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/Ba-133.pdf}
+          \caption{Ba-133 with full energy peaks identified \label{fig:ba}}
+        \end{figure}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/Bi-207.pdf}
+          \caption{Bi-207 with full energy peaks and Compton edges identified \label{fig:bi}}
+        \end{figure}
+
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=\linewidth]{../plots/In-116.pdf}
+          \caption{In-116 with full energy peaks and Compton edges identified \label{fig:in}}
+        \end{figure}
+
+      \end{widetext}
+
+      In order to keep track of this madness, we have in order: Cs-137, Figure~\ref{fig:cs}; Na-22, Figure~\ref{fig:na}; Co-57, Figure~\ref{fig:co}; Ba-133, Figure~\ref{fig:ba}; Bi-207, Figure~\ref{fig:bi}; and In-116, Figure~\ref{fig:in}.
+
+      \hspace{.25cm}
+
+      Now, because there are such a huge volume of peaks, we have done the following.  We picked out all of the significant peaks by eye, but we need to be certain that the peaks are where we think they are, and be able to estimate uncertanties properly.  So, picking the best few peaks, we performed fits to determine the parameters of the peaks (center, width, etc.) and found that our by-eye estimation was quite accurate both in picking out the center and also in estimating uncertainty.  Thus, we can simply confirm that what we picked is correct enough to use.  For the reader's graphical pleasure, an excellent specimen, a lovely peak that took marvellously to the fitting routine, Figure~\ref{fig:fitted_in}.
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{../plots/In-116_0_4405.pdf}
+        \caption{One of the better examples of peaks, once fitted.  This confirms that our estimates for peak centers were accurate, and our estimation that the uncertainties were around 1 channel were also accurate. \label{fig:fitted_in}}
+      \end{figure}
+
+      % need to put table of peaks here along with status, etc
+
+
+
 
 
 \bibliography{bib}

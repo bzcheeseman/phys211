@@ -131,22 +131,23 @@ class data_manage(object):
     def convert(self, x):
         return residuals.linear(x, self.A, self.B)
 
-    def plot(self, rng = [0,0], style = 'o', xlabel = None, ylabel = None, title = None):
+    def plot(self, rng = [0,0], style = 'o', xlabel = None, ylabel = None, title = None, save = False):
 
-        def pl(x, y, save = False):
+        def pl(x, y, xerr, yerr, save = False):
             plt.figure(figsize = (10, 10))
-            plt.plot(x, y, style)
+            plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt=style)
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
             plt.title(title)
             if save:
-                plt.savefig("%s.pdf" % self.name)
+                plt.savefig("plots/%s.pdf" % self.name)
 
         if rng == [0,0]:
-            pl(self.convert(self.xdata), self.ydata)
+            pl(self.convert(self.xdata), self.ydata, None, np.sqrt(self.ydata))
         else:
-            xd, yd = selectDomain.selectdomain(self.xdata, self.ydata, rng)
-            pl(xd, yd)
+            xd, yd = selectDomain.selectdomain(self.convert(self.xdata), self.ydata, rng)
+            ye = np.sqrt(yd)
+            pl(xd, yd, None, ye)
 
     def find_peaks(self):
         x = self.convert(self.xdata)
@@ -248,6 +249,23 @@ class data_manage(object):
         plt.legend()
         plt.savefig("plots/dispersion.pdf") # gotta see if this actually works or not - effective mass is kinda iffy
 
+    def plot_spectra(self):
+        self.plot([0, 2.3], xlabel = "Energy (MeV)", ylabel = "Counts", title = self.name)
+        plt.annotate("Full Energy Peak", xy=(.17, 4500), xytext=(.2, 4900), arrowprops=dict(facecolor='black'))
+        plt.annotate("Compton Edge", xy=(.3, 1000), xytext=(.33, 4200), arrowprops=dict(facecolor='black'))
+        plt.annotate("Full Energy Peak", xy=(.44, 3900), xytext=(.6, 4000), arrowprops=dict(facecolor='black'))
+        plt.annotate("Full Energy Peak", xy=(.85, 1000), xytext=(.55, 2500), arrowprops=dict(facecolor='black'))
+        plt.annotate("Compton Edge", xy=(.92, 600), xytext=(.65, 3000), arrowprops=dict(facecolor='black'))
+        plt.annotate("Compton Edge", xy=(1.05, 500), xytext=(.65, 3000), arrowprops=dict(facecolor='black'))
+        plt.annotate("Full Energy Peak", xy=(1.12, 1900), xytext=(1.3, 3000), arrowprops=dict(facecolor='black'))
+        plt.annotate("Full Energy Peak", xy=(1.3, 2200), xytext=(1.3, 3000), arrowprops=dict(facecolor='black'))
+        plt.annotate("Full Energy Peak", xy=(1.5, 300), xytext=(1.5, 1500), arrowprops=dict(facecolor='black'))
+        plt.annotate("Compton Edge", xy=(1.88, 100), xytext=(1.6, 1000), arrowprops=dict(facecolor='black'))
+        plt.annotate("Full Energy Peak", xy=(2.08, 300), xytext=(1.7, 1200), arrowprops=dict(facecolor='black'))
+        plt.savefig("plots/%s.pdf" % self.name)
+
+
+
 if __name__ == '__main__':
 
     # for dset in ["ba_133.tsv", "bi_207.tsv", "cs_137.csv", "in_116.tsv", "na_22.tsv"]:
@@ -257,8 +275,8 @@ if __name__ == '__main__':
     #     obj.find_peaks()
     #     pks.append(obj.peak_fit())
 
-    obj = data_manage("data/na_22.tsv")
+    obj = data_manage("data/in_116.tsv")
     obj.calibrate(plot=False)
     # obj.find_peaks()
     # obj.peak_fit()
-    obj.notebook_process()
+    # obj.notebook_process()
