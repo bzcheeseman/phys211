@@ -218,8 +218,6 @@ class data_manage(object):
         E = self.convert(np.sort(E))
         dE = self.convert(dE)
 
-        # print E
-
         pc = 2*E - T
 
         mnr = pc**2/(2*T)
@@ -235,15 +233,15 @@ class data_manage(object):
         yuFit = residuals.linear(T, popt[0], .511)
 
         plt.figure(figsize=(10, 10))
-        plt.title("Finding $m_e^*$ and the Relativistic Dispersion Relation")
+        plt.title("Finding $m_ec^2$ and the Relativistic Dispersion Relation")
         plt.errorbar(T, mnr, xerr=dT, yerr=dmnr, fmt='.')
-        plt.plot(T, yuFit, label="$m = 511 \,\, keV/c^2$")  #fix this
-        plt.plot(T, yFit, label = "$m = (%.4f \pm %.4f) \, MeV/c^2$" % (popt[1], pcov[1,1]))  #fix this
-        plt.ylabel("Effective Mass (eV)")  #not effective mass anymore
-        plt.xlabel("Kinetic Energy (kg)")  #sure
+        plt.plot(T, yuFit, label="$m_e = .511 \,\, MeV$")  #fix this
+        plt.plot(T, yFit, label = "$m_e = (%.4f \pm %.4f) \, MeV$" % (popt[1], pcov[1,1]))  #fix this
+        plt.ylabel("$p^2c^2/2T$ (MeV)")  #not effective mass anymore
+        plt.xlabel("T (MeV)")  #sure
         plt.text(T[0], 1, "$p^2c^2/2T = BT + C$ \n\
         $B = 1/2$ \n\
-        $C = mc^2$ \n\
+        $C = m_ec^2$ \n\
         $2B \, (unitless) = %.3f \pm %.3f$ \n\
         $C/.511 \, (unitless) = %.4f \pm %.4f$" % (b, pcov[0,0]/popt[0] * b, m, pcov[1,1]/popt[1] * m))
         plt.legend()
@@ -264,6 +262,101 @@ class data_manage(object):
         plt.annotate("Full Energy Peak", xy=(2.08, 300), xytext=(1.7, 1200), arrowprops=dict(facecolor='black'))
         plt.savefig("plots/%s.pdf" % self.name)
 
+    def mass_process(self):
+        T = [310, 675, 375, 160, 175, 830, 259, 200, 475, 700, 850]
+        E = [450, 840, 522, 278, 301, 997, 394, 328, 649, 862, 1019]
+        dT = 4*np.ones_like(T)
+        dE = np.ones_like(E)
+
+        T = self.convert(np.sort(T))
+        dT = self.convert(dT)
+        E = self.convert(np.sort(E))
+        dE = self.convert(dE)
+
+        mc2 = (2*E*(E-T))/T
+        dmc2 = np.sqrt((dT/T)**2 + (dE/E)**2) * mc2
+
+        mc2avg = np.sum(mc2/dmc2**2)/np.sum(1/dmc2**2)
+        davg = 1/np.sum(1/dmc2**2)
+        print davg
+
+        horiz_line = mc2avg*np.ones_like(mc2)
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(T, mc2, dmc2, fmt='.', label = "$E_\gamma$, $T$ pairs")
+        plt.plot(T, horiz_line, 'r-', label = "$%.4f \pm %.4f$" % (mc2avg, davg))
+        plt.xlabel("T (MeV)")
+        plt.ylabel("$m_ec^2$ (MeV)")
+        plt.title("Rest Mass")
+        plt.legend()
+        plt.savefig("plots/rest_mass.pdf")
+
+    def velocity_process(self):
+        T = [310, 675, 375, 160, 175, 830, 259, 200, 475, 700, 850]
+        E = [450, 840, 522, 278, 301, 997, 394, 328, 649, 862, 1019]
+        dT = 4*np.ones_like(T)
+        dE = np.ones_like(E)
+
+        T = self.convert(np.sort(T))
+        dT = self.convert(dT)
+        E = self.convert(np.sort(E))
+        dE = self.convert(dE)
+
+        beta = T*(2*E - T)/(T**2 - 2*E*T + 2*E**2)
+        dbeta = (4*E*(E - T)*np.sqrt((E*dT)**2 + (T*dE)**2))/(T**2 - 2*E*T + 2*E**2)**2
+
+        print dbeta
+
+        pc = 2*E - T
+        dpc = np.sqrt((dT/T)**2 + (dE/E)**2) * pc
+
+        p = (.511 * beta)/np.sqrt(1-beta**2)
+        t = .511*(1/np.sqrt(1-beta**2) - 1)
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(beta, pc, xerr=dbeta*3e-1, yerr=dpc, fmt='ro', label="Data Points")
+        plt.plot(beta, p, 'r--', label="Expected Form")
+        plt.xlabel(r"$\beta \, (c = 1)$")
+        plt.ylabel(r"$\vec{p} \, (c = 1)$")
+        plt.title(r"$\vec{p}(\beta)$")
+        plt.legend()
+        plt.savefig("plots/momvsspeed.pdf")
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(beta, T, xerr=dbeta*3e-1, yerr=dT, fmt='bo', label = "Data Points")
+        plt.plot(beta, t, 'b--', label = "Expected Form")
+        plt.xlabel(r"$\beta \, (c = 1)$")
+        plt.ylabel(r"$T \, (MeV, \, c = 1)$")
+        plt.title(r"$T(\beta)$")
+        plt.legend()
+        plt.savefig("plots/energyvsspeed.pdf")
+
+    def disp_rel_process(self):
+        T = [310, 675, 375, 160, 175, 830, 259, 200, 475, 700, 850]
+        E = [450, 840, 522, 278, 301, 997, 394, 328, 649, 862, 1019]
+        dT = 4*np.ones_like(T)
+        dE = np.ones_like(E)
+
+        T = self.convert(np.sort(T))
+        dT = self.convert(dT)
+        E = self.convert(np.sort(E))
+        dE = self.convert(dE)
+
+        pc = (2*E - T)
+        dpc = np.sqrt((dT/T)**2 + (dE/E)**2) * pc
+
+        T_nr = (pc)**2/(2*.511)
+        T_r = np.sqrt((.511**2) + pc**2) - .511
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(pc, T, xerr=dpc, yerr=dT, fmt='o', label="Data")
+        plt.plot(pc, T_nr, 'r--', label="Non Relativistic Model")
+        plt.plot(pc, T_r, 'b--', label="Relativistic Model")
+        plt.xlabel("Momentum ($c$ = 1)")
+        plt.ylabel("Energy (MeV)")
+        plt.title("Dispersion Relation, Form Comparison")
+        plt.legend()
+        plt.savefig("plots/rel_dispersion.pdf")
 
 
 if __name__ == '__main__':
@@ -279,4 +372,7 @@ if __name__ == '__main__':
     obj.calibrate(plot=False)
     # obj.find_peaks()
     # obj.peak_fit()
-    # obj.notebook_process()
+    obj.notebook_process()
+    # obj.mass_process()
+    # obj.velocity_process()
+    # obj.disp_rel_process()
