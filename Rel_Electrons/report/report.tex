@@ -14,18 +14,18 @@
 
 
   \begin{abstract}
-    We use a high-purity Germanium detector to measure with high precision the energies of incoming photons in the radiation spectrum.  We measure the kinetic energy of electrons from which these incoming photons scatter to determine the relativistic limit of the electronic dispersion relation in Ge crystal.  We determine that the well known special relativistic energy-momentum relation holds with remarkable accuracy, the model returning values of $\frac{m}{m_e} = 0.9696 \pm 0.0007$ and $2B = 1.019 \pm 0.001$.  B is the linear slope parameter that we use to characterize the relativistic mass, $\frac{p^2c^2}{2T} = BT + C$.  We finally examine the velocity and plot the dispersion relation of the electron moving with nontrivial fractions of $c$ in a Ge crystal.  We measure a rest mass for the electron of $0.5003\pm0.0001$ MeV.
+    We use a high-purity Germanium detector to measure with high precision the energies of incoming photons in the .1 to 1.5 MeV range.  We measure the kinetic energy of electrons from which these incoming photons scatter to determine the relativistic limit of the electronic dispersion relation in Ge crystal.  We determine that the well known special relativistic energy-momentum relation holds with remarkable accuracy, the model returning values of $\frac{m}{m_e} = 0.9696 \pm 0.0007$ and $2B = 1.019 \pm 0.001$.  B is the linear slope parameter that we use to characterize the relativistic mass, $\frac{p^2c^2}{2T} = BT + C$.  We finally examine the velocity and plot the dispersion relation of the electron moving with nontrivial fractions of $c$ in a Ge crystal.  We measure a rest mass for the electron of $0.5003\pm0.0001$ MeV.
   \end{abstract}
 
   \maketitle
   \tableofcontents
 
   \section{Introduction and Theory}
-    The goal we seek here is to verify the relativistic dispersion relation.  In general, we can reasonably take the dispersion relation to be the nearly free electron model, especially in the case of relativistic electrons.  When the kinetic energy of an electron is such that its velocity exceeds trivial fractions of $c$, the free electron approximation works exceedingly well as a basic picture of the band structure.  Thus, we are measuring the linear part of the electron's dispersion relation in order to determine the coefficients.  In essence, as the electron moves faster, we see the band flatten into a line from the parabolic structure that we expect from a typical electron.  In performing the detection, we make use of a high-purity Germanium crystal which gives us excellent energy resolution.
+    We seek to verify the relativistic dispersion relation.  In general, we can reasonably take the dispersion relation to be approximated by the nearly free electron model, especially in the case of relativistic electrons.  When the kinetic energy of an electron is such that its velocity exceeds trivial fractions of $c$, the free electron approximation works exceedingly well as a basic picture of the band structure.  Thus, we are measuring the linear part of the electron's dispersion relation in order to determine the coefficients.  In essence, as the electron moves faster, we see the band flatten into a line from the parabolic structure that we expect from a typical electron.  In performing the detection, we make use of a high-purity Germanium crystal which gives us excellent energy resolution.
 
     \hspace{.25cm}
 
-    The electron energy after a high-energy scattering is given by the Compton Edge - this feature represents the energy of a photon that has undergone scattering with an electron with an angle of $\pi$ exactly once.  We can determine the momentum of the electron given this information because the energy deposited by the photon will be exactly the excess energy given to the electron.  Furthermore, we know that since Germanium has, to a good approximation, a tight-binding band structure, the electron will be both (mostly) stationary - in that it is tightly bound to its lattice site, and that once we excite it we will only see electrons interacting with the excited electron that are directly in its path.~\cite{germanium_structure}  This means that the signal we see is proportional to a number of electrons that is quite specific to the energy of the initial electron's collision.
+    If we look at Figure~\ref{fig:labeled_spectrum}, the electron energy after a high-energy scattering is given by the Compton Edge - this feature represents the energy of a photon that has undergone scattering with an electron with an angle of $\pi$ exactly once.  We can determine the momentum of the electron given this information because the energy deposited by the photon will be exactly the excess energy given to the electron.  Furthermore, we know that since Germanium has, to a good approximation, a tight-binding band structure, the electron will be both (mostly) stationary - in that it is tightly bound to its lattice site, and that once we excite it we will only see electrons interacting with the excited electron that are directly in its path.~\cite{germanium_structure}  This means that the signal we see is proportional to a number of electrons that is quite specific to the energy of the initial electron's collision.
 
     \begin{figure}[h]
       \centering
@@ -107,6 +107,7 @@
 
     When a photon enters the crystal, we will see an electron scatter from its lattice site and be excited into the conduction band.  We then apply high voltage across the crystal to separate the electron and hole and count the charge.  This counting is done by a charge-sensitive pre-amplifier which produces pulses with height that is proportional to the amount of charge (and the energy of the photon/the number of electrons it scattered).  The pulses are sent through an amplifier to the Pulse Height Analyzer (PHA), which bins the data and produces the histogram we are used to seeing, as in Figure~\ref{fig:labeled_spectrum}.  In this way, the detector provides information about the kinetic energy of the scattered electron, and by inference the recoil energy of the photon.  The full energy peak of course refers to photons that enter the detector and deposit all their energy in the crystal.  We thus have all the quantities of interest, $E_\gamma$, $E_\gamma'$, and $T$.
 
+  \section{Discussion and Analysis}
     \subsection{Calibration}
       The PHA returns counts vs. channel.  Because we need the axis in units of energy, we must perform a calibration.  In order to do this, we identify peaks that don't have well-defined compton peaks and use their positions and known energies in order to calibrate the channel axis to energy.  We know that the energy is related to the channel linearly, and we can therefore write the following:
       \begin{gather}
@@ -119,8 +120,8 @@
 
       using Eq.~\ref{eq:calibration}, we will then be able to convert the channel axis to energy.  The most important piece of information we gain from this procedure is the calibration itself.  The second most important information is the fact that the uncertainty in the compton edge dominates over the uncertainty in the peak locations, which informs future decisions about error analysis.
 
-  \section{Discussion and Analysis}
-    \subsection{Calibration}
+      \hspace{.25cm}
+
       The first step in performing our analysis is calibrating our instrumentation.  Thus, we perform a linear fit to extract the parameters by which the energy is related to a PHA channel.  Results are summarized in Figure~\ref{fig:calibration}.
 
       The energy peaks we used were the following:
