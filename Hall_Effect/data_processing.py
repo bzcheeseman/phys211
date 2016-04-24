@@ -23,15 +23,16 @@ class data_manage(object):
        docstring for data_manage
        Deals with plotting, peak finding, etc. as internal methods
     """
-    def __init__(self, v_calib_dataset):
-        try:
-            data = pd.read_table(v_calib_dataset)
-            print data
-            print "\n"
-            print data["Vert leads 1-2 +"].values
+    def __init__(self):
+        v_calib_dataset = "data/room_temp_calibration.tsv"
 
-        except IndexError:
-            pass
+        v_calib_data = pd.read_table(v_calib_dataset)
+
+        self.headers = ["Voltage Across 100ohm", "Vert leads 1-2", "Vert leads 3-4", "Horz leads 1-3", "Horz leads 2-4", "Thermo Voltage", "Temperature"]
+
+        val = .5 * (v_calib_data[self.headers[-1] + " +"] + v_calib_data[self.headers[-1] + " -"])
+
+        print val
 
 
     def plot(self):
@@ -40,4 +41,4 @@ class data_manage(object):
 
 
 if __name__ == '__main__':
-    obj = data_manage("data/room_temp_calibration.tsv")
+    obj = data_manage()
