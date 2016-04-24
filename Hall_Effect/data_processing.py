@@ -5,7 +5,7 @@ from scipy.optimize import curve_fit
 import pandas as pd
 
 import sys
-sys.path.append("/users/aman/desktop/PHYS211")
+sys.path.append("..")
 
 from PythonLibrary import *
 
