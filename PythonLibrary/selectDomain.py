@@ -4,8 +4,9 @@ import numpy as np
 
 # Searches through the x data to find a region to keep and returns the same size
 # slice in both x and y
-def selectdomain(xdata, ydata, domain, remove = None):
-    indices = np.searchsorted(xdata,domain)
+def selectdomain(xdata, ydata, domain = None, indices = None, remove = None):
+    if indices == None and domain != None:
+        indices = np.searchsorted(xdata,domain)
 
     if remove is not None:
         indices_first = np.searchsorted(xdata, [domain[0], remove[0]])

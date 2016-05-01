@@ -51,12 +51,45 @@
     \end{equation}
     which allows us to relate resistivity of a given semiconductor in and out of a magnetic field in a phenomenon known as magnetoresistance - which is the same phenomenon wherein we see peaks of resistivity at the quantized hall plateaus - the resistance in the induced direction increases sharply as we come to quantized values for the Hall resistance.
 
-    p-type semiconductors
+    There are two types of dopants for semiconductors - p-type and n-type.  n-type semiconductors donate negative charges, or electrons, to the semiconductor band structure, resulting in the main charge carrier being an electron that can move freely throughout the bulk.  P-type dopants accept electrons, creating holes in the band structure which still allows for charge flow but now holes are the dominant charge carrier.  This becomes manifestly true at low temperatures especially due to the fact that at low temperatures the electrons bound to the bulk atoms are stuck, and the only things moving will be the dopant particles (or quasiparticles as is the case with holes).
 
     \section{Experimental Methods}
-    stuff goes here
+    In order to measure the Hall voltage and from that the resistivity and the Hall coefficient, we made the following electrical measurements.  If we refer to Figure~\ref{circuit_diagram}, we notice that we run current through the sample in the direction from point 5 to point 6.  We can then directly measure the Hall voltage by measuring the difference between ports 1 and 2, or 3 and 4.  Now, it is possible that these ports are not perfectly horizontal with each other - that is, they might not be normal to both the current propagation \textbf{and} the magnetic field, and so we will take data by making rotations - henceforth referred to as '+' and '-'.  The idea is that if we take data at one orientation and then at the other, we will be able to simply average out the effect from the offset of the measurement ports.  From the data that we collect, we are able to directly calculate values for $R_H$, $\mu_h$ and $\rho$.  From these there are other values we can derive such as the magnetoresistance and density of charge carriers (holes).
+
+    In order to take data as a function of temperature, we raised the temperature by running current through a 130$\Omega$ resistor in small increments, and then taking a scan first at the '+' orientation and then at the '-' orientation.  We repeat this 75 times in the temperature interval between 86 K and 374.9 K.  The goal is to perform this measurement between 77 and 375, but due to the fact that in opening the cryostat to remove the $LN_2$, the copper - and thus the sample - warmed up considerably - a full 9K.
+
+    As we heat up to room temperature it takes more to heat up the sample, and as we go above room temperature the data has to be taken carefully as the sample tends to cool rather than warm up more once it settles.  Care must be taken through the whole range to ensure the temperature of the scans between the '+' and '-' orientations are as close as possible, but as long as we are cautious and wait long enough so the temperature fluctuations are kept low the maximum variation can be kept to less than 0.5K, in many cases we measured differences of between 0.1 and 0.2 K between the '+' and '-' orientations.
+
+    \section{Analysis}
+    The first measurements that we made were at 77K, the approximate temperature of $LN_2$.  We first set out to measure the number concentration of Gallium dopants (and through that the concentration of charge carriers), as well as the hole mobility.
 
 
+
+    \section{Conclusion and Figures}
+
+    conclusion text goes here
+
+    \begin{widetext}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{circuit_diagram.png}
+        \caption{A wiring diagram for our experimental apparatus - this is illustrative in understanding the mechanics of the data collection process.~\label{circuit_diagram}~\cite{lab_manual}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{dewar.png}
+        \caption{This shows the cryostat that held our GeGa sample.  The inside, as we can see, was glass to avoid heat conduction to the outer walls of the dewar.  The whole ensemble was placed between the poles of an electromagnet used to produce the strong $\vec{B}$ field that we needed in order to make measurements of our sample.  The whole apparatus turned through an angle of $2\pi$, with detents at $0$ and $\pi$ so that we could accurately take data at two rotations differing by exactly $\pi$.~\label{dewar}~\cite{lab_manual}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{magnet_setup.png}
+        \caption{We needed an extraordinarily strong magnet to see the Hall effect in action, thus we have a large solenoid with an iron core that directs the field generated by the 1000-turn electromagnet through the sample to achieve a field of $900\pm50$ Gauss at the center of the apparatus.~\label{magnet}~\cite{lab_manual}}
+      \end{figure}
+
+    \end{widetext}
 
   \bibliography{bibliography}
   \bibliographystyle{plain}
