@@ -184,6 +184,21 @@ class data_manage(object):
 
         p = [.7, .7, 6e7, 290]
 
+
+        def simulate(n = 100):
+            Es = []
+            for i in range(0, n):
+                ydata = (.5 * yerr_12) * np.random.randn(len(ydata_12)) + ydata_12
+                try:
+                    popt, pcov = curve_fit(exponential, xdata, ydata, p0 = p)
+                    Es.append(popt[1])
+                    #plt.plot(xdata, ydata)
+                except RuntimeError:
+                    pass
+            return np.std(Es)
+
+        dE = simulate()
+
         popt_12, pcov_12 = curve_fit(exponential, xdata, ydata_12, p0 = p, sigma = yerr_12, maxfev=int(2e6))
 
         popt_34, pcov_34 = curve_fit(exponential, xdata, ydata_34, p0 = p, sigma = yerr_34, maxfev=int(2e6))
@@ -194,35 +209,38 @@ class data_manage(object):
         redchi_12 = np.sum( np.absolute((ydata_12 - yFit_12)**2/(yFit_12)) )
         redchi_34 = np.sum( np.absolute((ydata_34 - yFit_34)**2/(yFit_34)) )
 
-        print redchi_12, redchi_34
+        text_12 = r"$-Ae^{\frac{E_g}{2 k_B T}} + \frac{B}{(T-C)^2}$" + "\n \
+                $A = %.2f \pm %.2f \, C^{-1}$ \n \
+                $E_g = %.2f \pm %.2f \, eV$ \n \
+                $B = %.2e \pm %.2e \, K \cdot C^{-1}$ \n \
+                $C = %.2e \pm %.2e \, K$ \n \
+                $\chi^2 = %.2f$" % (popt_12[0], np.sqrt(pcov_12[0,0]), popt_12[1], dE, popt_12[2], np.sqrt(pcov_12[2,2]), popt_12[3], np.sqrt(pcov_12[3,3]), redchi_12)
+        text_34 = r"$-Ae^{\frac{E_g}{2 k_B T}} + \frac{B}{(T-C)^2}$" + "\n \
+                $A = %.2f \pm %.2f \, C^{-1}$ \n \
+                $E_g = %.2f \pm %.2f \, eV$ \n \
+                $B = %.2e \pm %.2e \, K \cdot C^{-1}$ \n \
+                $C = %.2e \pm %.2e \, K$ \n \
+                $\chi^2 = %.2f$" % (popt_34[0], np.sqrt(pcov_34[0,0]), popt_34[1], dE, popt_34[2], np.sqrt(pcov_34[2,2]), popt_34[3], np.sqrt(pcov_34[3,3]), redchi_34)
 
-        print popt_12[1], popt_34[1]
-
-        def text(which):
-            if which == "12":
-                return r"$-Ae^{\frac{E_g}{2 k_B T}} + \frac{B}{(T-C)^2}$" + "\n" + \
-                r"$A = %.2e \pm %.2e \, C^{-1}$" + "\n" + \
-                r"$E_g = %.2e \pm %.2e \, eV$" + "\n" + \
-                r"$B = %.2e \pm %.2e \, K \cdot C^{-1}$"  + "\n" + \
-                r"$C = %.2e \pm %.2e \, K$" % (popt_12[0], pcov_12[0,0], popt_12[1], pcov_12[1,1], popt_12[2], pcov_12[2,2], popt_12[3], pcov_12[3,3])
-            elif which == "34":
-                return r"$-Ae^{\frac{E_g}{2 k_B T}} + \frac{B}{(T-C)^2}$" + "\n" + \
-                r"$A = %.2e \pm %.2e \, C^{-1}$" + "\n" + \
-                r"$E_g = %.2e \pm %.2e \, eV$" + "\n" + \
-                r"$B = %.2e \pm %.2e \, K \cdot C^{-1}$"  + "\n" + \
-                r"$C = %.2e \pm %.2e \, K$" % (popt_34[0], pcov_34[0,0], popt_34[1], pcov_34[1,1], popt_34[2], pcov_34[2,2], popt_34[3], pcov_34[3,3])
-
-        plt.figure(figsize=(10, 10))
-        plt.errorbar(xdata, ydata_12, xerr = xerr, yerr = yerr_12, fmt = 'o', ms = 1, label = "$R_H$ 1-2")
-        plt.text(340, 2000, text("12"))
-        plt.plot(xdata, yFit_12, 'g')
-        plt.legend()
-
-        plt.figure(figsize=(10, 10))
-        plt.errorbar(xdata, ydata_34, xerr = xerr, yerr = yerr_34, fmt = 'o', ms = 1, label = "$R_H$ 3-4")
-        plt.text(340, 2000, text("34"))
-        plt.plot(xdata, yFit_34, 'r')
-        plt.legend()
+        # plt.figure(figsize=(10, 10))
+        # plt.errorbar(xdata, ydata_12, xerr = xerr, yerr = .5*yerr_12, fmt = 'o', ms = 1, label = "$R_H$ 1-2")
+        # plt.plot(xdata, yFit_12, 'r')
+        # plt.text(340, 0, text_12)
+        # plt.xlabel("Temperature (K)")
+        # plt.ylabel("$R_H \,\, C^{-1}$")
+        # plt.title("Fitting to find the Gap energy, leads 1-2")
+        # plt.legend()
+        # plt.savefig("plots/rh_12_eg.pdf")
+        #
+        # plt.figure(figsize=(10, 10))
+        # plt.errorbar(xdata, ydata_34, xerr = xerr, yerr = .5*yerr_34, fmt = 'o', ms = 1, label = "$R_H$ 3-4")
+        # plt.plot(xdata, yFit_34, 'r')
+        # plt.text(340, 0, text_34)
+        # plt.xlabel("Temperature (K)")
+        # plt.ylabel("$R_H \,\, C^{-1}$")
+        # plt.title("Fitting to find the Gap energy, leads 3-4")
+        # plt.legend()
+        # plt.savefig("plots/rh_34_eg.pdf")
 
     def fit_resist(self):
         xdata = self.values["T"]
@@ -238,29 +256,40 @@ class data_manage(object):
 
         p = [2e-5, .76]
 
-        popt, pcov = curve_fit(exponential, xdata, ydata, sigma = yerr, p0 = p, maxfev=int(2e6))
+        def simulate(n = 100):
+            Es = []
+            for i in range(0, n):
+                ydat = (2*yerr) * np.random.randn(len(ydata)) + ydata
+                try:
+                    popt, pcov = curve_fit(exponential, xdata, ydat, p0 = p)
+                    Es.append(popt[1])
+                    #plt.plot(xdata, ydat)
+                except RuntimeError:
+                    pass
+            return np.std(Es)
 
-        print "E_g", popt[1], "$\pm$", pcov[1,1]
+        dE = simulate()
+
+        popt, pcov = curve_fit(exponential, xdata, ydata, sigma = yerr, p0 = p, maxfev=int(2e6))
 
         yFit = exponential(xdata, *popt)
         yuFit = exponential(xdata, *p)
 
         redchi = np.sum( (ydata - yFit)**2/(yFit) )
-        print "redchi",  redchi
 
         text = r"$-A e^{\frac{E_g}{2 k_B T}}$" + "\n \
                 $A = %.2e \pm %.1e$ $\Omega \cdot cm$ \n \
-                $E_g = %.6f \pm %.6f$ eV \n \
-                $\chi^2 = %.3f$" % (popt[0], pcov[0,0], popt[1], pcov[1,1], redchi)
+                $E_g = %.2f \pm %.2f$ eV \n \
+                $\chi^2 = %.3f$" % (popt[0], np.sqrt(pcov[0,0]), popt[1], dE, redchi)
 
-        plt.figure(figsize=(10, 10))
-        plt.errorbar(xdata, ydata, xerr = xerr, yerr = yerr, fmt = 'o', ms = 1)
-        plt.plot(xdata, yFit, 'r')
-        plt.text(360, 12, text)
-        plt.xlabel("Temperature (K)")
-        plt.ylabel(r"$\rho$ ($\Omega\cdot$cm)")
-        plt.title("Fitting Resistivity to find the Gap Energy, $E_g$")
-        plt.savefig("plots/resistivity_eg.pdf")
+        # plt.figure(figsize=(10, 10))
+        # plt.errorbar(xdata, ydata, xerr = xerr, yerr = yerr, fmt = 'o', ms = 1)
+        # plt.plot(xdata, yFit, 'r')
+        # plt.text(360, 12, text)
+        # plt.xlabel("Temperature (K)")
+        # plt.ylabel(r"$\rho$ ($\Omega\cdot$cm)")
+        # plt.title("Fitting Resistivity to find the Gap Energy, $E_g$")
+        # plt.savefig("plots/resistivity_eg.pdf")
 
 
 
@@ -271,4 +300,4 @@ if __name__ == '__main__':
     obj.resistivity_B_0()
     obj.temp_scan()
     obj.fit_R_H()
-    #obj.fit_resist()
+    obj.fit_resist()
