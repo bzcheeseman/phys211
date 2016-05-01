@@ -12,7 +12,7 @@
   \affiliation{The University of Chicago}
 
   \begin{abstract}
-    We demonstrate the Hall Effect in a Germanium sample that is p-type doped with Gallium.  We observe hole conduction at low temperatures and measure a Hall coefficient of XXXXXXXX that has XXXXXXX correlation with temperature.  We measure an energy gap between valence and conduction bands in $Ge_{1-x}Ga_x$ of XXXX.
+    We demonstrate the Hall Effect in a Germanium sample that is p-type doped with Gallium.  We observe hole conduction at low temperatures and measure a Hall coefficient of $83000 \pm 2000\,C^{-1}$.  We further measure a resistivity in the direction of applied current of $2.59\pm0.09\,\Omega \cdot cm$  We measure an energy gap between valence and conduction bands in $Ge_{1-x}Ga_x$ of $0.762095\pm0.000011 \, eV$, and we measure $x = (1.70\pm0.05)e-9$.
   \end{abstract}
 
   \maketitle
@@ -43,15 +43,22 @@
       \mu_{h/e} = \frac{e \tau_e/h}{m_{e/h}^*} \label{mobility} \\
       \text{Which leads us to the following:} \nonumber \\
       \sigma = e(n_h\mu_h + n_e\mu_e) \label{conductivity} \\
-      R_H = \frac{E_y}{j_x B_z} = \frac{\mu_h^2 n_h - \mu_e^2 n_e}{\sigma^2/e}
+      \rho = \frac{1}{e(n_h\mu_h + n_e\mu_e)} \label{resistivity} \\
+      R_H = \frac{E_y}{j_x B_z} = \frac{\mu_h^2 n_h - \mu_e^2 n_e}{\sigma^2/e} \label{mobilites_hallcoeff}
     \end{gather}
-    with $\sigma$ being the conductivity we are familiar with from Ohm's law.  This formulation suggests the definition of a new quantity, the Hall mobility:
+    with $\sigma$ being the conductivity we are familiar with from Ohm's law.  Note that $n_{h/e}$ are the concentrations of holes and electrons, respectively and $\mu_{h/e}$ are the mobilities of the same.  This formulation suggests the definition of a new quantity, the Hall mobility:
     \begin{equation}
       \mu_H = |R_H|\sigma \label{hall_mobility}
     \end{equation}
     which allows us to relate resistivity of a given semiconductor in and out of a magnetic field in a phenomenon known as magnetoresistance - which is the same phenomenon wherein we see peaks of resistivity at the quantized hall plateaus - the resistance in the induced direction increases sharply as we come to quantized values for the Hall resistance.
 
     There are two types of dopants for semiconductors - p-type and n-type.  n-type semiconductors donate negative charges, or electrons, to the semiconductor band structure, resulting in the main charge carrier being an electron that can move freely throughout the bulk.  P-type dopants accept electrons, creating holes in the band structure which still allows for charge flow but now holes are the dominant charge carrier.  This becomes manifestly true at low temperatures especially due to the fact that at low temperatures the electrons bound to the bulk atoms are stuck, and the only things moving will be the dopant particles (or quasiparticles as is the case with holes).
+
+    Semiconductors have an intrinsic resistance called magnetoresistance when they are placed in a magnetic field.  Luckily, we can correct for this quite simply, and we will simply state what we use pushing forward to understand and correct for this effect.
+
+    \begin{equation}
+      \rho_B = \rho_0(1 + \mu_H^2 B^2) \label{magnetoresistance}
+    \end{equation}
 
     \section{Experimental Methods}
     In order to measure the Hall voltage and from that the resistivity and the Hall coefficient, we made the following electrical measurements.  If we refer to Figure~\ref{circuit_diagram}, we notice that we run current through the sample in the direction from point 5 to point 6.  We can then directly measure the Hall voltage by measuring the difference between ports 1 and 2, or 3 and 4.  Now, it is possible that these ports are not perfectly horizontal with each other - that is, they might not be normal to both the current propagation \textbf{and} the magnetic field, and so we will take data by making rotations - henceforth referred to as '+' and '-'.  The idea is that if we take data at one orientation and then at the other, we will be able to simply average out the effect from the offset of the measurement ports.  From the data that we collect, we are able to directly calculate values for $R_H$, $\mu_h$ and $\rho$.  From these there are other values we can derive such as the magnetoresistance and density of charge carriers (holes).
@@ -61,13 +68,36 @@
     As we heat up to room temperature it takes more to heat up the sample, and as we go above room temperature the data has to be taken carefully as the sample tends to cool rather than warm up more once it settles.  Care must be taken through the whole range to ensure the temperature of the scans between the '+' and '-' orientations are as close as possible, but as long as we are cautious and wait long enough so the temperature fluctuations are kept low the maximum variation can be kept to less than 0.5K, in many cases we measured differences of between 0.1 and 0.2 K between the '+' and '-' orientations.
 
     \section{Analysis}
-    The first measurements that we made were at 77K, the approximate temperature of $LN_2$.  We first set out to measure the number concentration of Gallium dopants (and through that the concentration of charge carriers), as well as the hole mobility.
+    The first measurements that we made were at 77K, the approximate temperature of $LN_2$.  We first set out to measure the number concentration of Gallium dopants (and through that the concentration of charge carriers), as well as the hole mobility.  First, however, we must measure the Hall voltage and from that extract the Hall coefficient, $R_H$.  The values we measured are summarized in Table~\ref{tab:results}.  The first thing to notice is that our concentration of Gallium atoms is very close to what others have reported for the same sample, so this gives us some confidence that going forward, our data will at least make sense.  If we then calculate, using the density of Germanium, the ratio of Gallium to Germainum atoms, we see that the ratio is $(1.70\pm0.05)e-9$, which makes sense for a mild dopant.  It's not large, but it's enough to provide some mild p-type doping for conductivity at low temperatures, where $k_B T$ isn't usually large enough to excite an electron into the valence band.
 
+    The next thing we will notice is that we have calculated two values for the hole mobility, again if we look at Table~\ref{tab:results}.  We notice that the result that we calculate from equation~\ref{hall_mobility} is smaller than the result we calculate from equation~\ref{magnetoresistance}, and has a larger uncertainty.  This is because when we removed the sample from the B field one of the wires shorted or something similar - the voltage across those leads suddenly dropped to close to zero - and we were unable to make use of the 2 and 4 connections and average with the 1 and 3 values as we were able to for the magnetoresistance value (specifically, $\rho_B$) which increased our uncertainty - perhaps not to the level that this exhibits, but still did increase it.  This is not optimal, and had we noticed earlier we would have corrected it but sadly we did not notice until the lab was over.  Luckily, we still do have data that we can use and that is still admissable, and we will simply use this data for the remainder.  Furthermore, the two values are still within uncertainties of each other, and both are slightly less than the given value of $48000 \,  \frac{cm^2}{V\cdot s}$, not significantly less which is what we would expect for a sample that is doped as mildly as this one is.
 
+    If we assume that the carrier concentration is fixed and the mobility is the only thing that changes with temperature, we can write down what we expect for $R_H$ and $\rho$.  We expect that $R_H$ is constant as we can see in equation~\ref{hall_resist} (with q = e), while we expect that $\rho$ is increasing with temperature as we can see from equation~\ref{resistivity} (with $n_e = 0$).  We can actually observe these effects if we look at figures~\ref{RH_vs_T} and~\ref{rho_vs_T}.  We notice that the hall coefficient is increasing until about 250K-275K, at which point it decreases rapidly.  This is due to the fact that in this region the hole mobility decreases very quickly and the electron mobility begins to increase.  We can see this from equation~\ref{mobilities_hallcoeff}, where as we increase the temperature, and we know that the mobility has some temperature dependence, it stands to reason that this would be the explanation for the phenomenon.  Also possible is that the density of electrons as charge carriers is simply increasing greatly, which would cause the same effect.  We could test which one it is by choosing a non-doped sample and performing the same experiment to find out what the electron mobility does as a function of temperature, or we could use an n-doped sample and doing the same.  Either way, the goal is to test the electron mobility and density rather than hole mobility and density as we are doing here.
 
-    \section{Conclusion and Figures}
+    \section{Conclusion and Tables \& Figures}
 
     conclusion text goes here
+
+    \subsection{Tables}
+
+    \begin{table}[h]
+      \begin{tabular}{|c|c|c|}
+        \hline
+        Quantity & Value & Uncertainty \\ \hline
+        $V_H$ & 0.02463 $V$ & 0.00004 \\ \hline
+        $R_H$ & 83000 $C^{-1}$ & 2000 \\ \hline
+        $N_A$ &  7.5e+13 $cm^{-3}$ & 2e+12 \\ \hline
+        $\rho_B$ & 2.6 $\Omega \cdot cm$ & 0.1 \\ \hline
+        $\rho_0$ & 2.3 $\Omega \cdot cm$ & 0.1 \\ \hline
+        $\mu_h$, Eq.~\ref{hall_mobility} & 37200 $\frac{cm^2}{V\cdot s}$ & 7500 \\ \hline
+        $\mu_h$, Eq.~\ref{magnetoresistance} & 40000 $\frac{cm^2}{V\cdot s}$ & 2000 \\ \hline
+      \end{tabular}
+      \caption{A summary of important results.~\label{tab:results}}
+    \end{table}
+
+    \hspace{.5cm}
+
+    \subsection{Figures}
 
     \begin{widetext}
 
@@ -87,6 +117,18 @@
         \centering
         \includegraphics[width=\linewidth]{magnet_setup.png}
         \caption{We needed an extraordinarily strong magnet to see the Hall effect in action, thus we have a large solenoid with an iron core that directs the field generated by the 1000-turn electromagnet through the sample to achieve a field of $900\pm50$ Gauss at the center of the apparatus.~\label{magnet}~\cite{lab_manual}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{../plots/T_vs_R_H.pdf}
+        \caption{Plotting the Hall coefficient as a function of temperature, the two traces are the two different leads - one dataset comes from leads 1 and 2, the other from 3 and 4, see figure~\ref{circuit_diagram} \label{RH_vs_T}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{../plots/rho_vs_T.pdf}
+        \caption{Plotting the resisitivity - from 5 to 6, see figure~\ref{circuit_diagram} \label{rho_vs_T}}
       \end{figure}
 
     \end{widetext}

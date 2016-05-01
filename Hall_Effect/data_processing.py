@@ -77,7 +77,7 @@ class data_manage(object):
         self.I = 4e-3 #A
         self.dI = .1e-3 #A
         self.B = 900 * 1e-8 #V.s/cm^2
-        self.dB = (20/1e3) * 1e-8 * self.B
+        self.dB = 60 * 1e-8 * self.B
         self.l = 6.0e-1 #cm
         self.dl = 0.2e-1 #cm
 
@@ -88,6 +88,7 @@ class data_manage(object):
         print "dR_H", self.dR_H
 
         print "N_A", 1/(self.R_H * 1.602e-19)
+        print "dN_A", self.dR_H/self.R_H * 1/(self.R_H * 1.602e-19)
 
         print "v_parallel", self.v_parallel
         print "dv_parallel", self.dv
@@ -104,12 +105,12 @@ class data_manage(object):
 
         self.rho_0 = (np.average(val_13) * (self.w*self.t))/(self.I*self.l)
 
-        self.drho_0 = np.absolute(np.sqrt( (self.dv/self.v_parallel)**2 + (self.dw/self.w)**2 + (self.dt/self.t)**2 + (self.dI/self.I)**2 + (self.dl/self.l)**2 ) * self.rho_0)
+        self.drho_0 = np.sqrt( np.absolute((self.dv/self.v_parallel)**2 + (self.dw/self.w)**2 + (self.dt/self.t)**2 + (self.dI/self.I)**2 + (self.dl/self.l)**2) ) * self.rho_0
 
         print "rho_0", self.rho_0
         print "drho_0", self.drho_0
 
-        mu_h = np.absolute(self.R_H/self.rho_B)
+        mu_h = np.absolute(self.R_H/self.rho_0)
         dmu_h = np.sqrt(np.absolute( (self.dR_H/self.R_H)**2 + (self.drho_0/self.rho_0) )) * mu_h
 
         print "mu_h, hall/resist.", mu_h
@@ -175,21 +176,53 @@ class data_manage(object):
         xdata, ydata_12 = selectDomain.selectdomain(xdata, self.values["R_H_12"], indices = [begin, end])
         _, ydata_34 = selectDomain.selectdomain(xdata, self.values["R_H_34"], indices = [begin, end])
 
-        def exponential(x, A, E):
-            return -A * np.exp(E/(2*8.617e-5 * x))
+        xerr, yerr_12 = selectDomain.selectdomain(self.values["dT"], self.values["dR_12"], indices=[begin, end])
+        _, yerr_34 = selectDomain.selectdomain(self.values["dT"], self.values["dR_34"], indices=[begin, end])
 
-        p = [2e-5, .76]
+        def exponential(x, A, E, B, C):
+            return -A * np.exp(E/(2*8.617e-5 * x)) + B/(x-C)**2
 
-        popt, pcov = curve_fit(exponential, xdata, ydata_12, p0 = p, maxfev=int(2e6))
+        p = [.7, .7, 6e7, 290]
 
-        print popt
+        popt_12, pcov_12 = curve_fit(exponential, xdata, ydata_12, p0 = p, sigma = yerr_12, maxfev=int(2e6))
 
-        yFit = exponential(xdata, *popt)
-        yuFit = exponential(xdata, *p)
+        popt_34, pcov_34 = curve_fit(exponential, xdata, ydata_34, p0 = p, sigma = yerr_34, maxfev=int(2e6))
 
-        plt.plot(xdata, ydata_12, 'o')
-        plt.plot(xdata, yuFit, 'r')
-        plt.plot(xdata, yFit, 'g')
+        yFit_12 = exponential(xdata, *popt_12)
+        yFit_34 = exponential(xdata, *popt_34)
+
+        redchi_12 = np.sum( np.absolute((ydata_12 - yFit_12)**2/(yFit_12)) )
+        redchi_34 = np.sum( np.absolute((ydata_34 - yFit_34)**2/(yFit_34)) )
+
+        print redchi_12, redchi_34
+
+        print popt_12[1], popt_34[1]
+
+        def text(which):
+            if which == "12":
+                return r"$-Ae^{\frac{E_g}{2 k_B T}} + \frac{B}{(T-C)^2}$" + "\n" + \
+                r"$A = %.2e \pm %.2e \, C^{-1}$" + "\n" + \
+                r"$E_g = %.2e \pm %.2e \, eV$" + "\n" + \
+                r"$B = %.2e \pm %.2e \, K \cdot C^{-1}$"  + "\n" + \
+                r"$C = %.2e \pm %.2e \, K$" % (popt_12[0], pcov_12[0,0], popt_12[1], pcov_12[1,1], popt_12[2], pcov_12[2,2], popt_12[3], pcov_12[3,3])
+            elif which == "34":
+                return r"$-Ae^{\frac{E_g}{2 k_B T}} + \frac{B}{(T-C)^2}$" + "\n" + \
+                r"$A = %.2e \pm %.2e \, C^{-1}$" + "\n" + \
+                r"$E_g = %.2e \pm %.2e \, eV$" + "\n" + \
+                r"$B = %.2e \pm %.2e \, K \cdot C^{-1}$"  + "\n" + \
+                r"$C = %.2e \pm %.2e \, K$" % (popt_34[0], pcov_34[0,0], popt_34[1], pcov_34[1,1], popt_34[2], pcov_34[2,2], popt_34[3], pcov_34[3,3])
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(xdata, ydata_12, xerr = xerr, yerr = yerr_12, fmt = 'o', ms = 1, label = "$R_H$ 1-2")
+        plt.text(340, 2000, text("12"))
+        plt.plot(xdata, yFit_12, 'g')
+        plt.legend()
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(xdata, ydata_34, xerr = xerr, yerr = yerr_34, fmt = 'o', ms = 1, label = "$R_H$ 3-4")
+        plt.text(340, 2000, text("34"))
+        plt.plot(xdata, yFit_34, 'r')
+        plt.legend()
 
     def fit_resist(self):
         xdata = self.values["T"]
@@ -216,8 +249,8 @@ class data_manage(object):
         print "redchi",  redchi
 
         text = r"$-A e^{\frac{E_g}{2 k_B T}}$" + "\n \
-                $A = %.2e \pm %.1e$ \n \
-                $E_g = %.6f \pm %.6f$ \n \
+                $A = %.2e \pm %.1e$ $\Omega \cdot cm$ \n \
+                $E_g = %.6f \pm %.6f$ eV \n \
                 $\chi^2 = %.3f$" % (popt[0], pcov[0,0], popt[1], pcov[1,1], redchi)
 
         plt.figure(figsize=(10, 10))
@@ -237,5 +270,5 @@ if __name__ == '__main__':
     obj.hall_coeff_and_resistivity()
     obj.resistivity_B_0()
     obj.temp_scan()
-    #obj.fit_R_H()
+    obj.fit_R_H()
     #obj.fit_resist()
