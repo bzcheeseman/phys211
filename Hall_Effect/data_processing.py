@@ -82,13 +82,13 @@ class data_manage(object):
         self.dl = 0.2e-1 #cm
 
         self.R_H = (np.absolute(self.v_hall) * self.t)/(self.I * self.B)
-        self.dR_H = np.sqrt((self.dv_hall/self.v_hall)**2 + (self.dt/self.t)**2 + (self.dI/self.I)**2 + (self.dB/self.B)**2) * self.R_H
+        self.dR_H = np.sqrt((self.dv_hall/self.v_hall)**2 + (self.dt/self.t)**2 + (self.dI/self.I)**2 + (self.dB/self.B)**2)
 
         print "R_H", self.R_H
-        print "dR_H", self.dR_H
+        print "dR_H", self.dR_H*self.R_H
 
         print "N_A", 1/(self.R_H * 1.602e-19)
-        print "dN_A", self.dR_H/self.R_H * 1/(self.R_H * 1.602e-19)
+        print "dN_A", self.dR_H * 1/(self.R_H * 1.602e-19)
 
         print "v_parallel", self.v_parallel
         print "dv_parallel", self.dv
@@ -111,7 +111,7 @@ class data_manage(object):
         print "drho_0", self.drho_0
 
         mu_h = np.absolute(self.R_H/self.rho_0)
-        dmu_h = np.sqrt(np.absolute( (self.dR_H/self.R_H)**2 + (self.drho_0/self.rho_0) )) * mu_h
+        dmu_h = np.sqrt(np.absolute( (self.dR_H)**2 + (self.drho_0/self.rho_0) )) * mu_h
 
         print "mu_h, hall/resist.", mu_h
         print "dmu_h, hall/resist.", dmu_h
@@ -146,24 +146,24 @@ class data_manage(object):
         print "T_0", crit_temp
 
         dT = self.dT * np.ones_like(T)
-        dR_12 = self.dR_H * np.ones_like(R_H_12)
-        dR_34 = self.dR_H * np.ones_like(R_H_34)
+        dR_12 = self.dR_H * R_H_12
+        dR_34 = self.dR_H * R_H_34
         drho = self.drho_0 * np.ones_like(rho)
 
-        # plt.figure(figsize=(10, 10))
-        # plt.errorbar(T, R_H_12, xerr = dT, yerr = dR_12, fmt = '.', ms = 1, label = "$R_H$ 1-2")
-        # plt.errorbar(T, R_H_34, xerr = dT, yerr = dR_34, fmt = '.', ms = 1, label = "$R_H$ 3-4")
-        # plt.xlabel("Temperature (K)")
-        # plt.ylabel("$R_H$ (1/C)")
-        # plt.legend()
-        # plt.savefig("plots/T_vs_R_H.pdf")
-        #
-        # plt.figure(figsize=(10, 10))
-        # plt.errorbar(T, rho, xerr = dT, yerr = drho, fmt='.', ms=1, label = r"$\rho$")
-        # plt.xlabel("Temperature (K)")
-        # plt.ylabel(r"$\rho$ ($\Omega\cdot$cm)")
-        # plt.legend()
-        # plt.savefig("plots/rho_vs_T.pdf")
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(T, R_H_12, xerr = dT, yerr = dR_12, fmt = '.', ms = 1, label = "$R_H$ 1-2")
+        plt.errorbar(T, R_H_34, xerr = dT, yerr = dR_34, fmt = '.', ms = 1, label = "$R_H$ 3-4")
+        plt.xlabel("Temperature (K)")
+        plt.ylabel("$R_H$ ($C^{-1}$)")
+        plt.legend()
+        plt.savefig("plots/T_vs_R_H.pdf")
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(T, rho, xerr = dT, yerr = drho, fmt='.', ms=1, label = r"$\rho$")
+        plt.xlabel("Temperature (K)")
+        plt.ylabel(r"$\rho$ ($\Omega\cdot$cm)")
+        plt.legend()
+        plt.savefig("plots/rho_vs_T.pdf")
 
         self.values = {"R_H_12": R_H_12, "R_H_34": R_H_34, "dR_12": dR_12, "dR_34": dR_34, "rho": rho, "drho": drho, "T": T, "dT": dT, "crit_temp": crit_temp, "T0 range": T0}
 
@@ -197,7 +197,7 @@ class data_manage(object):
                     pass
             return np.std(Es)
 
-        dE = simulate()
+        dE = 0.06
 
         popt_12, pcov_12 = curve_fit(exponential, xdata, ydata_12, p0 = p, sigma = yerr_12, maxfev=int(2e6))
 
@@ -222,25 +222,25 @@ class data_manage(object):
                 $C = %.2e \pm %.2e \, K$ \n \
                 $\chi^2 = %.2f$" % (popt_34[0], np.sqrt(pcov_34[0,0]), popt_34[1], dE, popt_34[2], np.sqrt(pcov_34[2,2]), popt_34[3], np.sqrt(pcov_34[3,3]), redchi_34)
 
-        # plt.figure(figsize=(10, 10))
-        # plt.errorbar(xdata, ydata_12, xerr = xerr, yerr = .5*yerr_12, fmt = 'o', ms = 1, label = "$R_H$ 1-2")
-        # plt.plot(xdata, yFit_12, 'r')
-        # plt.text(340, 0, text_12)
-        # plt.xlabel("Temperature (K)")
-        # plt.ylabel("$R_H \,\, C^{-1}$")
-        # plt.title("Fitting to find the Gap energy, leads 1-2")
-        # plt.legend()
-        # plt.savefig("plots/rh_12_eg.pdf")
-        #
-        # plt.figure(figsize=(10, 10))
-        # plt.errorbar(xdata, ydata_34, xerr = xerr, yerr = .5*yerr_34, fmt = 'o', ms = 1, label = "$R_H$ 3-4")
-        # plt.plot(xdata, yFit_34, 'r')
-        # plt.text(340, 0, text_34)
-        # plt.xlabel("Temperature (K)")
-        # plt.ylabel("$R_H \,\, C^{-1}$")
-        # plt.title("Fitting to find the Gap energy, leads 3-4")
-        # plt.legend()
-        # plt.savefig("plots/rh_34_eg.pdf")
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(xdata, ydata_12, xerr = xerr, yerr = .5*yerr_12, fmt = 'o', ms = 1, label = "$R_H$ 1-2")
+        plt.plot(xdata, yFit_12, 'r')
+        plt.text(340, 0, text_12)
+        plt.xlabel("Temperature (K)")
+        plt.ylabel("$R_H \,\, (C^{-1})$")
+        plt.title("Fitting to find the Gap energy, leads 1-2")
+        plt.legend()
+        plt.savefig("plots/rh_12_eg.pdf")
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(xdata, ydata_34, xerr = xerr, yerr = .5*yerr_34, fmt = 'o', ms = 1, label = "$R_H$ 3-4")
+        plt.plot(xdata, yFit_34, 'r')
+        plt.text(340, 0, text_34)
+        plt.xlabel("Temperature (K)")
+        plt.ylabel("$R_H \,\, C^{-1}$")
+        plt.title("Fitting to find the Gap energy, leads 3-4")
+        plt.legend()
+        plt.savefig("plots/rh_34_eg.pdf")
 
     def fit_resist(self):
         xdata = self.values["T"]
