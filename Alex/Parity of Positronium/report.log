@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  22 APR 2016 16:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  4 MAY 2016 15:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1196,6 +1196,9 @@ Package: xparse 2014/11/25 v5471 L3 Experimental document command parser
 . Defining command \homework with sig. '' on line 764.
 .................................................
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/was/gensymb.sty
+Package: gensymb 2003/07/02 v1.0 (WaS)
+)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2014/09/25 3.9l The Babel package
 
@@ -1723,39 +1726,25 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 )
 \c@ContinuedFloat=\count180
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/braket/braket.sty)
 Package csquotes Info: Allocating character ".
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
-
-(./report.aux
-
-LaTeX Warning: Label `calibration' multiply defined.
-
-
-LaTeX Warning: Label `calibration' multiply defined.
-
-
-LaTeX Warning: Label `calibration' multiply defined.
-
-
-LaTeX Warning: Label `calibration' multiply defined.
-
-)
+ (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1847,27 +1836,38 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package csquotes Info: Making character " active on input line 19.
+LaTeX Info: Redefining \celsius on input line 21.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 21.
 
+
+
+Package gensymb Warning: Not defining \perthousand.
+
+LaTeX Info: Redefining \ohm on input line 21.
+Package gensymb Info: Using \Omega for \ohm on input line 21.
+
+Package gensymb Warning: Not defining \micro.
+
+Package csquotes Info: Making character " active on input line 21.
 ABD: EveryShipout initializing macros
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.12} into 
 your preamble.
- on input line 19.
+ on input line 21.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 21.
+LaTeX Font Info:    Try loading font information for U+msa on input line 23.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 21.
+LaTeX Font Info:    Try loading font information for U+msb on input line 23.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 21.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 23.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -1878,142 +1878,57 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<plots/galatea_setup_sketch.png, id=16, 668.4975pt x 708.6475pt>
-File: plots/galatea_setup_sketch.png Graphic file (type png)
+<eqn_6.png, id=16, 426.59375pt x 49.18375pt>
+File: eqn_6.png Graphic file (type png)
+ <use eqn_6.png>
+Package pdftex.def Info: eqn_6.png used on input line 53.
+(pdftex.def)             Requested size: 213.29634pt x 24.5918pt.
 
-<use plots/galatea_setup_sketch.png>
-Package pdftex.def Info: plots/galatea_setup_sketch.png used on input line 34.
-(pdftex.def)             Requested size: 334.24792pt x 354.32289pt.
-
-<plots/Ba-133_Spectrum.png, id=18, 1734.48pt x 856.3995pt>
-File: plots/Ba-133_Spectrum.png Graphic file (type png)
-
-<use plots/Ba-133_Spectrum.png>
-Package pdftex.def Info: plots/Ba-133_Spectrum.png used on input line 50.
-(pdftex.def)             Requested size: 569.05511pt x 280.96619pt.
-
-Overfull \hbox (27.0301pt too wide) in paragraph at lines 50--51
- [][] 
- []
-
-<plots/Bi-207_Spectrum.png, id=19, 1734.48pt x 856.3995pt>
-File: plots/Bi-207_Spectrum.png Graphic file (type png)
-
-<use plots/Bi-207_Spectrum.png>
-Package pdftex.def Info: plots/Bi-207_Spectrum.png used on input line 57.
-(pdftex.def)             Requested size: 569.05511pt x 280.96619pt.
-
-Overfull \hbox (27.0301pt too wide) in paragraph at lines 57--58
- [][] 
- []
-
-<plots/Co-57_Spectrum.png, id=20, 1734.48pt x 856.3995pt>
-File: plots/Co-57_Spectrum.png Graphic file (type png)
-
-<use plots/Co-57_Spectrum.png>
-Package pdftex.def Info: plots/Co-57_Spectrum.png used on input line 64.
-(pdftex.def)             Requested size: 569.05511pt x 280.96619pt.
-
-Overfull \hbox (27.0301pt too wide) in paragraph at lines 64--65
- [][] 
- []
-
-<plots/In-116_Spectrum.png, id=21, 1734.48pt x 856.3995pt>
-File: plots/In-116_Spectrum.png Graphic file (type png)
-
-<use plots/In-116_Spectrum.png>
-Package pdftex.def Info: plots/In-116_Spectrum.png used on input line 71.
-(pdftex.def)             Requested size: 569.05511pt x 280.96619pt.
-
-Overfull \hbox (27.0301pt too wide) in paragraph at lines 71--72
- [][] 
- []
-
-<plots/Na-22_Spectrum.png, id=22, 1734.48pt x 856.3995pt>
-File: plots/Na-22_Spectrum.png Graphic file (type png)
-
-<use plots/Na-22_Spectrum.png>
-Package pdftex.def Info: plots/Na-22_Spectrum.png used on input line 78.
-(pdftex.def)             Requested size: 569.05511pt x 280.96619pt.
-
-Overfull \hbox (27.0301pt too wide) in paragraph at lines 78--79
- [][] 
- []
-
+<apparatus.png, id=17, 989.6975pt x 472.76625pt>
+File: apparatus.png Graphic file (type png)
+ <use apparatus.png>
+Package pdftex.def Info: apparatus.png used on input line 64.
+(pdftex.def)             Requested size: 494.84753pt x 236.38254pt.
+ [2 <./eqn_6.png>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 87.
+               Default added (so using `tbp') on input line 95.
 
-<plots/calibration.png, id=23, 578.16pt x 433.62pt>
-File: plots/calibration.png Graphic file (type png)
+[3 <./apparatus.png>] <Fig_6.png, id=33, 1867.97874pt x 1111.15125pt>
+File: Fig_6.png Graphic file (type png)
 
-<use plots/calibration.png>
-Package pdftex.def Info: plots/calibration.png used on input line 126.
-(pdftex.def)             Requested size: 433.61893pt x 325.2142pt.
- [2 <./plots/galatea_setup_sketch.png>] [3 <./plots/Ba-133_Spectrum.png> <./plo
-ts/Bi-207_Spectrum.png>] [4 <./plots/Co-57_Spectrum.png> <./plots/In-116_Spectr
-um.png>] [5 <./plots/Na-22_Spectrum.png>] [6 <./plots/calibration.png>] <plots/
-energy_momentum.png, id=48, 578.16pt x 433.62pt>
-File: plots/energy_momentum.png Graphic file (type png)
-
-<use plots/energy_momentum.png>
-Package pdftex.def Info: plots/energy_momentum.png used on input line 137.
-(pdftex.def)             Requested size: 433.61893pt x 325.2142pt.
-
-<plots/restmass_T.png, id=49, 578.16pt x 433.62pt>
-File: plots/restmass_T.png Graphic file (type png)
- <use plots/restmass_T.png>
-Package pdftex.def Info: plots/restmass_T.png used on input line 158.
-(pdftex.def)             Requested size: 433.61893pt x 325.2142pt.
-
-<plots/momentum_beta.png, id=50, 578.16pt x 433.62pt>
-File: plots/momentum_beta.png Graphic file (type png)
-
-<use plots/momentum_beta.png>
-Package pdftex.def Info: plots/momentum_beta.png used on input line 167.
-(pdftex.def)             Requested size: 433.61893pt x 325.2142pt.
- <plots/T_beta.png, id=51, 578.16pt x 433.62pt>
-File: plots/T_beta.png Graphic file (type png)
-
-<use plots/T_beta.png>
-Package pdftex.def Info: plots/T_beta.png used on input line 174.
-(pdftex.def)             Requested size: 433.61893pt x 325.2142pt.
- [7
-
- <./plots/energy_momentum.png>] [8 <./plots/restmass_T.png> <./plots/momentum_b
-eta.png>] [9 <./plots/T_beta.png>] [10
-
-] (./report.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+<use Fig_6.png>
+Package pdftex.def Info: Fig_6.png used on input line 148.
+(pdftex.def)             Requested size: 373.58914pt x 222.2263pt.
+ [4 <./Fig_6.png>] [5] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 31613 strings out of 493089
- 742244 string characters out of 6134842
- 885056 words of memory out of 5000000
- 34592 multiletter control sequences out of 15000+600000
- 13244 words of font info for 54 fonts, out of 8000000 for 9000
+ 31650 strings out of 493089
+ 742106 string characters out of 6134842
+ 884243 words of memory out of 5000000
+ 34623 multiletter control sequences out of 15000+600000
+ 16000 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,9n,79p,10409b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on report.pdf (10 pages, 1193381 bytes).
+ 69i,12n,79p,10402b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2015/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmti10.pfb>
+Output written on report.pdf (5 pages, 485843 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 68 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 
