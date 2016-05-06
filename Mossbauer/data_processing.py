@@ -22,3 +22,10 @@ class data_manage(object):
     """docstring for data_manage"""
     def __init__(self):
         self.data_folder = "data"
+
+        self.primary_data = ["no_xray_filter.tsv", "with_xray_filter.tsv"]
+
+        self.ss_301 = "SS_302_001.tsv"
+        self.ss_velocity = "velocity_ss.tsv"
+
+        
