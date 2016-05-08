@@ -184,16 +184,16 @@ class data_manage(object):
 
         with open("plots/fe_stats.txt", 'w') as f:
             for i in range(0, 6):
-                f.write(r"I_{0, %d} & %.5e & %.5e \\ \hline" % (i+1, popt[i], cov_I[i]))
+                f.write(r"$I_{0, %d}$ & %.5e & %.5e \\ \hline" % (i+1, popt[i], cov_I[i]))
                 f.write("\n")
             for j in range(0, 6):
-                f.write(r"\Gamma_%d & %.5e & %.5e \\ \hline" % (j+1, popt[j+6], cov_G[j]))
+                f.write(r"$\Gamma_%d$ & %.5e & %.5e \\ \hline" % (j+1, popt[j+6], cov_G[j]))
                 f.write("\n")
             for k in range(0, 6):
-                f.write(r"E_{0,%d} & %.5e & %.5e \\ \hline" % (k+1, popt[k+12], cov_E[k]))
+                f.write(r"$E_{0,%d}$ & %.5e & %.5e \\ \hline" % (k+1, popt[k+12], cov_E[k]))
                 f.write("\n")
             for l in range(0, 6):
-                f.write(r"C_%d & %.5e & %.5e \\ \hline" % (l+1, popt[l+18], cov_C[l]))
+                f.write(r"$C_%d$ & %.5e & %.5e \\ \hline" % (l+1, popt[l+18], cov_C[l]))
                 f.write("\n")
             f.write("$tilde{\chi}^2 = %.2f$" % redchi)
         f.close()
@@ -280,16 +280,16 @@ class data_manage(object):
 
         with open("plots/quad_stats.txt", 'w') as f:
             for i in range(0, 2):
-                f.write(r"I_{0, %d} & %.5e & %.5e \\ \hline" % (i+1, popt[i], cov_I[i]))
+                f.write(r"$I_{0, %d}$ & %.5e & %.5e \\ \hline" % (i+1, popt[i], cov_I[i]))
                 f.write("\n")
             for j in range(0, 2):
-                f.write(r"\Gamma_%d & %.5e & %.5e \\ \hline" % (j+1, popt[j+2], cov_G[j]))
+                f.write(r"$\Gamma_%d$ & %.5e & %.5e \\ \hline" % (j+1, popt[j+2], cov_G[j]))
                 f.write("\n")
             for k in range(0, 2):
-                f.write(r"E_{0,%d} & %.5e & %.5e \\ \hline" % (k+1, popt[k+4], cov_E[k]))
+                f.write(r"$E_{0,%d}$ & %.5e & %.5e \\ \hline" % (k+1, popt[k+4], cov_E[k]))
                 f.write("\n")
             for l in range(0, 2):
-                f.write(r"C_%d & %.5e & %.5e \\ \hline" % (l+1, popt[l+6], cov_C[l]))
+                f.write(r"$C_%d$ & %.5e & %.5e \\ \hline" % (l+1, popt[l+6], cov_C[l]))
                 f.write("\n")
             f.write("$tilde{\chi}^2 = %.2f$" % redchi)
         f.close()
