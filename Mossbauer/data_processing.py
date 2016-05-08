@@ -307,5 +307,5 @@ if __name__ == '__main__':
     obj = data_manage()
     obj.calibrate()
     #obj.SS_301()
-    #obj.Fe_57()
+    obj.Fe_57()
     obj.Quadrupole()
