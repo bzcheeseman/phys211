@@ -1,5 +1,6 @@
-\documentclass[reprint, nobibnotes, amssymb, amsmath, amsfonts, physics, mathtools, mathrsfs, floatfix]{revtex4-1}
+\documentclass[reprint, nobibnotes, amssymb, amsmath, amsfonts, mathtools, mathrsfs, floatfix]{revtex4-1}
 \usepackage{graphicx}
+\usepackage{physics}
 \usepackage[english]{babel}
 
 \newcommand{\redchi}{$\tilde{\chi}^2\,$}
@@ -23,12 +24,61 @@
   \section{Introduction and Theory}
     We seek to perform a number of measurements using the technique of \moss spectroscopy.  The principle is that we are able to use doppler shift to measure energies at remarkably tiny scales.  We will achieve incredibly high precision in our measurements by using a fixed source that we move with a known velocity in order to make use of the doppler shift phenomenon to alter the energy of the source by a tiny amount.  We need this high resolution because the phenomena we are measuring take place and induce shifts of the order of $10^{-7}$ eV, and this causes difficulty for many experiments.  Other types of experiments are also able to examine phenomena with resolution like the \moss technique, but are by far more complicated, and furthermore measure different phenomena in general.  Many AMO experiments make use of lasers and sub-MHz resolution to examine similar features of nuclei, but their setups are far more complicated and experiments are much more time-intensive and expensive.  Therefore, in order to measure nuclear phenomena in metallic crystals, we make use of this \moss technique.
 
+    In general when an excited atom emits a photon, the atom will recoil.  However, if these atoms are confined in a crystal lattice, the entire lattice may recoil.  If, however, absorption is to occur, then both processes must be recoilless, and the photon shift due to nuclear recoil will be much smaller because of the massive number of atoms confined in the lattice.  In fact, the absorption and emission spectra will overlap in these cases.  We examine perturbational effects that cause the transition energy to shift or split, specifically Isomer shift, the Zeeman effect, and Quadrupole splitting.
+
     \subsection{Isomer Shift}
       This effect emerges from the embedding of a nucleus in a heterogeneous chemical environment.  In our case we work with Stainless Steel, alloy 302, whose chemical composition is outlined in Table~\ref{tab:SS_chemical_makeup}.  Approximately 70\% of the alloy is Iron, and of that only a tiny percentage (approx. 1\%) is Fe-57.  This is an ideal environement to see the isomer shift because it is enough Fe-57 that we will be able to see a peak develop, but not so much that we have more excited iron than other chemicals and so our isomer shift will be strong and present.  We can determine the energy of the shifted transition with the following:
       \begin{equation}
-        \Delta E_{iso} = \delta + \Delta E_0
+        E_{iso} = \delta + E_0 \label{isomer_shift}
       \end{equation}
-      with $E_0$ being the energy before the shift, $\delta$ being the isomer shift, and $E_{iso}$ being the energy after the shift.  We know that the transition we are looking for has a certain energy, and by fitting the transition dip that we see from our \moss spectrum, we will be able to determine $E_{iso}$.
+      with $E_0$ being the energy before the shift, $\delta$ being the isomer shift, and $E_{iso}$ being the energy after the shift.  We know that the transition we are looking for has a certain energy, and by fitting the transition dip that we see from our \moss spectrum, we will be able to determine $E_{iso}$.  In our plots, as we will see, we have centered around $E_0$, so we measure delta directly.
+
+      It is important to note that the following effects stack onto the isomer shift, which is the mechanism by which we shift the first peak/transition.  These other effects simply further split this transition.
+
+      \subsection{Zeeman Splitting}
+        When we place an atom in a magnetic field, the magnetic moments of the electrons and the nucleus begin to have a dependence on chirality - that is, it will have more energy cost to have your magnetic moment antiparallel to the external $\vec{H}$ field.  We thus introduce a perturbation to the Hamiltonian:
+        \begin{equation}
+          H_{Zeeman} = -\mu \cdot \vec{H}.
+        \end{equation}
+        We can define the magnetic moment in terms of the gyromagnetic ratio and the angular momentum of the nucleus, and then take the first order energy perturbation to find the energy shift:
+        \begin{equation}
+          \Delta E_{Zeeman} = \frac{\mu}{I}|\vec{H}|m_{I}
+        \end{equation}
+        where $I$ is the eigenvalue of total angular momentum, and $m_I$ is the eigenvalue of the z-component.
+
+        Since there are two energy levels, and each will split, we will see a total of 6 transitions (this is clear if we look at Figure~\ref{zeeman_shifts}).  We can calculate the splitting between adjacent states - states of different $m_I$ - to be the following:
+        \begin{gather}
+          \Delta E_1 = \mu_1|H|/I_1 \label{E1_zeeman_shift} \\
+          \Delta E_0 = \mu_0|H|/I_0 \label{E2_zeeman_shift}
+        \end{gather}
+        We can measure $\Delta E_{1}$ by taking two adjacent measurements (for example, the first and second) and subtracting them.  We can do the same for $\Delta E_{0}$, but we can only do this for the 3rd and 4th measurements, all the other pairs measure $\Delta E_1$ only.
+
+      \subsection{Quadrupole Splitting}
+        If we place a nucleus in a region with an electric field gradient, we will see the charge distribution change its shape depending on the charge interactions.  We classify the Quadrupole moment $Q$ as being positive if the long axis of the ellipsoid is along the $\hat{z}$ field, negative if it is perpendicular and zero if the distribution is spherically symmetric.  The ground state of Fe-57 is spherically symmetric and so has $Q = 0$, but the first excited state is not and will therefore split in a region with a field gradient.  The quadrupole moment $Q$ defined in terms of the intrinsic quadrupole moment $\tilde{Q}$, and the energy shift are defined as:
+        \begin{gather}
+          Q = \frac{3 m_I^2 - I(I+1)}{I(2I-1)}\tilde{Q} \label{quadrupole_moment} \\
+          \Delta E = \frac{1}{4}eQ\frac{\partial E}{\partial z} = \frac{e\left(3 m_I^2 - I(I+1)\right)}{4I(2I-1)}\tilde{Q} \label{quadrupole_shift}
+        \end{gather}
+        We do not measure this exactly, however.  We measure the transition from the $I = 1/2,\,\, m_I = \pm1/2$ state into the $I = 3/2,\,\, m_I = \pm1/2, \pm3/2$ states.  Adopt Dirac notation, with $\ket{I, m_I}$.  We can thus measure this $\Delta E$ by taking $\ket{1/2,\,\pm1/2} \rightarrow \ket{3/2,\,\pm3/2}$ and subtracting $\ket{1/2,\,\pm1/2} \rightarrow \ket{1/2,\,\pm1/2}$.  This is much clearer by taking a short look at Figure~\ref{quadrupole_shifts}.
+
+    \section{Methods and Calibration}
+      \subsection{Methods}
+        Throughout this section, we will refer to items that are labeled in Figure~\ref{apparatus}.  The reader should therefore keep Figure~\ref{apparatus} close at hand, it will simplify this section greatly.
+
+        We begin with the Co-57 source, which decays to an excited Fe-57 nucleus by electron capture.  The energy splitting between the states that we care about is at 14.4 keV.  If we look at the decay scheme, Figure~\ref{co_57}, we will see that the only photons that are emitted far from other photons (such as the ones emitted by Pd and Pb) are the ones emitted at 14.4 keV.  Thus if we exclude the x-ray spectrum with a filter, the only photons emitted are at 14.4 keV.
+
+        The Co-57 source does, however, only emit at a certain energy.  We need to be able to scan the energy, so we attach this to a linear motor, which allows us to use the doppler shift of photons emmited from a moving source to scan in energy.  This movement is very slow - around $\pm1$ cm/sec, which is less than $10^-10 \times c$, and so we can resolve extremely tiny features on the spectrum with relatively low overhead.
+
+        In order to actually be able to calibrate anything, however (which we will explain in more detail in the next section), we must realize that we have to measure this movement and its velocity.  We do this by attaching and aligning a michelson interferometer to the other end of the sample arm (with the linear drive), and we measure the velocity by counting fringes that pass by on the photocell.
+
+        We count the fringes using a Multi-Channel Scaler (MCS) which divides units of time into discrete chunks that can be managed by a channel-based collection software package.  We set the dwell time to 300 $\mu s$ and the MCS correlates veolcity to channel as divided by our set dwell time.
+
+        We've established the apparatus that allows us to sweep energy and tell us how we are sweeping the energy.  We have not, however, established how we are actually taking the data, capturing the photons after they interact with the target.  For this we use a proportional counter - a gas-filled chamber.  As photons that pass through the target interact with the gas, we see electrons ejected from atoms, which then ionize other atoms, which then forms a cascade on a central wire, which is what we actually measure.  An operating voltage is chosen such that the total number of electrons (and thus the cascade) is proportional to the energy of the photon.  From here the voltages are fed into the pulse height analyzer (PHA), which bins the data according to discrete voltage steps into channels.
+
+      \subsection{Calibration}
+        stuff goes here
+
+
 
   \section{Conclusion, Tables and Figures}
 
@@ -100,7 +150,7 @@
           \hline
           Quantinty (indexed by peak) & Value & Uncertainty \\ \hline
           $I_{0, 1}$ ($eV/m^2/s$) & 3.26e+02 & 6e+00 \\ \hline
-          $I_{0, 2}$ ($eV/m^2/s$)& 3.9e+02 & 2.5e+01 \\ \hline
+          $I_{0, 2}$ ($eV/m^2/s$)& 3.9e+02 & 3e+01 \\ \hline
           $\Gamma_1$ ($eV$) & 1.4e-08 & 2e-09 \\ \hline
           $\Gamma_2$ ($eV$) & 9.85e-09 & 6e-10 \\ \hline
           $\delta_{1}$ ($eV$) & -6.0e-08 & 4e-09 \\ \hline
@@ -113,6 +163,36 @@
 
     \subsection{Figures}
     \begin{widetext}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{Mossb_energy_shifts_zeeman.png}
+        \caption{A diagram to help visualize the Zeeman energy perturbations - this cleanly describes the appearance of 6 peaks/transitions.~\cite{lab_manual}~\label{zeeman_shifts}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{Mossb_quad_shifts.png}
+        \caption{Another visualization of the energy level splittings, this illustrates the way that we will measure the splitting itself.~\cite{lab_manual}~\label{quadrupole_shifts}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{apparatus.png}
+        \caption{A block diagram of the \moss apparatus.  We likely would not have been able to render anything better by hand, but this gives the general idea as well as a rudimentary signal path diagram.~\cite{lab_manual}~\label{apparatus}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{Co_57_decay.png}
+        \caption{The decay scheme for Co-57 - illustrative of our efforts to examine the changes in energy levels at $I = 1/2$ and $I = 3/2$~\cite{lab_manual}~\label{co_57}}
+      \end{figure}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{../plots/velocity.pdf}
+        \caption{Fitting to find the counts as a function of channel.  This will allow us to convert channels to velocity, and then from velocity (using the Doppler shift formula) to an energy.  The \redchi value is very low, this is likely due to the large individual point uncertainty (defined as $\sqrt{N}$).  Notice, however, that the fit value uncertainties are tiny - less than 0.01\% in both cases - and this gives us excellent confidence in our fitted values and also allows us to determine that the uncertainty from this calibration is quite negligible.~\label{velocity_plot}}
+      \end{figure}
 
       \begin{figure}[h]
         \centering

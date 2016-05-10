@@ -48,15 +48,18 @@ class data_manage(object):
 
         yFit = abs(xdata, *self.popt_counts)
 
-        redchi = np.sum( (ydata - yFit)**2/yFit )
+        redchi = np.sum( (ydata - yFit)**2/yFit )/(len(ydata) - 2)
 
-        # plt.figure(figsize=(10, 10))
-        # plt.errorbar(xdata, ydata, yerr = yerr, fmt = '.', ms = 1)
-        # plt.plot(xdata, yFit, 'r')
-        # plt.xlabel("Channels")
-        # plt.ylabel("Counts")
-        # plt.title("Fitting a Velocity Plot to find Counts(channel)")
-        # plt.savefig("plots/velocity.pdf")
+        text = "$Count(channel) = A|channel-C|$ \n $A = %.3f \pm %.3f$ \n $C = %.2f \pm %.2f$ \n" % (self.popt_counts[0], np.sqrt(self.pcov_counts[0,0]), self.popt_counts[1], np.sqrt(self.pcov_counts[1,1])) + r"$\tilde{\chi}^2 = %.2f$" % redchi
+
+        plt.figure(figsize=(10, 10))
+        plt.errorbar(xdata, ydata, yerr = yerr, fmt = '.', ms = 1)
+        plt.plot(xdata, yFit, 'r')
+        plt.xlabel("Channels")
+        plt.ylabel("Counts")
+        plt.text(250, 500, text)
+        plt.title("Fitting a Velocity Plot to find Counts(channel)")
+        plt.savefig("plots/velocity.pdf")
 
     def convert(self, x):
         counts_chan = self.popt_counts[0] * (x - self.popt_counts[1])
@@ -307,5 +310,5 @@ if __name__ == '__main__':
     obj = data_manage()
     obj.calibrate()
     #obj.SS_301()
-    obj.Fe_57()
-    obj.Quadrupole()
+    #obj.Fe_57()
+    #obj.Quadrupole()
