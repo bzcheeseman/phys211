@@ -61,22 +61,36 @@
         \end{gather}
         We do not measure this exactly, however.  We measure the transition from the $I = 1/2,\,\, m_I = \pm1/2$ state into the $I = 3/2,\,\, m_I = \pm1/2, \pm3/2$ states.  Adopt Dirac notation, with $\ket{I, m_I}$.  We can thus measure this $\Delta E$ by taking $\ket{1/2,\,\pm1/2} \rightarrow \ket{3/2,\,\pm3/2}$ and subtracting $\ket{1/2,\,\pm1/2} \rightarrow \ket{1/2,\,\pm1/2}$.  This is much clearer by taking a short look at Figure~\ref{quadrupole_shifts}.
 
-    \section{Methods and Calibration}
-      \subsection{Methods}
-        Throughout this section, we will refer to items that are labeled in Figure~\ref{apparatus}.  The reader should therefore keep Figure~\ref{apparatus} close at hand, it will simplify this section greatly.
+  \section{Methods and Calibration}
+    \subsection{Methods}
+      Throughout this section, we will refer to items that are labeled in Figure~\ref{apparatus}.  The reader should therefore keep Figure~\ref{apparatus} close at hand, it will simplify this section greatly.
 
-        We begin with the Co-57 source, which decays to an excited Fe-57 nucleus by electron capture.  The energy splitting between the states that we care about is at 14.4 keV.  If we look at the decay scheme, Figure~\ref{co_57}, we will see that the only photons that are emitted far from other photons (such as the ones emitted by Pd and Pb) are the ones emitted at 14.4 keV.  Thus if we exclude the x-ray spectrum with a filter, the only photons emitted are at 14.4 keV.
+      We begin with the Co-57 source, which decays to an excited Fe-57 nucleus by electron capture.  The energy splitting between the states that we care about is at 14.4 keV.  If we look at the decay scheme, Figure~\ref{co_57}, we will see that the only photons that are emitted far from other photons (such as the ones emitted by Pd and Pb) are the ones emitted at 14.4 keV.  Thus if we exclude the x-ray spectrum with a filter, the only photons emitted are at 14.4 keV.
 
-        The Co-57 source does, however, only emit at a certain energy.  We need to be able to scan the energy, so we attach this to a linear motor, which allows us to use the doppler shift of photons emmited from a moving source to scan in energy.  This movement is very slow - around $\pm1$ cm/sec, which is less than $10^-10 \times c$, and so we can resolve extremely tiny features on the spectrum with relatively low overhead.
+      The Co-57 source does, however, only emit at a certain energy.  We need to be able to scan the energy, so we attach this to a linear motor, which allows us to use the doppler shift of photons emmited from a moving source to scan in energy.  This movement is very slow - around $\pm1$ cm/sec, which is less than $10^-10 \times c$, and so we can resolve extremely tiny features on the spectrum with relatively low overhead.
 
-        In order to actually be able to calibrate anything, however (which we will explain in more detail in the next section), we must realize that we have to measure this movement and its velocity.  We do this by attaching and aligning a michelson interferometer to the other end of the sample arm (with the linear drive), and we measure the velocity by counting fringes that pass by on the photocell.
+      In order to actually be able to calibrate anything, however (which we will explain in more detail in the next section), we must realize that we have to measure this movement and its velocity.  We do this by attaching and aligning a michelson interferometer to the other end of the sample arm (with the linear drive), and we measure the velocity by counting fringes that pass by on the photocell.
 
-        We count the fringes using a Multi-Channel Scaler (MCS) which divides units of time into discrete chunks that can be managed by a channel-based collection software package.  We set the dwell time to 300 $\mu s$ and the MCS correlates veolcity to channel as divided by our set dwell time.
+      We count the fringes using a Multi-Channel Scaler (MCS) which divides units of time into discrete chunks that can be managed by a channel-based collection software package.  We set the dwell time to 300 $\mu s$ and the MCS correlates veolcity to channel as divided by our set dwell time.
 
-        We've established the apparatus that allows us to sweep energy and tell us how we are sweeping the energy.  We have not, however, established how we are actually taking the data, capturing the photons after they interact with the target.  For this we use a proportional counter - a gas-filled chamber.  As photons that pass through the target interact with the gas, we see electrons ejected from atoms, which then ionize other atoms, which then forms a cascade on a central wire, which is what we actually measure.  An operating voltage is chosen such that the total number of electrons (and thus the cascade) is proportional to the energy of the photon.  From here the voltages are fed into the pulse height analyzer (PHA), which bins the data according to discrete voltage steps into channels.
+      We've established the apparatus that allows us to sweep energy and tell us how we are sweeping the energy.  We have not, however, established how we are actually taking the data, capturing the photons after they interact with the target.  For this we use a proportional counter - a gas-filled chamber.  As photons that pass through the target interact with the gas, we see electrons ejected from atoms, which then ionize other atoms, which then forms a cascade on a central wire, which is what we actually measure.  An operating voltage is chosen such that the total number of electrons (and thus the cascade) is proportional to the energy of the photon.  From here the voltages are fed into the pulse height analyzer (PHA), which bins the data according to discrete voltage steps into channels.
 
-      \subsection{Calibration}
-        stuff goes here
+    \subsection{Calibration}
+      Since the PHA takes data as counts vs channel, we need to be able to take the channels and convert them to energy.  The way we do this is by using the velocity spectrum shown in Figure~\ref{velocity_plot}.  This is a plot of the velocity of the sample in the sense that each bin contains the number of times that the sample was moving at that particular velocity.  This is determined, as we saw earlier, by fringe counting.  We can thus convert from channel to velocity like so:
+      \begin{gather}
+        counts(channel) = A(channel - C) \\
+        v(channel) = \frac{counts(channel)\,\lambda}{2 n \Delta t} \label{calibration}
+      \end{gather}
+      where $\lambda$ is the known wavelength of the laser (632.8 nm), $\Delta t$ is the dwell time, 300 $\mu s$, n is the number of passes that were made by the sample (the number of times that the sample moved back and forth, in this case 116) and A and C we fit in Figure~\ref{velocity_plot} to determine with high precision.  The number of fringes is the $counts(channel)/n$, which is what we count in the PHA (which we are converting from now).  From this we can determine the energy shift off of 14.4 keV by taking
+      \begin{equation}
+        \delta = \frac{v(channel)}{c}E = \frac{v(channel)}{2.9979e+08} 14.4e+03\,\,eV \label{vel_to_energy}
+      \end{equation}
+      which allows us to find and fit the transitions to incredible precision.
+
+      We might think that the calibration would be unstable and it is possible that this calibration would change if we were taking data over two days, but we were able to finish taking our data on the first day, and even though we took 3 velocity calibration plots, they were all nearly identical in fit parameters and therefore in calibration - so we can assume that our calibration did not drift much if at all.  This all leads us to the conclusion that the calibration was \textbf{not} a major source of uncertainty in this project.
+
+  \section{Discussion and Analysis}
+    stuffty stuff
 
 
 
