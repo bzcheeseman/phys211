@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{physics}
 \usepackage[english]{babel}
+\usepackage{placeins}
 
 \newcommand{\redchi}{$\tilde{\chi}^2\,$}
 
@@ -108,11 +109,11 @@
       From $\Gamma = (2.0 \pm 0.1)e-08 \,\, eV$, we can use eq.s~\ref{linewidths} and~\ref{lifetimes} to calculate $\tau$, the mean lifetime of the state.  Plugging all the numbers in, we find that $\tau = 66\pm3\,\, ns$.  This is not within uncertainties of the expected value of 98 ns.  Because many of our other values are so close to the expected values, this may be because of the assumption that we make in equation~\ref{linewidths}, but we are not truly sure.
 
     \subsection{Zeeman Splitting}
-      Changing gears to the enriched Fe-57 spectrum, where we will identify the Zeeman peaks and find the energy splittings~\ref{E1_zeeman_shift} and~\ref{E2_zeeman_shift}.  Looking at Figure~\ref{zeeman_shifts}, we can see that any two adjacent peaks that are not the 3rd and 4th (counting from the left) will give us $\Delta E_1$ and the difference between peaks (say) 2 and 4 will give us $\Delta E_0$.  If we reference Table~\ref{tab:fe_57_fit} and take two adjacent peaks that are not peaks 3 and 4, say 1 and 2, we will see that $\delta_1 = -2.53e-07 \pm 1.7e-08 \,\, eV$ and $\delta_2 = -1.51e-07 \pm 1.7e-08 \,\, eV$.  Then
+      Changing gears to the enriched Fe-57 spectrum (Figure~\ref{fe_fit} ), where we will identify the Zeeman peaks and find the energy splittings~\ref{E1_zeeman_shift} and~\ref{E2_zeeman_shift}.  Looking at Figure~\ref{zeeman_shifts}, we can see that any two adjacent peaks that are not the 3rd and 4th (counting from the left) will give us $\Delta E_1$ and the difference between peaks (say) 2 and 4 will give us $\Delta E_0$.  If we reference Table~\ref{tab:fe_57_fit} and take two adjacent peaks that are not peaks 3 and 4, say 1 and 2, we will see that $\delta_1 = -2.53e-07 \pm 1.7e-08 \,\, eV$ and $\delta_2 = -1.51e-07 \pm 1.7e-08 \,\, eV$.  Then
       \begin{equation}
         \delta_2 - \delta_1 = \Delta E_1 = -(1.0\pm0.2)e-07 \,\, eV.
       \end{equation}
-      We add fractional uncertainties directly because although in an ideal world the uncertainties would be independent, the reality is that for this particular fit (which we have performed on many datasets many times), tends to depend strongly on peak positions.  So we take the uncertainties to be co-dependent and add fractional uncertainties directly.  Recall that uncertainties are found by choosing random points within the distribution about each individual point and iterating the fit 300 times to minimize statistical error and reduce uncertainties to just fit uncertainties.
+      We add fractional uncertainties directly because although in an ideal world the uncertainties would be independent, the reality is that for this particular fit (which we have performed on many datasets many times), tends to depend strongly on other peak positions (the peaks depend strongly on each other).  So we take the uncertainties to be co-dependent and add fractional uncertainties directly.  Recall that uncertainties are found by choosing random points within the distribution about each individual point and iterating the fit 300 times to minimize statistical error and reduce uncertainties to just fit uncertainties.
 
       In order to find $\Delta E_0$, we take peaks 2 and 4, and subtract.
       \begin{equation}
@@ -148,7 +149,7 @@
         \frac{\Delta E_{quad} \cdot 4I(2I-1)}{e\left(3 m_I^2 - I(I+1)\right)} = \tilde{Q}\frac{\partial E}{\partial z} \\
         \tilde{Q}\frac{\partial E}{\partial z} = (3.2\pm0.3)e-7 \,\, V
       \end{gather}
-      So given $\tilde{Q} \approx 0.1-1.0 \,\, barn \approx (0.1-1.0)e-28 m^{2}$, this means that our electric field gradient is, in SI units (choose $\tilde{Q} = 0.21\,\, barn$\cite{field_gradient}),
+      So given $\tilde{Q} \approx 0.1-1.0 \,\, barn \approx (0.1-1.0)e-28 \,\, m^{2}$, this means that our electric field gradient is, in SI units (choose $\tilde{Q} = 0.21\,\, barn$\cite{field_gradient}),
       \begin{equation}
         \frac{\partial E}{\partial z} = (1.5\pm0.1)e+22 \,\, V/m^2
       \end{equation}
@@ -156,14 +157,19 @@
       \begin{equation}
         \frac{\partial E}{\partial z} = (1.5\pm0.1)e-6\,\, V/barn.
       \end{equation}
-      where we have taken uncertainties in the value of $\tilde{Q}$ to be smaller than the uncertainties in our own experiment, which were taken to be 9\%.  As we can see, if we consider the field gradient in SI units the value is huge.  This is of course due to the size of the molecule, which is on the order of barns not on the order of square meters.  This is clear when we look at the field gradient in more sensible units and see that it is quite small over the range that we are considering, and makes sense that it would split the line by the amount that it does.  The only thing that we were able to find on the field gradient says that it is roughly $0.585e+18 V/cm^2 \approx 0.585e+22 V/m^2$~\cite{na_nitroprusside}.  We are unsure of how significant this is, mostly because we don't understand much of the methodology and the paper itself.  However, this does seem to indicate that we are at least on the right order of magnitude.
+      where we have taken uncertainties in the value of $\tilde{Q}$ to be much smaller than the uncertainties in our own experiment (and thus negligible), which were taken to be 9\%.  As we can see, if we consider the field gradient in SI units the value is huge.  This is of course due to the size of the molecule, which is on the order of barns not on the order of square meters.  This is clear when we look at the field gradient in more sensible units and see that it is quite small over the range that we are considering, and makes sense that it would split the line by the amount that it does.  The only thing that we were able to find on the field gradient says that it is roughly $0.585e+18 V/cm^2 \approx 0.585e+22 V/m^2$~\cite{na_nitroprusside}.  We are unsure of how significant this is, mostly because we don't understand much of the methodology or the paper itself.  However, this does seem to indicate that we are at least on the right order of magnitude.
 
   \section{Conclusion, Tables and Figures}
-    We have, where appropriate, established how close our measured values are to the accepted literature values, we have established how we propagate uncertainties, and we have understood the pitfalls of our fitting technique and the precision afforded us by the \moss technique.  In the future perhaps calibrations can be taken only at the beginning and end of the day, because as we saw, the calibration didn't drift much if at all.
+    We have, where appropriate, established how close our measured values are to the accepted literature values, we have established how we propagate uncertainties, and we have understood the precision afforded us by the \moss technique.
+
+    Our fits were overall excellent given their complexity in functional form and in the variable space that the minimizer had to conquer.  We believe that our \redchi values were driven up by the few points to the left side of each figure where we can see there is some defect of the counting apparatus.  In every case when we remove that part of the spectrum our \redchi values move closer to 1, but we cannot be certain that these points are indeed a defect and not another feature, and as such we cannot rule them out.
+
+    In the future perhaps calibrations can be taken only at the beginning and end of the day, because as we saw, the calibration didn't drift much if at all.
 
     This work was undertaken with Will Harrison and Kris Pittard.  Our thanks to the staff of the Advanced Undergraduate Physics Laboratories for their patience and helpful hands, especially Brian Mohs for reading this almost painfully long report not once but twice.  For the final P211 experiment of 2016, a special thanks to Dave McCowan for his many hours of hard work (especially the wiki), good humour and willingness to answer questions all year long.  Shoutout to Van Bistrow for being good-natured about most everything and patient in the face of adversity.
 
     \subsection{Tables}
+      \FloatBarrier
       \begin{table}[h]
         \centering
         \begin{tabular}{|c|c|}
@@ -241,9 +247,12 @@
         \end{tabular}
         \caption{Fit values for the Quadrupole sample.  $\delta$ signifies distance from the center, which is set to 14.4 keV.  Again, the covariance matrix was not well-defined so we used the method of running the fit on randomly chosen data points within the normal distribution centered at each best-guess point.  The standard deviation converged in just under 100 runs for this case, so we used 100 iterations.~\label{tab:quad_fit}}
       \end{table}
+      
+      \FloatBarrier
 
     \subsection{Figures}
     \begin{widetext}
+      \FloatBarrier
 
       \begin{figure}[h]
         \centering
