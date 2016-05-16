@@ -69,7 +69,7 @@
           Q = \frac{3 m_I^2 - I(I+1)}{I(2I-1)}\tilde{Q} \label{quadrupole_moment} \\
           \Delta E = \frac{1}{4}eQ\frac{\partial E}{\partial z} = \frac{e\left(3 m_I^2 - I(I+1)\right)}{4I(2I-1)}\tilde{Q}\frac{\partial E}{\partial z} \label{quadrupole_shift}
         \end{gather}
-        We do not measure this exactly, however.  We measure the transition from the $I = 1/2,\,\, m_I = \pm1/2$ state into the $I = 3/2,\,\, m_I = \pm1/2, \pm3/2$ states.  Adopt Dirac notation, with $\ket{I, m_I}$.  We can thus measure this $\Delta E$ by taking $\ket{1/2,\,\pm1/2} \rightarrow \ket{3/2,\,\pm3/2}$ and subtracting $\ket{1/2,\,\pm1/2} \rightarrow \ket{1/2,\,\pm1/2}$.  This is much clearer by taking a short look at Figure~\ref{quadrupole_shifts}.
+        We do not measure this exactly, however.  We measure the transition from the $I = 1/2,\,\, m_I = \pm1/2$ state into the $I = 3/2,\,\, m_I = \pm1/2, \pm3/2$ states.  Adopt Dirac notation, with $\ket{I, m_I}$.  We can thus measure this $\Delta E$ by taking $\ket{1/2,\,\pm1/2} \rightarrow \ket{3/2,\,\pm3/2}$ and subtracting $\ket{1/2,\,\pm1/2} \rightarrow \ket{1/2,\,\pm1/2}$.  This is made much clearer by taking a short look at Figure~\ref{quadrupole_shifts}.
 
   \section{Methods and Calibration}
     \subsection{Methods}
@@ -77,7 +77,7 @@
 
       We begin with the Co-57 source, which decays to an excited Fe-57 nucleus by electron capture.  The energy splitting between the states that we care about is at 14.4 keV.  If we look at the decay scheme, Figure~\ref{co_57}, we will see that the only photons that are emitted far from other photons (such as the ones emitted by Pd and Pb) are the ones emitted at 14.4 keV.  Thus if we exclude the x-ray spectrum with a filter, the only photons emitted are at 14.4 keV.
 
-      The Co-57 source does, however, only emit at a certain energy.  We need to be able to scan the energy, so we attach this to a linear motor, which allows us to use the doppler shift of photons emmited from a moving source to scan in energy.  This movement is very slow - around $\pm1$ cm/sec, which is less than $10^-10 \times c$, and so we can resolve extremely tiny features on the spectrum with relatively low overhead.
+      The Co-57 source does, however, only emit at a certain energy.  We need to be able to scan the energy, so we attach this to a linear motor, which allows us to use the doppler shift of photons emmited from a moving source to scan in energy.  This movement is very slow - around $\pm1$ cm/sec, which is less than $10^{-10} c$, and so we can resolve extremely tiny features on the spectrum with relatively low overhead.
 
       In order to actually be able to calibrate anything, however (which we will explain in more detail in the next section), we must realize that we have to measure this movement and its velocity.  We do this by attaching and aligning a michelson interferometer to the other end of the sample arm (with the linear drive), and we measure the velocity by counting fringes that pass by on the photocell.
 
@@ -112,13 +112,13 @@
       \begin{equation}
         \delta_2 - \delta_1 = \Delta E_1 = -(1.0\pm0.2)e-07 \,\, eV.
       \end{equation}
-      We add uncertainties directly because although in an ideal world the uncertainties would be independent, the reality is that for this particular fit (which we have performed on many datasets many times), tends to depend strongly on peak positions.  So we take the uncertainties to be co-dependent and add fractional uncertainties directly.  Recall that uncertainties are found by choosing random points within the distribution about each individual point and iterating the fit 300 times to minimize statistical error and reduce uncertainties to just fit uncertainties.
+      We add fractional uncertainties directly because although in an ideal world the uncertainties would be independent, the reality is that for this particular fit (which we have performed on many datasets many times), tends to depend strongly on peak positions.  So we take the uncertainties to be co-dependent and add fractional uncertainties directly.  Recall that uncertainties are found by choosing random points within the distribution about each individual point and iterating the fit 300 times to minimize statistical error and reduce uncertainties to just fit uncertainties.
 
       In order to find $\Delta E_0$, we take peaks 2 and 4, and subtract.
       \begin{equation}
         \Delta E_0 = |\delta_4 - \delta_2| = (1.8\pm0.4)e-07 \,\, eV
       \end{equation}
-      where here we take the absolute value after the subtraction because one peak is to the right of 14.4 keV and one is to the left (one has been shifted up and the other down), so we want the total distance between the two.  Again, we take uncertainties to be related for the same reasons as before, and so we add fractional uncertainties directly.
+      where here we take the absolute value (even though it is not strictly necessary) after the subtraction because one peak is to the right of 14.4 keV and one is to the left (one has been shifted up and the other down), so we want the total distance between the two.  Again, we take uncertainties to be related for the same reasons as before, and so we add fractional uncertainties directly.
 
       Now that we have $\Delta E_0$ and $\Delta E_1$, we can calculate $\mu_0$ and $\mu_1$ as follows, by beginning with the ratio - dividing eq.~\ref{E1_zeeman_shift} by eq.~\ref{E2_zeeman_shift}.
       \begin{gather}
@@ -129,7 +129,7 @@
       \end{gather}
       The uncertainty is quite large - this is because we added the fractional uncertainties in the peak positions directly, and then since the underlying source of uncertainty is the same, we realize that we have to add fractional uncertainties directly yet again.  This yields a large uncertainty that we can't deflate any further.  We are so close to the literature values that it seems as though we could decrease these uncertainties by adding in quadrature at least, but lacking in convincing evidence to do so we leave them as they are.
 
-      Using the value given in~\cite{lab_manual}, we can then calculate $\mu_1$, and we find that
+      Using the value for $\mu_0$ given in~\cite{lab_manual}, we can then calculate $\mu_1$, and we find that
       \begin{equation}
         \mu_1 = -(0.15\pm0.06)\mu_N
       \end{equation}
@@ -138,7 +138,7 @@
         |\vec{H}| = \frac{\Delta E_1 I_1}{\mu_1} = \frac{-1.0e-7 \cdot 3/2}{-0.15 \mu_N} = \frac{1e-6 eV}{\mu_N} = (32\pm12) T.
       \end{equation}
 
-    \subsection{Quadrupole Shift}
+    \subsection{Quadrupole Splitting}
       Finally, we deal with one more perturbation, the Quadrupole moment shift caused by an electric field gradient.  We see this effect in Figure~\ref{quadrupole_fit}, and we can find fit values in Table~\ref{tab:quad_fit}.  Now, looking at Figure~\ref{quadrupole_shifts}, we notice that $\Delta E_{quad}$ can be found by subtracting the location of the second peak (again, count from the left) from the location of the first peak.  If we do this, we find
       \begin{equation}
         \Delta E_{quad} = \delta_2 - \delta_1 = (8.1 \pm 0.8)e-8 \,\, eV
@@ -185,7 +185,7 @@
         \begin{tabular}{|c|c|c|}
           \hline
           Quantity & Value & Uncertainty \\ \hline \hline
-          $I_0$ ($eV/s/m^2$) & 7.13e+02 & 2.51e+01 \\ \hline \hline
+          $I_0$ ($eV/s/m^2$) & 7.13e+02 & 2.5e+01 \\ \hline \hline
           $\Gamma$ ($eV$) & 2.0e-08 & 1e-09 \\ \hline \hline
           $\delta$ ($eV$) & -1.21e-08 & 3e-10 \\ \hline \hline
           $C$ & 1574 & 3 \\ \hline
@@ -221,7 +221,7 @@
            $C_3$ (counts) & 2.300e+03 & 1.4e+01 \\ \hline
            $C_4$ (counts) & 2.30e+03 & 2e+01 \\ \hline
            $C_5$ (counts) & 2.300e+03 & 1.5e+01 \\ \hline
-           $C_6$ (counts) & 2.3000e+03 & 1.16e+01 \\ \hline
+           $C_6$ (counts) & 2.300e+03 & 1.2e+01 \\ \hline
         \end{tabular}
         \caption{Fit values for Fe-57.  $\delta$ signifies distance from the center, which is set to 14.4 keV.  The covariance matrix was not well-defined so uncertainties were determined by running the fit on randomized points chosen from a normal distribution around each points best-guess value, iterating 300 times, and taking the standard deviation of those values.  The values of C from 2 to 6 are the same because of the way that the fit was performed - there was a bias so that those values would end up the same to reduce the computational intensity of the fitting function.  The uncertainties were different, so we decided to show them all anyway.~\label{tab:fe_57_fit}}
       \end{table}
@@ -299,7 +299,7 @@
         \includegraphics[width=\linewidth]{../plots/quadrupole.pdf}
         \caption{Fitting the spectrum for the Quadrupole sample to determine the quadrupole splitting.  Fit values are held in Table~\ref{tab:quad_fit}.  We fit to a function: \\
           $I(E) = C - \sum\limits_{i = 0}^{i = 1}{ \frac{(\Gamma_i/2)^2}{(E-\delta_i)^2 + (\Gamma_i/2)^2} }$ \\
-        The \redchi value was $\tilde{\chi}^2 = 1.07$.~\label{quadrupole_fit}}
+        The \redchi value was $\tilde{\chi}^2 = 1.07$ which indicates an excellent fit and choice of model.~\label{quadrupole_fit}}
       \end{figure}
 
     \end{widetext}
