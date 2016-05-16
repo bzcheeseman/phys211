@@ -101,7 +101,7 @@
       We might think that the calibration would be unstable and it is possible that this calibration would change if we were taking data over two days, but we were able to finish taking our data on the first day, and even though we took 3 velocity calibration plots, they were all nearly (to better than 0.01\%) identical in fit parameters and therefore in calibration - so we can assume that our calibration did not drift much if at all.  This all leads us to the conclusion that the calibration was \textbf{not} a major source of uncertainty in this experiment.
 
   \section{Discussion and Analysis}
-    \subsection{Stainless Steel}
+    \subsection{Stainless Steel/Isomer Shift}
       If we take a look at Figure~\ref{ss_fit} and its associated table (Table~\ref{tab:ss_fit_stats}), we will notice a few things.  Perhaps the first thing to notice is that the \redchi value is 2.09.  This seems large for such a good fit.  This is well-explained, however.  Off to the left side of the plot there is a residual feature, the origin of which is likely due to some jitter in the spectrum or possibly where the carriage turns around, causing lower counts for some reason.  If we exclude this feature and recalculate the \redchi value, we return 1.13, which is much more in line with what we would expect.
 
       From the other two values, $\delta$ and $\Gamma$, we can extract the isomer shift and the linewidth of this excited state.  Since we have $\delta$ already, we use equation~\ref{isomer_shift} to calculate $E_{iso}$.  This calculation is extremely straightforward, and we return a value of $14.3999999999879 \pm 0.00000000003$ keV.  This is obviously a tiny difference and a ridiculous number to carry around, so going forward we will report all energies in terms of the difference from 14.4 keV, that is, just report $\delta$.
@@ -247,7 +247,7 @@
         \end{tabular}
         \caption{Fit values for the Quadrupole sample.  $\delta$ signifies distance from the center, which is set to 14.4 keV.  Again, the covariance matrix was not well-defined so we used the method of running the fit on randomly chosen data points within the normal distribution centered at each best-guess point.  The standard deviation converged in just under 100 runs for this case, so we used 100 iterations.~\label{tab:quad_fit}}
       \end{table}
-      
+
       \FloatBarrier
 
     \subsection{Figures}

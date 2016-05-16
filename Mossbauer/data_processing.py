@@ -50,7 +50,7 @@ class data_manage(object):
 
         redchi = np.sum( (ydata - yFit)**2/yFit )/(len(ydata) - 2)
 
-        text = "$Count(channel) = A|channel-C|$ \n $A = %.3f \pm %.3f$ \n $C = %.2f \pm %.2f$ \n" % (self.popt_counts[0], np.sqrt(self.pcov_counts[0,0]), self.popt_counts[1], np.sqrt(self.pcov_counts[1,1])) + r"$\tilde{\chi}^2 = %.2f$" % redchi
+        text = "$Count(channel) = A|channel-C|$ \n $A = %.3f \pm %.3f$ count/channel \n $C = %.2f \pm %.2f$ channel \n" % (self.popt_counts[0], np.sqrt(self.pcov_counts[0,0]), self.popt_counts[1], np.sqrt(self.pcov_counts[1,1])) + r"$\tilde{\chi}^2 = %.2f$" % redchi
 
         plt.figure(figsize=(10, 10))
         plt.errorbar(xdata, ydata, yerr = yerr, fmt = '.', ms = 1)
